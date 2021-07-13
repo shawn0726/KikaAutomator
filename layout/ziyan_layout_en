@@ -1,0 +1,314 @@
+{ 
+  "packageName": "com.huawei.ohos.inputmethod",
+  "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
+  "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
+  "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",
+  "keyboardType": "kikaoem2",
+  "keys": [
+    {
+      "x": 45,
+      "y": 1081,
+      "code": "q"
+    },
+    {
+      "x": 166,
+      "y": 1630,
+      "code": "w"
+    },
+    {
+      "x": 267,
+      "y": 1630,
+      "code": "e"
+    },
+    {
+      "x": 368,
+      "y": 1630,
+      "code": "r"
+    },
+    {
+      "x": 469,
+      "y": 1630,
+      "code": "t"
+    },
+    {
+      "x": 570,
+      "y": 1630,
+      "code": "y"
+    },
+    {
+      "x": 671,
+      "y": 1630,
+      "code": "u"
+    },
+    {
+      "x": 772,
+      "y": 1630,
+      "code": "i"
+    },
+    {
+      "x": 873,
+      "y": 1630,
+      "code": "o"
+    },
+    {
+      "x": 974,
+      "y": 1630,
+      "code": "p"
+    },
+    {
+      "x": 120,
+      "y": 1788,
+      "code": "a"
+    },
+    {
+      "x": 224,
+      "y": 1788,
+      "code": "s"
+    },
+    {
+      "x": 330,
+      "y": 1788,
+      "code": "d"
+    },
+    {
+      "x": 436,
+      "y": 1788,
+      "code": "f"
+    },
+    {
+      "x": 540,
+      "y": 1788,
+      "code": "g"
+    },
+    {
+      "x": 645,
+      "y": 1788,
+      "code": "h"
+    },
+    {
+      "x": 750,
+      "y": 1788,
+      "code": "j"
+    },
+    {
+      "x": 855,
+      "y": 1788,
+      "code": "k"
+    },
+    {
+      "x": 960,
+      "y": 1788,
+      "code": "l"
+    },
+    {
+      "x": 224,
+      "y": 1946,
+      "code": "z"
+    },
+    {
+      "x": 330,
+      "y": 1946,
+      "code": "x"
+    },
+    {
+      "x": 436,
+      "y": 1946,
+      "code": "c"
+    },
+    {
+      "x": 540,
+      "y": 1946,
+      "code": "v"
+    },
+    {
+      "x": 645,
+      "y": 1946,
+      "code": "b"
+    },
+    {
+      "x": 750,
+      "y": 1946,
+      "code": "n"
+    },
+    {
+      "x": 855,
+      "y": 1946,
+      "code": "m"
+    },
+    {
+      "x": 65,
+      "y": 1630,
+      "code": "Q"
+    },
+    {
+      "x": 166,
+      "y": 1630,
+      "code": "W"
+    },
+    {
+      "x": 267,
+      "y": 1630,
+      "code": "E"
+    },
+    {
+      "x": 368,
+      "y": 1630,
+      "code": "R"
+    },
+    {
+      "x": 469,
+      "y": 1630,
+      "code": "T"
+    },
+    {
+      "x": 570,
+      "y": 1630,
+      "code": "Y"
+    },
+    {
+      "x": 671,
+      "y": 1630,
+      "code": "U"
+    },
+    {
+      "x": 772,
+      "y": 1630,
+      "code": "I"
+    },
+    {
+      "x": 873,
+      "y": 1630,
+      "code": "O"
+    },
+    {
+      "x": 974,
+      "y": 1630,
+      "code": "P"
+    },
+    {
+      "x": 120,
+      "y": 1788,
+      "code": "A"
+    },
+    {
+      "x": 224,
+      "y": 1788,
+      "code": "S"
+    },
+    {
+      "x": 330,
+      "y": 1788,
+      "code": "D"
+    },
+    {
+      "x": 436,
+      "y": 1788,
+      "code": "F"
+    },
+    {
+      "x": 540,
+      "y": 1788,
+      "code": "G"
+    },
+    {
+      "x": 645,
+      "y": 1788,
+      "code": "H"
+    },
+    {
+      "x": 750,
+      "y": 1788,
+      "code": "J"
+    },
+    {
+      "x": 855,
+      "y": 1788,
+      "code": "K"
+    },
+    {
+      "x": 960,
+      "y": 1788,
+      "code": "L"
+    },
+    {
+      "x": 224,
+      "y": 1946,
+      "code": "Z"
+    },
+    {
+      "x": 330,
+      "y": 1946,
+      "code": "X"
+    },
+    {
+      "x": 436,
+      "y": 1946,
+      "code": "C"
+    },
+    {
+      "x": 540,
+      "y": 1946,
+      "code": "V"
+    },
+    {
+      "x": 645,
+      "y": 1946,
+      "code": "B"
+    },
+    {
+      "x": 750,
+      "y": 1946,
+      "code": "N"
+    },
+    {
+      "x": 855,
+      "y": 1946,
+      "code": "M"
+    },
+    {
+      "x": 86,
+      "y": 1946,
+      "code": "shift"
+    },
+    {
+      "x": 986,
+      "y": 1946,
+      "code": "delete"
+    },
+    {
+      "x": 367,
+      "y": 1415,
+      "code": "space"
+    },
+    {
+      "x": 986,
+      "y": 2107,
+      "code": "enter"
+    },
+    {
+      "x": 436,
+      "y": 1946,
+      "code": "quotation"
+    },
+    {
+      "x": 86,
+      "y": 2107,
+      "code": "symbol"
+    },
+    {
+      "x": 356,
+      "y": 1946,
+      "code": ","
+    },    
+    {
+      "x": 153,
+      "y": 1417,
+      "code": "switch"
+    },
+    {
+      "x": 468,
+      "y": 2107,
+      "code": "."
+    }
+  ]
+}

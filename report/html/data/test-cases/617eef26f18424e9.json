@@ -1,0 +1,75 @@
+{
+  "uid" : "617eef26f18424e9",
+  "name" : "test_sp",
+  "fullName" : "testcase.TestCase.TestCase#test_sp",
+  "historyId" : "0a60319e338e3c0cfddf374fda9f9d2d",
+  "time" : {
+    "start" : 1624358442547,
+    "stop" : 1624358442547,
+    "duration" : 0
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "8a5181980fc88375",
+      "name" : "stdout",
+      "source" : "8a5181980fc88375.txt",
+      "type" : "text/plain",
+      "size" : 6
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "测试"
+  }, {
+    "name" : "parentSuite",
+    "value" : "testcase"
+  }, {
+    "name" : "suite",
+    "value" : "TestCase"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestCase"
+  }, {
+    "name" : "host",
+    "value" : "shawn.local"
+  }, {
+    "name" : "thread",
+    "value" : "4030-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "testcase.TestCase"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "617eef26f18424e9.json",
+  "parameterValues" : [ ]
+}

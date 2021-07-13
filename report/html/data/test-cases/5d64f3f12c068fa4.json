@@ -1,0 +1,92 @@
+{
+  "uid" : "5d64f3f12c068fa4",
+  "name" : "test_InputMethod_SCB_func_01_01_01_0008",
+  "fullName" : "testcase.TestCase.TestCase#test_InputMethod_SCB_func_01_01_01_0008",
+  "historyId" : "23afa24d5a1e3c6b379f9f7db8ca8cce",
+  "time" : {
+    "start" : 1624358442506,
+    "stop" : 1624358442506,
+    "duration" : 0
+  },
+  "status" : "broken",
+  "statusMessage" : "AttributeError: 'TestCase' object has no attribute 'input_page'",
+  "statusTrace" : "self = <KikaAutomator.testcase.TestCase.TestCase object at 0x1074cb190>\n\n    def test_InputMethod_SCB_func_01_01_01_0008(self):\n        device_id_list_num = len(device_id_list)\n        for i in range(device_id_list_num):\n            self.input_page.input_characters('qwert', device_id_list[i], screen_size_list[0], screen_size_list[1])\n>       text = self.input_page.find_element_by_class(\"android.widget.EditText\").text\nE       AttributeError: 'TestCase' object has no attribute 'input_page'\n\ntestcase/TestCase.py:150: AttributeError",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "broken",
+    "statusMessage" : "AttributeError: 'TestCase' object has no attribute 'input_page'",
+    "statusTrace" : "self = <KikaAutomator.testcase.TestCase.TestCase object at 0x1074cb190>\n\n    def test_InputMethod_SCB_func_01_01_01_0008(self):\n        device_id_list_num = len(device_id_list)\n        for i in range(device_id_list_num):\n            self.input_page.input_characters('qwert', device_id_list[i], screen_size_list[0], screen_size_list[1])\n>       text = self.input_page.find_element_by_class(\"android.widget.EditText\").text\nE       AttributeError: 'TestCase' object has no attribute 'input_page'\n\ntestcase/TestCase.py:150: AttributeError",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "bd9d802070e07e49",
+      "name" : "stdout",
+      "source" : "bd9d802070e07e49.txt",
+      "type" : "text/plain",
+      "size" : 6
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "测试"
+  }, {
+    "name" : "parentSuite",
+    "value" : "testcase"
+  }, {
+    "name" : "suite",
+    "value" : "TestCase"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestCase"
+  }, {
+    "name" : "host",
+    "value" : "shawn.local"
+  }, {
+    "name" : "thread",
+    "value" : "4030-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "testcase.TestCase"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "674e4e5c5c3b047b",
+      "status" : "broken",
+      "statusDetails" : "ModuleNotFoundError: No module named 'commons'",
+      "time" : {
+        "start" : 1623845570414,
+        "stop" : 1623845570414,
+        "duration" : 0
+      }
+    } ],
+    "categories" : [ {
+      "name" : "Test defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "tags" : [ ]
+  },
+  "source" : "5d64f3f12c068fa4.json",
+  "parameterValues" : [ ]
+}

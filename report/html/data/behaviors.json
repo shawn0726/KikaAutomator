@@ -1,0 +1,99 @@
+{
+  "uid" : "b1a8273437954620fa374b796ffaacdd",
+  "name" : "behaviors",
+  "children" : [ {
+    "name" : "英文键盘，输字母后删除",
+    "children" : [ {
+      "name" : "test_InputMethod_SCB_func_01_01_01_0001",
+      "uid" : "e9f4199de88d44de",
+      "parentUid" : "91f12cc6baa559c182bf1e08e286191b",
+      "status" : "passed",
+      "time" : {
+        "start" : 1622622656998,
+        "stop" : 1622622732566,
+        "duration" : 75568
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "91f12cc6baa559c182bf1e08e286191b"
+  }, {
+    "name" : "测试",
+    "children" : [ {
+      "name" : "检查首字母大写功能",
+      "children" : [ {
+        "name" : "test_InputMethod_SCB_func_01_01_01_0003",
+        "uid" : "28bd3ea5990d1dfc",
+        "parentUid" : "3833c0738591a94d7577b333166219ef",
+        "status" : "broken",
+        "time" : {
+          "start" : 1624358442482,
+          "stop" : 1624358442482,
+          "duration" : 0
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "3833c0738591a94d7577b333166219ef"
+    }, {
+      "name" : "test_InputMethod_SCB_func_01_01_01_0008",
+      "uid" : "5d64f3f12c068fa4",
+      "parentUid" : "88c449542cebe03afaa3970b050af4a2",
+      "status" : "broken",
+      "time" : {
+        "start" : 1624358442506,
+        "stop" : 1624358442506,
+        "duration" : 0
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "test_InputMethod_SCB_func_01_01_01_0009",
+      "uid" : "889c2df7d3c0d57f",
+      "parentUid" : "88c449542cebe03afaa3970b050af4a2",
+      "status" : "broken",
+      "time" : {
+        "start" : 1624358442525,
+        "stop" : 1624358442525,
+        "duration" : 0
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "test_sp",
+      "uid" : "617eef26f18424e9",
+      "parentUid" : "88c449542cebe03afaa3970b050af4a2",
+      "status" : "passed",
+      "time" : {
+        "start" : 1624358442547,
+        "stop" : 1624358442547,
+        "duration" : 0
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "英文键盘，输字母后删除",
+      "children" : [ {
+        "name" : "test_InputMethod_SCB_func_01_01_01_0001",
+        "uid" : "f0d48c0c3c0d8cfd",
+        "parentUid" : "f1b37c379f30292252fde06425b8539f",
+        "status" : "passed",
+        "time" : {
+          "start" : 1624417414399,
+          "stop" : 1624417438196,
+          "duration" : 23797
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "f1b37c379f30292252fde06425b8539f"
+    } ],
+    "uid" : "88c449542cebe03afaa3970b050af4a2"
+  } ]
+}

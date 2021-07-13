@@ -1,0 +1,2 @@
+2021-07-13 18:41:17,596 - start-driver - DEBUG - <appium.webdriver.webdriver.WebDriver (session="329fc50b-94cc-4745-9bbb-9bab447e18e3")>
+2021-07-13 18:41:47,850 - find_element_by_id - DEBUG - <page.input_page.InputPage object at 0x110b3e790>

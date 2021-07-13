@@ -1,0 +1,143 @@
+{
+  "uid" : "f0d48c0c3c0d8cfd",
+  "name" : "test_InputMethod_SCB_func_01_01_01_0001",
+  "fullName" : "testcase.TestCase.TestCase#test_InputMethod_SCB_func_01_01_01_0001",
+  "historyId" : "503cca8efee5bf6cd40c07f27e61d3db",
+  "time" : {
+    "start" : 1624417414399,
+    "stop" : 1624417438196,
+    "duration" : 23797
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "6bb8f00ac10acab5",
+      "name" : "log",
+      "source" : "6bb8f00ac10acab5.txt",
+      "type" : "text/plain",
+      "size" : 128
+    }, {
+      "uid" : "1b7a3c370c4cd39a",
+      "name" : "stdout",
+      "source" : "1b7a3c370c4cd39a.txt",
+      "type" : "text/plain",
+      "size" : 81421
+    }, {
+      "uid" : "50ddac92d1e10323",
+      "name" : "stderr",
+      "source" : "50ddac92d1e10323.txt",
+      "type" : "text/plain",
+      "size" : 137
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 3,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "story",
+    "value" : "英文键盘，输字母后删除"
+  }, {
+    "name" : "feature",
+    "value" : "测试"
+  }, {
+    "name" : "parentSuite",
+    "value" : "testcase"
+  }, {
+    "name" : "suite",
+    "value" : "TestCase"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestCase"
+  }, {
+    "name" : "host",
+    "value" : "shawn.local"
+  }, {
+    "name" : "thread",
+    "value" : "1448-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "testcase.TestCase"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "471e688449616daa",
+      "status" : "passed",
+      "time" : {
+        "start" : 1624359658949,
+        "stop" : 1624359682896,
+        "duration" : 23947
+      }
+    }, {
+      "uid" : "88c0ce423fe206e5",
+      "status" : "broken",
+      "statusDetails" : "FileNotFoundError: [Errno 2] No such file or directory: '/Users/xm0726/PycharmProjects/logs/202106221850.txt'",
+      "time" : {
+        "start" : 1624358995096,
+        "stop" : 1624358995096,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "cc3a28e1d53d4270",
+      "status" : "broken",
+      "statusDetails" : "FileNotFoundError: [Errno 2] No such file or directory: '/Users/xm0726/PycharmProjects/logs/202106221849.txt'",
+      "time" : {
+        "start" : 1624358954264,
+        "stop" : 1624358954264,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "621733ac5805d2c2",
+      "status" : "broken",
+      "statusDetails" : "AttributeError: 'TestCase' object has no attribute 'input_page'",
+      "time" : {
+        "start" : 1624358442411,
+        "stop" : 1624358442411,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "c04327b999176a69",
+      "status" : "broken",
+      "statusDetails" : "FileNotFoundError: [Errno 2] No such file or directory: '/Users/xm0726/PycharmProjects/logs/202106162032.txt'",
+      "time" : {
+        "start" : 1623846709655,
+        "stop" : 1623846709655,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "d8b624fa2488536a",
+      "status" : "broken",
+      "statusDetails" : "ModuleNotFoundError: No module named 'commons'",
+      "time" : {
+        "start" : 1623845570366,
+        "stop" : 1623845570366,
+        "duration" : 0
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "f0d48c0c3c0d8cfd.json",
+  "parameterValues" : [ ]
+}

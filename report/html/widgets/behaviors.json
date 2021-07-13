@@ -1,0 +1,26 @@
+{
+  "total" : 2,
+  "items" : [ {
+    "uid" : "88c449542cebe03afaa3970b050af4a2",
+    "name" : "测试",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 3,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 5
+    }
+  }, {
+    "uid" : "91f12cc6baa559c182bf1e08e286191b",
+    "name" : "英文键盘，输字母后删除",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    }
+  } ]
+}

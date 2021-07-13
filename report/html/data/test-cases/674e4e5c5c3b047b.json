@@ -1,0 +1,77 @@
+{
+  "uid" : "674e4e5c5c3b047b",
+  "name" : "test_InputMethod_SCB_func_01_01_01_0008",
+  "fullName" : "testcase.TestCase.TestCase#test_InputMethod_SCB_func_01_01_01_0008",
+  "historyId" : "23afa24d5a1e3c6b379f9f7db8ca8cce",
+  "time" : {
+    "start" : 1623845570414,
+    "stop" : 1623845570414,
+    "duration" : 0
+  },
+  "status" : "broken",
+  "statusMessage" : "ModuleNotFoundError: No module named 'commons'",
+  "statusTrace" : "self = <KikaAutomator.testcase.TestCase.TestCase object at 0x1093cba50>\n\n    def setup(self):\n        print(\"se-up\")\n        # device_info = os.popen('adb devices').read()\n        device_id_list.clear()\n>       from commons import start_service\nE       ModuleNotFoundError: No module named 'commons'\n\ntestcase/TestCase.py:46: ModuleNotFoundError",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "broken",
+    "statusMessage" : "ModuleNotFoundError: No module named 'commons'",
+    "statusTrace" : "self = <KikaAutomator.testcase.TestCase.TestCase object at 0x1093cba50>\n\n    def setup(self):\n        print(\"se-up\")\n        # device_info = os.popen('adb devices').read()\n        device_id_list.clear()\n>       from commons import start_service\nE       ModuleNotFoundError: No module named 'commons'\n\ntestcase/TestCase.py:46: ModuleNotFoundError",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "1c1beff95269d614",
+      "name" : "stdout",
+      "source" : "1c1beff95269d614.txt",
+      "type" : "text/plain",
+      "size" : 6
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "测试"
+  }, {
+    "name" : "parentSuite",
+    "value" : "testcase"
+  }, {
+    "name" : "suite",
+    "value" : "TestCase"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestCase"
+  }, {
+    "name" : "host",
+    "value" : "shawn.local"
+  }, {
+    "name" : "thread",
+    "value" : "7266-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "testcase.TestCase"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "674e4e5c5c3b047b.json",
+  "parameterValues" : [ ]
+}

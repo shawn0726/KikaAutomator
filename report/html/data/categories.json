@@ -1,0 +1,52 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "AttributeError: 'TestCase' object has no attribute 'input_page'",
+      "children" : [ {
+        "name" : "test_InputMethod_SCB_func_01_01_01_0003",
+        "uid" : "28bd3ea5990d1dfc",
+        "parentUid" : "46de8d7f63494e385dc7a0fbffb10aa7",
+        "status" : "broken",
+        "time" : {
+          "start" : 1624358442482,
+          "stop" : 1624358442482,
+          "duration" : 0
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "test_InputMethod_SCB_func_01_01_01_0008",
+        "uid" : "5d64f3f12c068fa4",
+        "parentUid" : "46de8d7f63494e385dc7a0fbffb10aa7",
+        "status" : "broken",
+        "time" : {
+          "start" : 1624358442506,
+          "stop" : 1624358442506,
+          "duration" : 0
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "test_InputMethod_SCB_func_01_01_01_0009",
+        "uid" : "889c2df7d3c0d57f",
+        "parentUid" : "46de8d7f63494e385dc7a0fbffb10aa7",
+        "status" : "broken",
+        "time" : {
+          "start" : 1624358442525,
+          "stop" : 1624358442525,
+          "duration" : 0
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "46de8d7f63494e385dc7a0fbffb10aa7"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ]
+}
