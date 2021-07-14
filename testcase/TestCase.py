@@ -51,7 +51,7 @@ _address_book_dialog = (By.ID, 'com.android.packageinstaller:id/dialog_container
 @pytest.mark.parametrize('case_number', '0')
 # 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
 def test_InputMethod_SCB_func_01_01_01_0001(get_device_id_list, get_driver_pool, deliver_event,
-                                             case_number):  # self, device_id_list
+                                            case_number):  # self, device_id_list
     # device_id_list = start_service.start_devices()
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
@@ -136,6 +136,10 @@ def test_fun(get_device_id_list, get_driver_pool, deliver_event, case_number):
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     time.sleep(5)
     input_page.tap_menu(screen_size_list[0], screen_size_list[1])
+    time.sleep(2)
+    input_page.to_which_submenu('Sound', screen_size_list[0], screen_size_list[1])
+    time.sleep(2)
+    input_page.adjust_vibration('max', screen_size_list[0], screen_size_list[1])
 
 
 if __name__ == '__main__':

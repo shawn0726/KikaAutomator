@@ -1,2 +1,0 @@
-2021-07-13 18:40:06,298 - start-drive-test-case - DEBUG - Message: An unknown server-side error occurred while processing the command. Original error: Error executing adbExec. Original error: 'Command '/Users/xm0726/Library/Android/sdk/platform-tools/adb -P 5037 -s 84B7N15C08000801 shell pm clear com.huawei.ohos.inputmethod' exited with code 1'; Stderr: 'error: device '84B7N15C08000801' not found'; Code: '1'
-

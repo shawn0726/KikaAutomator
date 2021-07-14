@@ -1,3 +1,4 @@
+{
 "keys": [
     {
       "x": 0.156,
@@ -17,22 +18,27 @@
     {
       "x": 0.841,
       "y": 0.726,
-      "code": "ClipBoard"
+      "code": "AdjustSize"
     },
     {
       "x": 0.156,
       "y": 0.847,
-      "code": "Selector"
+      "code": "ClipBoard"
     },
     {
       "x": 0.378,
       "y": 0.847,
-      "code": "Sound"
+      "code": "Selector"
     },
     {
       "x": 0.614,
       "y": 0.847,
       "code": "Sound"
+    },
+    {
+      "x": 0.841,
+      "y": 0.847,
+      "code": "Settings"
     },
     {
       "x": 0.078,
@@ -44,4 +50,5 @@
       "y": 0.621,
       "code": "Back"
     }
-    }]
+    ]
+    }
