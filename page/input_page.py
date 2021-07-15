@@ -29,8 +29,6 @@ class InputPage(BaseFunction):
 
     # 点击menu页子菜单
     def to_which_submenu(self, which_one, screen_size_width, screen_size_height):
-        # script_path_up = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        # menu_data_path = script_path_up + '/layout/menu_layout'
         menu_data_path = get_path('/layout/menu_layout')
         with open(menu_data_path) as file:
             menu_location_data = json.loads(file.read())
@@ -60,8 +58,6 @@ class InputPage(BaseFunction):
 
     # 更改键盘模式
     def to_which_keyboard_mode(self, which_one, screen_size_width, screen_size_height):
-        # script_path_up = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        # menu_data_path = script_path_up + '/layout/keyboard_mode_layout'
         menu_data_path = get_path('/layout/keyboard_mode_layout')
         with open(menu_data_path) as file:
             keyboard_mode_data = json.loads(file.read())
@@ -76,14 +72,23 @@ class InputPage(BaseFunction):
         pass
 
     # 剪切板
-    def clipboard_func(self):
+    def clipboard_func(self, which_one, operating):
         pass
+
 
     # 编辑-全选、复制、粘贴、剪切板
-    def edit(self):
-        pass
+    def edit(self, which_one, screen_size_width, screen_size_height):
+        edit_data_path = get_path('/layout/edit_layout')
+        with open(edit_data_path) as file:
+            edit_location_data = json.loads(file.read())
+            edit_location = edit_location_data['keys']
+            print('menu_location:%s' % edit_location)
+        for edit_key in edit_location:
+            if edit_key['code'] == which_one:
+                self.driver.tap([(str(float(edit_key['x']) * float(screen_size_width)),
+                                  str(float(edit_key['y']) * float(screen_size_height)))])
 
-    # 声音和振动菜单子页面
+    # 声音和振动菜单子页面，调整声音
     def adjust_sound(self, size, screen_size_width, screen_size_height):
         if size == 'max':
             self.driver.tap([(str(0.9 * float(screen_size_width)), str(0.861 * float(screen_size_height)))])
@@ -92,14 +97,16 @@ class InputPage(BaseFunction):
         if size == 'middle':
             self.driver.tap([(str(0.5 * float(screen_size_width)), str(0.861 * float(screen_size_height)))])
 
+    # 调整振动，目前支持最大、最小，中间调节
     def adjust_vibration(self, size, screen_size_width, screen_size_height):
         if size == 'max':
-            self.driver.tap([(str(0.9 * float(screen_size_width)), str(0.746 * float(screen_size_height)))])
+            self.driver.tap([(str(0.99 * float(screen_size_width)), str(0.746 * float(screen_size_height)))])
         if size == 'min':
             self.driver.tap([(str(0.01 * float(screen_size_width)), str(0.746 * float(screen_size_height)))])
         if size == 'middle':
             self.driver.tap([(str(0.5 * float(screen_size_width)), str(0.746 * float(screen_size_height)))])
 
+    # 进入音量调节页面
     def enter_keyboard_sound_page(self, screen_size_width, screen_size_height):
         self.driver.tap([(str(0.5 * float(screen_size_width)), str(0.922 * float(screen_size_height)))])
         from page.theme_page import ThemePage
