@@ -1,13 +1,21 @@
+import re
 import time
+from multiprocessing import Pool
 import os
 
 import allure
 import pytest
 from selenium.webdriver.common.by import By
+import yaml
 
 from commons.get_path import get_path_data
+from page.app import App
+from commons.start_service import start_appium
+from page.app import App
 from page.input_page import InputPage
-from util.device_data import get_vm_size
+from page.main_page import MainPage
+from util.device_data import get_vm_size, keep_port_available
+from util.log_info import Log_info
 
 '''
 生成allure报告 2 步：
@@ -15,8 +23,14 @@ from util.device_data import get_vm_size
 2、allure generate report/allure_raw -o report/html --clean
 '''
 
+# device_id_list = []
+# desired_process = []
 screen_size_list = []
+# script_path_up = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# case_data_path = script_path_up + '/data/case_data.yml'
+# test_case_data = yaml.safe_load(open(case_data_path, 'r'))
 test_case_data = get_path_data('/data/case_data.yml')
+test_adb_data = get_path_data('/data/adb_data.yml')
 
 # 设置页面右上角back键
 _xpath_locator_setting_back = (By.XPATH,
@@ -43,6 +57,7 @@ def test_InputMethod_SCB_func_01_01_01_0001(get_device_id_list, get_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(deliver_event[int(case_number)])
+    # input_page = MainPage(get_driver_pool[which_driver_pool]).set_default_method().agree_gdpr().back_to_input_page()
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -50,9 +65,11 @@ def test_InputMethod_SCB_func_01_01_01_0001(get_device_id_list, get_driver_pool,
     print('----- %s -----' % device_id_list)
     device_id_list_num = len(device_id_list)
 
-    os.system('adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity' % device_id_list[which_driver_pool])
+    # for i in range(device_id_list_num):
+    #os.system('adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity' % device_id_list[which_driver_pool])
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
     time.sleep(1)
-    os.system('adb -s %s shell input tap 500 500' % device_id_list[which_driver_pool])
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     time.sleep(3)
     if input_page.find_element_by_id('com.android.packageinstaller:id/dialog_container'):
         input_page.find_element_by_id_click('com.android.packageinstaller:id/permission_allow_button')
@@ -91,19 +108,69 @@ def test_InputMethod_SCB_func_01_01_01_0003(get_device_id_list, get_driver_pool,
         'adb -s %s shell am start -a android.intent.action.SENDTO -d sms:10086' % device_id_list[which_driver_pool])
     input_page.find_element_by_id_click('com.google.android.apps.messaging:id/compose_message_text')
     # 有的手机首次掉漆键盘后，可能会弹起'获取联系人权限'的系统弹框
+    # for i in range(device_id_list_num):
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    # input_page.find_element_click(input_page._message_input_box
+    time.sleep(2)
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')#com.google.android.apps.messaging:id/compose_message_text
     if input_page.find_element_by_id('com.android.packageinstaller:id/dialog_container'):
         input_page.find_element_by_id_click('com.android.packageinstaller:id/permission_allow_button')
         input_page.find_element_by_id_click('com.google.android.apps.messaging:id/compose_message_text')
+    # 检查键盘，非中文键盘，点击'切换'键，切换为英文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'english':
+        print('当前为英文键盘')
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('delete', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
     input_page.input_characters(test_case_data['func_01_01_01_0003']['word'], device_id_list[which_driver_pool],
                                 screen_size_list[0], screen_size_list[1])
-    text = input_page.find_element_by_class("android.widget.EditText").text
-    assert text == 'QWERT '
+    text = input_page.find_element_by_id('com.android.mms:id/embedded_text_editor').text
+
+    # input_page.input_characters('shift', device_id_list[which_driver_pool], screen_size_list[0],
+    #                             screen_size_list[1])
+    #text = input_page.find_element_by_class('android.widget.EditText').text
+    assert text == 'Qwerty '
     input_page.return_to_launcher(device_id_list[which_driver_pool])
 
 
-@allure.story('检查首字母大写功能')
-@pytest.mark.parametrize('case_number', '2')
-def test_fun(get_device_id_list, get_driver_pool, deliver_event, case_number):
+# @allure.story('检查首字母大写功能')
+# @pytest.mark.parametrize('case_number', '2')
+# def test_InputMethod_SCB_func_01_01_01_0003(get_device_id_list, get_driver_pool, deliver_event, case_number):
+#     device_id_list = get_device_id_list
+#     which_driver_pool = int(deliver_event[int(case_number)])
+#     os.system('adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity' % device_id_list[which_driver_pool])
+#     time.sleep(1)
+#     os.system('adb -s %s shell input tap 500 500' % device_id_list[which_driver_pool])
+#     input_page = InputPage(get_driver_pool[which_driver_pool])
+#     screen_size_list.clear()
+#     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+#     time.sleep(5)
+#     input_page.tap_menu(screen_size_list[0], screen_size_list[1])
+
+@allure.story('检查长按方法')
+@pytest.mark.parametrize('case_number', '3')
+def test_InputMethod_SCB_func_01_01_01_0003(get_device_id_list, get_driver_pool, deliver_event,
+                                             case_number):  # self, device_id_list
+    device_id_list = get_device_id_list
+    which_driver_pool = int(deliver_event[int(case_number)])
+    input_page = InputPage(get_driver_pool[which_driver_pool])
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    print('----- %s -----' % device_id_list)
+    device_id_list_num = len(device_id_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')
+    input_page.long_press('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    input_page.return_to_launcher(device_id_list[which_driver_pool])
+
+@allure.story('配置页面')
+@pytest.mark.parametrize('case_number', '4')
+def test_InputMethod_SCB_func_01_01_01_0004(get_device_id_list, get_driver_pool, deliver_event, case_number):
+    # self, device_id_list
     device_id_list = get_device_id_list
     which_driver_pool = int(deliver_event[int(case_number)])
     os.system('adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity' % device_id_list[which_driver_pool])
@@ -112,8 +179,16 @@ def test_fun(get_device_id_list, get_driver_pool, deliver_event, case_number):
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
-    time.sleep(5)
-    input_page.tap_menu(screen_size_list[0], screen_size_list[1])
+    print('----- %s -----' % device_id_list)
+    device_id_list_num = len(device_id_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')
+    time.sleep(2)
+    input_page.touch_tap(81, 1468)
+    time.sleep(2)
+    input_page.touch_tap(170,2176)
+    # from page.keyboard_setting_page import KeyboardSettingPage
+    # return KeyboardSettingPage
     time.sleep(2)
     input_page.to_which_submenu('Sound', screen_size_list[0], screen_size_list[1])
     time.sleep(2)

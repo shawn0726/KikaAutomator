@@ -1,0 +1,19 @@
+#短信内容输入框
+adb_01_01_01_0001:
+  textmessage: 'adb -s %s shell am start -a android.intent.action.SENDTO -d sms:10086'
+#清空内容
+adb_01_01_01_0002:
+  deltext: 'adb -s %s shell input keyevent 4'
+#emptyinput
+adb_01_01_01_0003:
+  emptyinput: 'adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity'
+#点击调起键盘
+adb_01_01_01_0004:
+  upkeyboard: 'adb -s %s shell input tap 500 500'
+  emptyinput: 'adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity'
+#点击短按
+adb_01_01_01_0006:
+  shortclick: 'adb -s %s shell input tap %s %s'
+#点击长按
+adb_01_01_01_0007:
+  longclick: 'adb -s %s shell input swipe %s %s %s %s 800'
