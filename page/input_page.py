@@ -39,8 +39,8 @@ class InputPage(BaseFunction):
                 if which_one == 'Theme':
                     self.driver.tap([(str(float(submenu['x']) * float(screen_size_width)),
                                       str(float(submenu['y']) * float(screen_size_height)))])
-                    from page.theme_page import ThemePage
-                    return ThemePage(self.driver)
+                    from page.theme_setting_page import ThemeSettingPage
+                    return ThemeSettingPage(self.driver)
                 elif which_one == 'Settings':
                     self.driver.tap([(str(float(submenu['x']) * float(screen_size_width)),
                                       str(float(submenu['y']) * float(screen_size_height)))])
