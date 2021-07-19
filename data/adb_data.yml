@@ -10,7 +10,6 @@ adb_01_01_01_0003:
 #点击调起键盘
 adb_01_01_01_0004:
   upkeyboard: 'adb -s %s shell input tap 500 500'
-  emptyinput: 'adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity'
 #点击短按
 adb_01_01_01_0006:
   shortclick: 'adb -s %s shell input tap %s %s'

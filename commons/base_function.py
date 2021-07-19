@@ -1,15 +1,32 @@
 import json
+import math
+import operator
 import os
 import time
+from functools import reduce
 
+from PIL import ImageChops
+from PIL.Image import Image
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from commons.get_path import get_path, get_path_data
 from util.log_info import Log_info
 
+from util.log_info import Log_info
+import time
+import os
+from PIL import ImageFile
+from PIL import Image
+import math
+import operator
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+PATH = lambda p: os.path.abspath(p)
+
 test_case_data = get_path_data('/data/case_data.yml')
 test_adb_data = get_path_data('/data/adb_data.yml')
+
 
 
 class BaseFunction:
@@ -220,10 +237,49 @@ class BaseFunction:
         Usage:
             device.touch_coordinate(277,431)      #277.431为点击某个元素的x与y值
         '''
-        screen_width = self.driver.get_window_size()['width']  # 获取当前屏幕的宽
-        screen_height = self.driver.get_window_size()['height']  # 获取当前屏幕的高
-        a = (float(x) / screen_width) * screen_width
-        x1 = int(a)
-        b = (float(y) / screen_height) * screen_height
-        y1 = int(b)
-        self.driver.tap([(x1, y1), (x1, y1)], duration)
+        # screen_width = self.driver.get_window_size()['width']  # 获取当前屏幕的宽
+        # screen_height = self.driver.get_window_size()['height']  # 获取当前屏幕的高
+        # a = (float(x) / screen_width) * screen_width
+        # x1 = int(a)
+        # b = (float(y) / screen_height) * screen_height
+        # y1 = int(b)
+        # self.driver.tap([(x1, y1), (x1, y1)], duration)
+        self.driver.tap([(x, y), (x, y)], duration)
+
+    #截图对比
+    def screenshot(testcase):
+        # path = PATH(os.getcwd() + "/TestResult")
+        # if not os.path.isdir(PATH(os.getcwd() + "/TestResult")):
+        #     os.makedirs(path)
+        os.popen("adb wait-for-device")
+        time.sleep(1)  # 由于多次出现截图延迟现象（每次截图都截的是上次操作的画面），故此处设置一个等待
+        os.popen("adb shell screencap -p /data/local/tmp/tmp1.png")
+        time.sleep(1)
+        #os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + testcase + '.png'))
+        os.popen("adb pull /data/local/tmp/tmp1.png " + PATH('/Users/xm210407/PycharmProjects/Kika/testcase'))
+        time.sleep(1)
+        os.popen("adb shell rm /data/local/tmp1/tmp.png")
+        time.sleep(1)
+        # im = Image.open(PATH('/Users/xm210407/PycharmProjects/Kika/testcase/'))
+        # cropedIm = im.crop((0, 70, 1079, 2080))
+        # cropedIm.save(PATH('/Users/xm210407/PycharmProjects/Kika/testcase/'))
+
+    def compare(self, pic1, pic2):
+        '''
+        :param pic1: 图片1路径
+        :param pic2: 图片2路径
+        :return: 返回对比的结果
+        '''
+        image1 = Image.open(pic1)
+        image2 = Image.open(pic2)
+        histogram1 = image1.histogram()
+        histogram2 = image2.histogram()
+        differ = math.sqrt(
+            reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, histogram1, histogram2))) / len(histogram1))
+        print(differ)
+        return differ
+    #
+    # compare(r'/Users/xm210407/PycharmProjects/Kika/testcase/tmp.png',
+    #         r'/Users/xm210407/PycharmProjects/Kika/testcase/tmp1.png')
+
+
