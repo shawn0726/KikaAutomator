@@ -1,47 +1,29 @@
+{
 "keys": [
     {
       "x": 0.156,
       "y": 0.726,
-      "code": "Layout"
+      "code": "One"
     },
     {
       "x": 0.378,
       "y": 0.726,
-      "code": "Mode"
+      "code": "Two"
     },
     {
       "x": 0.614,
       "y": 0.726,
-      "code": "Theme"
+      "code": "Three"
     },
     {
       "x": 0.841,
       "y": 0.726,
-      "code": "ClipBoard"
+      "code": "Four"
     },
     {
       "x": 0.156,
       "y": 0.847,
-      "code": "Selector"
-    },
-    {
-      "x": 0.378,
-      "y": 0.847,
-      "code": "Sound"
-    },
-    {
-      "x": 0.614,
-      "y": 0.847,
-      "code": "Sound"
-    },
-    {
-      "x": 0.078,
-      "y": 0.621,
-      "code": "Menu"
-    },
-    {
-      "x": 0.921,
-      "y": 0.621,
-      "code": "Back"
+      "code": "Five"
     }
-    }]
+    ]
+}

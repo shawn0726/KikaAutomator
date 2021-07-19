@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 from selenium.webdriver.common.by import By
 
@@ -54,7 +55,14 @@ class InputPage(BaseFunction):
 
     # 切换键盘布局
     def to_which_keyboard_layout(self, which_one, screen_size_width, screen_size_height):
-        pass
+        key_data_path = get_path('/layout/key_layout')
+        with open(key_data_path) as file:
+            keydata = json.loads(file.read())
+            keys = keydata['keys']
+        for key in keys:
+            if key['code'] == which_one:
+                self.driver.tap([(str(float(key['x']) * float(screen_size_width)),
+                                  str(float(key['y']) * float(screen_size_height)))])
 
     # 更改键盘模式
     def to_which_keyboard_mode(self, which_one, screen_size_width, screen_size_height):
@@ -72,8 +80,34 @@ class InputPage(BaseFunction):
         pass
 
     # 剪切板
-    def clipboard_func(self, which_one, operating):
-        pass
+    def clipboard_func(self, which_one, operating, screen_size_width,
+                       screen_size_height):  # 粘贴(0.179, 0.706)，移除(0.5, 0.706)，取消(0.817, 0.706)第二(0.5, 0.793)第三(0.5, 0.895)
+        clipboard_data_path = get_path('/layout/clipboard_key_layout')
+        with open(clipboard_data_path) as file:
+            clipboard_location_data = json.loads(file.read())
+            clipboard_action_location = clipboard_location_data['actions']
+            print('clipboard_actions:%s' % clipboard_action_location)
+        for clipboard_action_key in clipboard_action_location:
+            if clipboard_action_key['code'] == operating:
+                if which_one == 'One':
+                    # 点击两下的原因是调出操作按钮蒙层
+                    self.driver.tap([(str(float(clipboard_action_key['x']) * float(screen_size_width)),
+                                      str(0.706 * float(screen_size_height)))])
+                    time.sleep(2)
+                    self.driver.tap([(str(float(clipboard_action_key['x']) * float(screen_size_width)),
+                                      str(0.706 * float(screen_size_height)))])
+                if which_one == 'Two':
+                    self.driver.tap([(str(float(clipboard_action_key['x']) * float(screen_size_width)),
+                                      str(0.793 * float(screen_size_height)))])
+                    time.sleep(2)
+                    self.driver.tap([(str(float(clipboard_action_key['x']) * float(screen_size_width)),
+                                      str(0.793 * float(screen_size_height)))])
+                if which_one == 'Three':
+                    self.driver.tap([(str(float(clipboard_action_key['x']) * float(screen_size_width)),
+                                      str(0.895 * float(screen_size_height)))])
+                    time.sleep(2)
+                    self.driver.tap([(str(float(clipboard_action_key['x']) * float(screen_size_width)),
+                                      str(0.895 * float(screen_size_height)))])
 
     # 编辑-全选、复制、粘贴、剪切板
     def edit(self, which_one, screen_size_width, screen_size_height):
@@ -81,7 +115,7 @@ class InputPage(BaseFunction):
         with open(edit_data_path) as file:
             edit_location_data = json.loads(file.read())
             edit_location = edit_location_data['keys']
-            print('menu_location:%s' % edit_location)
+            print('edit_location:%s' % edit_location)
         for edit_key in edit_location:
             if edit_key['code'] == which_one:
                 self.driver.tap([(str(float(edit_key['x']) * float(screen_size_width)),
