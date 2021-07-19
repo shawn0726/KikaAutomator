@@ -151,5 +151,28 @@ def test_InputMethod_SCB_func_01_01_01_0004(get_device_id_list, get_driver_pool,
     input_page.adjust_vibration('max', screen_size_list[0], screen_size_list[1])
 
 
+@pytest.mark.parametrize('case_number', '4')
+def test_func(get_device_id_list, get_driver_pool, deliver_event, case_number):
+    device_id_list = get_device_id_list
+    which_driver_pool = int(deliver_event[int(case_number)])
+    os.system('adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity' % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system('adb -s %s shell input tap 500 500' % device_id_list[which_driver_pool])
+    input_page = InputPage(get_driver_pool[which_driver_pool])
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    input_page.tap_menu(screen_size_list[0], screen_size_list[1])
+    time.sleep(2)
+    keyboard_setting_page = input_page.to_which_submenu('Settings', screen_size_list[0], screen_size_list[1])
+    time.sleep(2)
+    keyboard_setting_page.to_language_setting_page()
+    # from page.keyboard_setting_page import KeyboardSettingPage
+    # keyboard_setting_page = KeyboardSettingPage(get_driver_pool[which_driver_pool])
+    # keyboard_setting_page.find_element_by_text_click('语言')
+
+
+    # input_page.clipboard_func('One', 'Paste', screen_size_list[0], screen_size_list[1])
+
+
 if __name__ == '__main__':
     pytest.main()
