@@ -6,7 +6,8 @@ import time
 from functools import reduce
 
 from PIL import ImageChops
-from PIL.Image import Image
+from PIL.Image import Image, new
+from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -282,8 +283,50 @@ class BaseFunction:
         else:
             print("测试不通过")
         return differ
-    #
-    # compare(r'/Users/xm210407/PycharmProjects/Kika/testcase/tmp.png',
-    #         r'/Users/xm210407/PycharmProjects/Kika/testcase/tmp1.png')
+
+    #滑动方法
+    # 滑动方法
+    def swipeUp(self, driver, t=500, n=1):
+        '''向上滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.5  # x坐标
+        y1 = l['height'] * 0.75  # 起始y坐标
+        y2 = l['height'] * 0.25  # 终点y坐标
+        for i in range(n):
+            driver.swipe(x1, y1, x1, y2, t)
+
+    def swipeDown(self, driver, t=500, n=1):
+        '''向下滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.5  # x坐标
+        y1 = l['height'] * 0.25  # 起始y坐标
+        y2 = l['height'] * 0.75  # 终点y坐标
+        for i in range(n):
+            driver.swipe(x1, y1, x1, y2, t)
+
+    def swipLeft(self, driver, t=500, n=1):
+        '''向左滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.75
+        y1 = l['height'] * 0.8
+        x2 = l['width'] * 0.25
+        for i in range(n):
+            driver.swipe(x1, y1, x2, y1, t)
+
+    def swipRight(self, driver, t=500, n=1):
+        '''向右滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.25
+        y1 = l['height'] * 0.5
+        x2 = l['width'] * 0.75
+        for i in range(n):
+            driver.swipe(x1, y1, x2, y1, t)
+
+
+
+
+
+
+
 
 
