@@ -3,7 +3,6 @@ import os
 
 from appium import webdriver
 
-# from page.gdpr_page import GdprPage
 from page.main_page import MainPage
 from util.log_info import Log_info
 

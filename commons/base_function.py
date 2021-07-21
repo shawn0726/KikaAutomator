@@ -1,15 +1,33 @@
 import json
+import math
+import operator
 import os
 import time
+from functools import reduce
 
+from PIL import ImageChops
+from PIL.Image import Image, new
+from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from commons.get_path import get_path, get_path_data
 from util.log_info import Log_info
 
+from util.log_info import Log_info
+import time
+import os
+from PIL import ImageFile
+from PIL import Image
+import math
+import operator
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+PATH = lambda p: os.path.abspath(p)
+
 test_case_data = get_path_data('/data/case_data.yml')
 test_adb_data = get_path_data('/data/adb_data.yml')
+
 
 
 class BaseFunction:
@@ -220,10 +238,95 @@ class BaseFunction:
         Usage:
             device.touch_coordinate(277,431)      #277.431为点击某个元素的x与y值
         '''
-        screen_width = self.driver.get_window_size()['width']  # 获取当前屏幕的宽
-        screen_height = self.driver.get_window_size()['height']  # 获取当前屏幕的高
-        a = (float(x) / screen_width) * screen_width
-        x1 = int(a)
-        b = (float(y) / screen_height) * screen_height
-        y1 = int(b)
-        self.driver.tap([(x1, y1), (x1, y1)], duration)
+        # screen_width = self.driver.get_window_size()['width']  # 获取当前屏幕的宽
+        # screen_height = self.driver.get_window_size()['height']  # 获取当前屏幕的高
+        # a = (float(x) / screen_width) * screen_width
+        # x1 = int(a)
+        # b = (float(y) / screen_height) * screen_height
+        # y1 = int(b)
+        # self.driver.tap([(x1, y1), (x1, y1)], duration)
+        self.driver.tap([(x, y), (x, y)], duration)
+
+    #截图对比
+    def screenshot(testcase):
+        path = PATH(os.getcwd() + "/TestResult")
+        if not os.path.isdir(PATH(os.getcwd() + "/TestResult")):
+            os.makedirs(path)
+        os.popen("adb wait-for-device")
+        time.sleep(1)  # 由于多次出现截图延迟现象（每次截图都截的是上次操作的画面），故此处设置一个等待
+        os.popen("adb shell screencap -p /data/local/tmp/tmp.png")
+        time.sleep(1)
+        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + 'tmp4.png'))
+        #os.popen("adb pull /data/local/tmp/tmp1.png " + PATH('/Users/xm210407/PycharmProjects/Kika/testcase/'))
+        time.sleep(1)
+        os.popen("adb shell rm /data/local/tmp/tmp.png")
+        time.sleep(1)
+        im = Image.open(PATH(path + "/" + 'tmp4.png'))
+        cropedIm = im.crop((0, 1020, 1079, 2200))
+        cropedIm.save(PATH(path + "/" + 'tmp4.png'))
+
+    def compare(self, pic1, pic2):
+        '''
+        :param pic1: 图片1路径
+        :param pic2: 图片2路径
+        :return: 返回对比的结果
+        '''
+        image1 = Image.open(pic1)
+        image2 = Image.open(pic2)
+        histogram1 = image1.histogram()
+        histogram2 = image2.histogram()
+        differ = math.sqrt(
+            reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, histogram1, histogram2))) / len(histogram1))
+        print(differ)
+        if differ<2:
+            print("测试通过")
+        else:
+            print("测试不通过")
+        return differ
+
+    #滑动方法
+    # 滑动方法
+    def swipeUp(self, driver, t=500, n=1):
+        '''向上滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.5  # x坐标
+        y1 = l['height'] * 0.75  # 起始y坐标
+        y2 = l['height'] * 0.25  # 终点y坐标
+        for i in range(n):
+            driver.swipe(x1, y1, x1, y2, t)
+
+    def swipeDown(self, driver, t=500, n=1):
+        '''向下滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.5  # x坐标
+        y1 = l['height'] * 0.25  # 起始y坐标
+        y2 = l['height'] * 0.75  # 终点y坐标
+        for i in range(n):
+            driver.swipe(x1, y1, x1, y2, t)
+
+    def swipLeft(self, driver, t=500, n=1):
+        '''向左滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.75
+        y1 = l['height'] * 0.8
+        x2 = l['width'] * 0.25
+        for i in range(n):
+            driver.swipe(x1, y1, x2, y1, t)
+
+    def swipRight(self, driver, t=500, n=1):
+        '''向右滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.25
+        y1 = l['height'] * 0.5
+        x2 = l['width'] * 0.75
+        for i in range(n):
+            driver.swipe(x1, y1, x2, y1, t)
+
+
+
+
+
+
+
+
+
