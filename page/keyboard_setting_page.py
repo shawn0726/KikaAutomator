@@ -17,6 +17,7 @@ from page.about_setting_page import AboutSettingPage
 class KeyboardSettingPage(BaseFunction):
     _xpath_locator_setting_back = (By.XPATH,
                                    '//android.widget.ImageButton[@content-desc="转到上一层级"]')
+    # //android.widget.ImageButton[@content-desc="转到上一层级"]
 
     def back_to_input_page(self):
         self.find_element_click(self._xpath_locator_setting_back)

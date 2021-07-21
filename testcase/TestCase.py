@@ -128,14 +128,11 @@ def test_InputMethod_SCB_func_01_01_01_0003(get_device_id_list, get_driver_pool,
     input_page.return_to_launcher(device_id_list[which_driver_pool])
 
 
-@allure.story('配置页面')
+@allure.story('校验主题')
 @pytest.mark.parametrize('case_number', '4')
 def test_InputMethod_SCB_func_01_01_01_0004(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
     which_driver_pool = int(deliver_event[int(case_number)])
-    # os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
-    # time.sleep(1)
-    # os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -149,18 +146,202 @@ def test_InputMethod_SCB_func_01_01_01_0004(get_device_id_list, get_driver_pool,
     from page.keyboard_setting_page import KeyboardSettingPage
     keyboard_setting_page = KeyboardSettingPage(get_driver_pool[which_driver_pool])
     keyboard_setting_page.to_theme_setting_page()
+    time.sleep(2)
     from page.theme_setting_page import ThemeSettingPage
     theme_setting_page = ThemeSettingPage(get_driver_pool[which_driver_pool])
+   # theme_setting_page.back_to_setting_page()
     theme_setting_page.switch_them1()
+    #theme_setting_page.switch_them2()
+    #theme_setting_page.switch_them3()
+    #theme_setting_page.switch_them4()
+    time.sleep(2)
     #截图
-    #input_page.screenshot()
-    input_page.compare(r'/Users/xm210407/PycharmProjects/Kika/testcase/tmp.png', r'/Users/xm210407/PycharmProjects/Kika/testcase/tmp1.png')
+    input_page.screenshot()
+    #比较截图是否一致
+    input_page.compare(r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/tmp3.png',
+                       r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/tmp4.png')
 
-    # time.sleep(2)
+@allure.story('校验字体')
+@pytest.mark.parametrize('case_number', '5')
+def test_InputMethod_SCB_func_01_01_01_0005(get_device_id_list, get_driver_pool, deliver_event, case_number):
+    device_id_list = get_device_id_list
+    which_driver_pool = int(deliver_event[int(case_number)])
+    input_page = InputPage(get_driver_pool[which_driver_pool])
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    print('----- %s -----' % device_id_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')
+    time.sleep(2)
+    input_page.touch_tap(81, 1468)
+    time.sleep(2)
+    input_page.touch_tap(170, 2176)
+    from page.keyboard_setting_page import KeyboardSettingPage
+    keyboard_setting_page = KeyboardSettingPage(get_driver_pool[which_driver_pool])
+    keyboard_setting_page.to_font_setting_page()
+    time.sleep(2)
+    from page.font_setting_page import FontSettingPage
+    font_setting_page = FontSettingPage(get_driver_pool[which_driver_pool])
+    #font_setting_page.back_to_setting_page()
+    #font_setting_page.switch_font1()
+    #font_setting_page.switch_font2()
+    #font_setting_page.switch_font3()
+    font_setting_page.switch_font4()
+    time.sleep(2)
 
-    #input_page.to_which_submenu('Sound', screen_size_list[0], screen_size_list[1])
-    #time.sleep(2)
-    #input_page.adjust_vibration('max', screen_size_list[0], screen_size_list[1])
+@allure.story('校验页面设置')
+@pytest.mark.parametrize('case_number', '7')
+def test_InputMethod_SCB_func_01_01_01_0007(get_device_id_list, get_driver_pool, deliver_event, case_number):
+    device_id_list = get_device_id_list
+    which_driver_pool = int(deliver_event[int(case_number)])
+    input_page = InputPage(get_driver_pool[which_driver_pool])
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    print('----- %s -----' % device_id_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')
+    time.sleep(2)
+    input_page.touch_tap(81, 1468)
+    time.sleep(2)
+    input_page.touch_tap(170, 2176)
+    from page.keyboard_setting_page import KeyboardSettingPage
+    keyboard_setting_page = KeyboardSettingPage(get_driver_pool[which_driver_pool])
+    keyboard_setting_page.to_page_setting_page()
+    time.sleep(2)
+    from page.page_setting_page import PageSettingPage
+    page_setting_page = PageSettingPage(get_driver_pool[which_driver_pool])
+    #page_setting_page.back_to_setting_page()
+    #page_setting_page.check_bubble_capitalization()
+    #page_setting_page.check_number_capitalization()
+    page_setting_page.to_delay_page()
+    time.sleep(2)
+    from page.key_delay_page import KeyDelayPage
+    key_delay_page = KeyDelayPage(get_driver_pool[which_driver_pool])
+    #key_delay_page.check_default_capitalization()
+    #key_delay_page.check_determine_capitalization()
+    #key_delay_page.adjust_progress_capitalization(size='min')
+    #key_delay_page.adjust_progress_capitalization(size='max')
+    key_delay_page.adjust_progress_capitalization(size='middle')
+    #key_delay_page.check_determine_capitalization()
+
+    #page_setting_page.check_slide_capitalization()
+
+@allure.story('校验输入设置')
+@pytest.mark.parametrize('case_number', '8')
+def test_InputMethod_SCB_func_01_01_01_0008(get_device_id_list, get_driver_pool, deliver_event, case_number):
+    device_id_list = get_device_id_list
+    which_driver_pool = int(deliver_event[int(case_number)])
+    input_page = InputPage(get_driver_pool[which_driver_pool])
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    print('----- %s -----' % device_id_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')
+    time.sleep(2)
+    input_page.touch_tap(81, 1468)
+    time.sleep(2)
+    input_page.touch_tap(170, 2176)
+    from page.keyboard_setting_page import KeyboardSettingPage
+    keyboard_setting_page = KeyboardSettingPage(get_driver_pool[which_driver_pool])
+    keyboard_setting_page.to_input_setting_page()
+    time.sleep(2)
+    from page.input_setting_page import InputSettingPage
+    input_setting_page = InputSettingPage(get_driver_pool[which_driver_pool])
+    #input_setting_page.back_to_setting_page()
+    #input_setting_page.check_slide_input_capitalization()
+    #input_setting_page.check_slide_orbit_capitalization()
+    #input_setting_page.check_auto_capitalization()
+    #input_setting_page.check_suggest_capitalization()
+    #input_setting_page.check_automatic_correct_capitalization()
+    #input_setting_page.check_emoji_prediction_capitalization()
+    #input_setting_page.check_double_click_capitalization()
+    #input_setting_page.check_quickly_insert_capitalization()
+    #input_setting_page.check_long_press_capitalization()
+    input_setting_page.check_experience_plan_capitalization()
+
+@allure.story('校验音效和振动')
+@pytest.mark.parametrize('case_number', '9')
+def test_InputMethod_SCB_func_01_01_01_0009(get_device_id_list, get_driver_pool, deliver_event, case_number):
+    device_id_list = get_device_id_list
+    which_driver_pool = int(deliver_event[int(case_number)])
+    input_page = InputPage(get_driver_pool[which_driver_pool])
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    print('----- %s -----' % device_id_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')
+    time.sleep(2)
+    input_page.touch_tap(81, 1468)
+    time.sleep(2)
+    input_page.touch_tap(170, 2176)
+    from page.keyboard_setting_page import KeyboardSettingPage
+    keyboard_setting_page = KeyboardSettingPage(get_driver_pool[which_driver_pool])
+    keyboard_setting_page.to_voice_setting_page()
+    from page.voice_setting_page import VoiceSettingPage
+    voice_setting_page = VoiceSettingPage(get_driver_pool[which_driver_pool])
+    #voice_setting_page.back_to_setting_page()
+    #voice_setting_page.adjust_vib_drag_bar(max)
+    #voice_setting_page.adjust_vib_drag_bar(size='max')
+    #voice_setting_page.adjust_vib_drag_bar(size='min')
+    #voice_setting_page.adjust_vib_drag_bar(size='middle')
+    #voice_setting_page.adjust_sound_drag_bar(size='middle')
+    #voice_setting_page.adjust_sound_drag_bar(size='max')
+    #voice_setting_page.adjust_sound_drag_bar(size='min')
+    voice_setting_page.to_sound_effect_page()
+    from page.sound_effect_page import SoundEffectPage
+    sound_effect_page = SoundEffectPage(get_driver_pool[which_driver_pool])
+    #sound_effect_page.back_to_setting_page()
+    sound_effect_page.switch_sound1()
+    time.sleep(2)
+    sound_effect_page.switch_sound2()
+    time.sleep(2)
+    sound_effect_page.switch_sound3()
+    time.sleep(2)
+    sound_effect_page.switch_sound4()
+    time.sleep(2)
+    sound_effect_page.switch_sound5()
+    time.sleep(2)
+    sound_effect_page.switch_sound6()
+    time.sleep(2)
+    sound_effect_page.switch_sound7()
+    time.sleep(2)
+    sound_effect_page.switch_sound8()
+    time.sleep(2)
+    sound_effect_page.switch_sound9()
+
+@allure.story('校验关于')
+@pytest.mark.parametrize('case_number', '10')
+def test_InputMethod_SCB_func_01_01_01_0010(get_device_id_list, get_driver_pool, deliver_event, case_number):
+    device_id_list = get_device_id_list
+    which_driver_pool = int(deliver_event[int(case_number)])
+    input_page = InputPage(get_driver_pool[which_driver_pool])
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    print('----- %s -----' % device_id_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')
+    time.sleep(2)
+    input_page.touch_tap(81, 1468)
+    time.sleep(2)
+    input_page.touch_tap(170, 2176)
+    from page.keyboard_setting_page import KeyboardSettingPage
+    keyboard_setting_page = KeyboardSettingPage(get_driver_pool[which_driver_pool])
+    keyboard_setting_page.to_about_setting_page()
+    from page.about_setting_page import AboutSettingPage
+    about_setting_page = AboutSettingPage(get_driver_pool[which_driver_pool])
+    #about_setting_page.back_to_setting_page()
+    #about_setting_page.to_disable_service()
+    # from page.disable_service_page import DisableServicePage
+    # disable_service_page = DisableServicePage(get_driver_pool[which_driver_pool])
+    #disable_service_page.check_xpath_cancel()
+    #disable_service_page.check_xpath_disable()
+    #about_setting_page.check_xpath_privacy_page()
+    about_setting_page.check_xpath_user_agreement()
+
+
+
+
+
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ class ThemeSettingPage(BaseFunction):
     _xpath_locator_theme_setting_back = (By.XPATH, '//android.widget.ImageButton[@content-desc="转到上一层级"]')
     _xpath_them1_select = (By.XPATH, '//android.widget.FrameLayout[@content-desc="TestPos 主题"]/'
                                      'android.widget.ImageView')
-    _xpath_them2_select = (By.XPATH, '//android.widget.FrameLayout[@content-desc="Wind 主题"]/'
+    _xpath_them2_select = (By.XPATH, '//android.widget.FrameLayout[@content-desc="Wind 主题，正在使用"]/'
                                      'android.widget.FrameLayout')
     _xpath_them3_select = (By.XPATH, '//android.widget.FrameLayout[@content-desc="Material Dark 主题"]/'
                                      'android.widget.ImageView')
@@ -15,15 +15,21 @@ class ThemeSettingPage(BaseFunction):
 
     def back_to_setting_page(self):
         self.find_element_click(self._xpath_locator_theme_setting_back)
+        from page.keyboard_setting_page import KeyboardSettingPage
+        return KeyboardSettingPage(self.driver)
 
     def switch_them1(self):
-        self.find_element(self._xpath_them1_select)
+        self.find_element_click(self._xpath_them1_select)
+        return ThemeSettingPage(self.driver)
 
     def switch_them2(self):
-        self.find_element(self._xpath_them2_select)
+        self.find_element_click(self._xpath_them2_select)
+        return ThemeSettingPage(self.driver)
 
     def switch_them3(self):
-        self.find_element(self._xpath_them3_select)
+        self.find_element_click(self._xpath_them3_select)
+        return ThemeSettingPage(self.driver)
 
     def switch_them4(self):
-        self.find_element(self._xpath_them4_select)
+        self.find_element_click(self._xpath_them4_select)
+        return ThemeSettingPage(self.driver)

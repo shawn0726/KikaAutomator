@@ -1,3 +1,5 @@
+import os
+
 from commons.base_function import BaseFunction
 from selenium.webdriver.common.by import By
 
@@ -21,17 +23,17 @@ class AboutSettingPage(BaseFunction):
         from page.keyboard_setting_page import KeyboardSettingPage
         return KeyboardSettingPage(self.driver)
 
-    def statement_about_page(self):
+    def to_disable_service(self):
         self.find_element_click(self._xpath_disable_service)
-        from page.keyboard_setting_page import KeyboardSettingPage
-        return KeyboardSettingPage(self.driver)
+        from page.disable_service_page import DisableServicePage
+        return DisableServicePage(self.driver)
 
-    def xpath_privacy_page(self):
-        self.find_element_click(self.xpath_privacy_page)
-        from page.keyboard_setting_page import KeyboardSettingPage
-        return KeyboardSettingPage(self.driver)
+    def check_xpath_privacy_page(self):
+        self.find_element_click(self._xpath_privacy_page)
+        os.system('adb shell input keyevent 4')
+        return AboutSettingPage(self.driver)
 
-    def xpath_user_agreement(self):
+    def check_xpath_user_agreement(self):
         self.find_element_click(self._xpath_user_agreement)
-        from page.keyboard_setting_page import KeyboardSettingPage
-        return KeyboardSettingPage(self.driver)
+        os.system('adb shell input keyevent 4')
+        return AboutSettingPage(self.driver)
