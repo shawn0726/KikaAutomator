@@ -285,7 +285,6 @@ class BaseFunction:
         return differ
 
     #滑动方法
-    # 滑动方法
     def swipeUp(self, driver, t=500, n=1):
         '''向上滑动屏幕'''
         l = self.driver.get_window_size()
@@ -321,6 +320,9 @@ class BaseFunction:
         x2 = l['width'] * 0.75
         for i in range(n):
             driver.swipe(x1, y1, x2, y1, t)
+
+
+
 
 
 
