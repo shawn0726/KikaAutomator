@@ -39,13 +39,13 @@ _address_book_dialog = (By.ID, 'com.android.packageinstaller:id/dialog_container
 
 
 @allure.story('英文键盘，输字母后删除')
-@pytest.mark.parametrize('case_number', '0')
+@pytest.mark.parametrize('case_number', [0])
 # 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
 def test_InputMethod_SCB_func_01_01_01_0001(get_device_id_list, get_driver_pool, deliver_event,
                                             case_number):
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
-    which_driver_pool = int(deliver_event[int(case_number)])
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -79,10 +79,10 @@ def test_InputMethod_SCB_func_01_01_01_0001(get_device_id_list, get_driver_pool,
 
 
 @allure.story('检查首字母大写功能')
-@pytest.mark.parametrize('case_number', '1')
+@pytest.mark.parametrize('case_number', [1])
 def test_InputMethod_SCB_func_01_01_01_0003(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
-    which_driver_pool = int(deliver_event[int(case_number)])
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -114,10 +114,10 @@ def test_InputMethod_SCB_func_01_01_01_0003(get_device_id_list, get_driver_pool,
 
 
 @allure.story('检查长按方法')
-@pytest.mark.parametrize('case_number', '3')
+@pytest.mark.parametrize('case_number', [3])
 def test_InputMethod_SCB_func_01_01_01_0003(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
-    which_driver_pool = int(deliver_event[int(case_number)])
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -129,10 +129,10 @@ def test_InputMethod_SCB_func_01_01_01_0003(get_device_id_list, get_driver_pool,
 
 
 @allure.story('校验主题')
-@pytest.mark.parametrize('case_number', '4')
+@pytest.mark.parametrize('case_number', [4])
 def test_InputMethod_SCB_func_01_01_01_0004(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
-    which_driver_pool = int(deliver_event[int(case_number)])
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -162,10 +162,10 @@ def test_InputMethod_SCB_func_01_01_01_0004(get_device_id_list, get_driver_pool,
                        r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/tmp4.png')
 
 @allure.story('校验字体')
-@pytest.mark.parametrize('case_number', '5')
+@pytest.mark.parametrize('case_number', [5])
 def test_InputMethod_SCB_func_01_01_01_0005(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
-    which_driver_pool = int(deliver_event[int(case_number)])
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -190,10 +190,10 @@ def test_InputMethod_SCB_func_01_01_01_0005(get_device_id_list, get_driver_pool,
     time.sleep(2)
 
 @allure.story('校验页面设置')
-@pytest.mark.parametrize('case_number', '7')
+@pytest.mark.parametrize('case_number', [7])
 def test_InputMethod_SCB_func_01_01_01_0007(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
-    which_driver_pool = int(deliver_event[int(case_number)])
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -227,10 +227,10 @@ def test_InputMethod_SCB_func_01_01_01_0007(get_device_id_list, get_driver_pool,
     #page_setting_page.check_slide_capitalization()
 
 @allure.story('校验输入设置')
-@pytest.mark.parametrize('case_number', '8')
+@pytest.mark.parametrize('case_number', [8])
 def test_InputMethod_SCB_func_01_01_01_0008(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
-    which_driver_pool = int(deliver_event[int(case_number)])
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -260,10 +260,10 @@ def test_InputMethod_SCB_func_01_01_01_0008(get_device_id_list, get_driver_pool,
     input_setting_page.check_experience_plan_capitalization()
 
 @allure.story('校验音效和振动')
-@pytest.mark.parametrize('case_number', '9')
+@pytest.mark.parametrize('case_number', [9])
 def test_InputMethod_SCB_func_01_01_01_0009(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
-    which_driver_pool = int(deliver_event[int(case_number)])
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -310,10 +310,11 @@ def test_InputMethod_SCB_func_01_01_01_0009(get_device_id_list, get_driver_pool,
     sound_effect_page.switch_sound9()
 
 @allure.story('校验关于')
-@pytest.mark.parametrize('case_number', '10')
+@pytest.mark.parametrize('case_number', [10])
 def test_InputMethod_SCB_func_01_01_01_0010(get_device_id_list, get_driver_pool, deliver_event, case_number):
     device_id_list = get_device_id_list
-    which_driver_pool = int(deliver_event[int(case_number)])
+    print('case_number：%s' % case_number)
+    which_driver_pool = int(deliver_event[case_number])
     input_page = InputPage(get_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -338,8 +339,33 @@ def test_InputMethod_SCB_func_01_01_01_0010(get_device_id_list, get_driver_pool,
     #about_setting_page.check_xpath_privacy_page()
     about_setting_page.check_xpath_user_agreement()
 
-
-
+@allure.story('校验语言')
+@pytest.mark.parametrize('case_number', [11])
+def test_InputMethod_SCB_func_01_01_01_0011(get_device_id_list, get_driver_pool, deliver_event, case_number):
+    device_id_list = get_device_id_list
+    which_driver_pool = int(deliver_event[case_number])
+    input_page = InputPage(get_driver_pool[which_driver_pool])
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    print('----- %s -----' % device_id_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    input_page.find_element_by_id_click('com.android.mms:id/embedded_text_editor')
+    time.sleep(2)
+    input_page.touch_tap(81, 1468)
+    time.sleep(2)
+    input_page.touch_tap(170, 2176)
+    from page.keyboard_setting_page import KeyboardSettingPage
+    keyboard_setting_page = KeyboardSettingPage(get_driver_pool[which_driver_pool])
+    keyboard_setting_page.to_language_setting_page()
+    from page.language_setting_page import LanguageSettingPage
+    language_setting_page = LanguageSettingPage(get_driver_pool[which_driver_pool])
+    #language_setting_page.back_to_setting_page()
+    #language_setting_page.open_input_menu_search()
+    #language_setting_page.close_input_menu_search()
+    language_setting_page.add_language_list(language='南非荷兰文', predict='ast_0_1 ')
+    # language_setting_page.del_language_list(language='南非荷兰文')
+    time.sleep(2)
+    language_setting_page.update_layout()
 
 
 
