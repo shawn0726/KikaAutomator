@@ -65,6 +65,7 @@ def set_driver_pool():
                     'appPackage': 'com.huawei.ohos.inputmethod',
                     'appActivity': 'com.appstore.view.activity.PrimaryActivity',
                     'systemPort': sys_port,
+                    'automationName': 'UiAutomator2',
                     'id': device_id_list[i]}
 
             driver = webdriver.Remote('http://localhost:' + str(port_id) + '/wd/hub', caps)
