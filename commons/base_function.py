@@ -136,7 +136,6 @@ class BaseFunction:
                     str(float(key_info['y']) * float(screen_size_height))))
                 print(str(float(key_info['x']) * float(screen_size_width)),
                       str(float(key_info['y']) * float(screen_size_height)))
-                return
 
     # 输入字符
     def input_characters(self, words, device_id, screen_size_width, screen_size_height):
@@ -220,7 +219,6 @@ class BaseFunction:
                       str(float(key_info['y']) * float(screen_size_height))
                       , str(float(key_info['x']) * float(screen_size_width)),
                       str(float(key_info['y']) * float(screen_size_height)))
-                return
 
     # 长按元素
     def long_press(self, words, device_id, screen_size_width, screen_size_height):
