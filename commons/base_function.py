@@ -35,12 +35,14 @@ class BaseFunction:
         self.driver = driver
         print(driver)
 
+    # 判断元素是否存在
     def elements_judge(self, locator):
         if len(self.find_elements(locator)) >= 1:
             return True
         else:
             return False
 
+    # 寻找元素集
     def find_elements(self, locator):
         try:
             return self.driver.find_elements(*locator)
@@ -48,6 +50,7 @@ class BaseFunction:
             self.handle_exception('find_elements')
             return self.driver.find_elements(*locator)
 
+    # 寻找元素
     def find_element(self, locator):
         try:
             return self.driver.find_element(*locator)
@@ -55,6 +58,7 @@ class BaseFunction:
             self.handle_exception('find_elements')
             return self.driver.find_element(*locator)
 
+    # 定位到元素后，进行点击操作
     def find_element_click(self, locator):
         try:
             return self.find_element(locator).click()
@@ -66,13 +70,13 @@ class BaseFunction:
         Log_info().getlog(ex_type).debug(self)
 
     # 通过text定位元素
-
     def find_element_by_text(self, text):
         try:
             return self.driver.find_element_by_android_uiautomator('new UiSelector().text("%s")' % text)
         except:
             self.handle_exception('find_element_by_text')
 
+    # 通过text定位元素并点击
     def find_element_by_text_click(self, text):
         try:
             return self.driver.find_element_by_android_uiautomator('new UiSelector().text("%s")' % text).click()
@@ -80,7 +84,6 @@ class BaseFunction:
             self.handle_exception('find_element_by_text_click')
 
     # 通过className定位元素
-
     def find_element_by_class(self, class_name):
         try:
             return self.driver.find_element_by_class_name(class_name)
@@ -90,6 +93,7 @@ class BaseFunction:
                                                      'android.widget.FrameLayout[2]/android.widget.RelativeLayout/'
                                                      'android.widget.EditText')
 
+    # 通过className定位元素
     def find_element_by_class_click(self, class_name):
         try:
             return self.driver.find_element_by_class_name(class_name).click()
@@ -99,12 +103,20 @@ class BaseFunction:
                                                      'android.widget.FrameLayout[2]/android.widget.RelativeLayout/'
                                                      'android.widget.EditText').click()
 
+    # 通过 id 寻找元素
     def find_element_by_id(self, id_name):
         try:
             return self.driver.find_element_by_id(id_name)
         except:
             self.handle_exception('find_element_by_id')
 
+    def find_element_by_xpath(self, xpath_name):
+        try:
+            return self.driver.find_element_by_xpath(xpath_name)
+        except:
+            self.handle_exception('find_element_by_xpath')
+
+    # 通过 id 寻找元素并点击
     def find_element_by_id_click(self, id_name):
         try:
             return self.driver.find_element_by_id(id_name).click()
@@ -115,6 +127,7 @@ class BaseFunction:
     _gdpr_disagree_button = (By.ID, 'com.huawei.ohos.inputmethod:id/btn_deny')
     _gdpr_learn_more_button = (By.ID, 'com.huawei.ohos.inputmethod:id/tv_content2')
 
+    # 点击键盘按键
     def click_keys(self, words, keys_list, device_id, screen_size_width, screen_size_height):
         for key_info in keys_list:
             if words == key_info['code']:
@@ -123,8 +136,8 @@ class BaseFunction:
                     str(float(key_info['y']) * float(screen_size_height))))
                 print(str(float(key_info['x']) * float(screen_size_width)),
                       str(float(key_info['y']) * float(screen_size_height)))
-                return
 
+    # 输入字符
     def input_characters(self, words, device_id, screen_size_width, screen_size_height):
         if len(words) != 0:
             relative_layout_data_path = get_path('/layout/relative_layout_en')
@@ -145,6 +158,7 @@ class BaseFunction:
                 time.sleep(1)
                 self.click_keys('space', keys_list, device_id, screen_size_width, screen_size_height)
 
+    # 点击候选词
     def click_candidate(self, click_actions, device_id, screen_size_width, screen_size_height):
         candidate_data_path = get_path('/layout/candidate_layout')
         with open(candidate_data_path) as file:
@@ -205,7 +219,6 @@ class BaseFunction:
                       str(float(key_info['y']) * float(screen_size_height))
                       , str(float(key_info['x']) * float(screen_size_width)),
                       str(float(key_info['y']) * float(screen_size_height)))
-                return
 
     # 长按元素
     def long_press(self, words, device_id, screen_size_width, screen_size_height):

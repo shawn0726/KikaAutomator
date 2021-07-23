@@ -15,5 +15,10 @@ def start_appium(port_id, bp_id, device):
         'node /Applications/Appium.app/Contents/Resources/app/node_modules/appium/build/lib/main.js'
         ' --port %s --bootstrap-port %s -U %s --session-override' % (
             str(port_id), str(bp_id), device))
+    '''
+    appium 使用方式
+    result = os.system('appium -p %s -bp %s -U %s --session-override' % (
+            str(port_id), str(bp_id), device))
+    '''
     Log_info().getlog('start-service').debug(result)
     print("%s,%s,%s" % (str(port_id), str(bp_id), device))
