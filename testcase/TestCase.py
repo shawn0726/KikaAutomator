@@ -183,10 +183,10 @@ def test_InputMethod_SCB_func_01_01_01_0005(get_device_id_list, get_driver_pool,
     from page.font_setting_page import FontSettingPage
     font_setting_page = FontSettingPage(get_driver_pool[which_driver_pool])
     #font_setting_page.back_to_setting_page()
-    #font_setting_page.switch_font1()
+    font_setting_page.switch_font4()
     #font_setting_page.switch_font2()
     #font_setting_page.switch_font3()
-    font_setting_page.switch_font4()
+    #font_setting_page.switch_font4()
     time.sleep(2)
 
 @allure.story('校验页面设置')
@@ -363,10 +363,10 @@ def test_InputMethod_SCB_func_01_01_01_0011(get_device_id_list, get_driver_pool,
     #language_setting_page.back_to_setting_page()
     #language_setting_page.open_input_menu_search()
     #language_setting_page.close_input_menu_search()
-    language_setting_page.add_language_list(language='南非荷兰文', predict='ast_0_1 ')
+    language_setting_page.add_language_list(language='爪哇文', predict='ast_0_1 ')
     # language_setting_page.del_language_list(language='南非荷兰文')
-    time.sleep(2)
-    language_setting_page.update_layout(layouttext1='AZERTY')
+    # time.sleep(2)
+    # language_setting_page.update_layout(layouttext1='AZERTY')
 
 
 
