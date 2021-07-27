@@ -1,3 +1,5 @@
+import time
+
 from commons.base_function import BaseFunction
 from selenium.webdriver.common.by import By
 
@@ -15,6 +17,10 @@ class ThemeSettingPage(BaseFunction):
 
     def back_to_setting_page(self):
         self.find_element_click(self._xpath_locator_theme_setting_back)
+        time.sleep(2)
+        self.screenshot()
+        self.compare(r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/tmp5.png',
+                     r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/tmp6.png')
         from page.keyboard_setting_page import KeyboardSettingPage
         return KeyboardSettingPage(self.driver)
 
