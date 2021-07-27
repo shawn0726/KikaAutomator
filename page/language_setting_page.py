@@ -52,8 +52,9 @@ class LanguageSettingPage(BaseFunction):
         del_language_name = '//android.widget.ImageView[@content-desc="删除语言按键，双击删除 ' + language + ' 语言"]'
         self.driver.find_element_by_xpath(del_language_name).click()
 
-    def update_layout(self):
+    def update_layout(self, layouttext1):
         self.find_element_by_id('com.huawei.ohos.inputmethod:id/tv_layout').click()
+        self.find_element_by_text_click(layouttext1)
 
         #获取元素
         #text_vlaue = self.driver.find_elements_by_class_name('android.widget.CheckedTextView')

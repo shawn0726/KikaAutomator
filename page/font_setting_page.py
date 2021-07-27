@@ -15,7 +15,7 @@ class FontSettingPage(BaseFunction):
 
     def back_to_setting_page(self):
         self.find_element_click(self._xpath_locator_font_setting_back)
-        from page.keboard_setting_page import KeyboardSettingPage
+        from page.keyboard_setting_page import KeyboardSettingPage
         return KeyboardSettingPage(self.driver)
 
     def switch_font1(self):
