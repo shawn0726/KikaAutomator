@@ -1,6 +1,8 @@
 import os
 import time
 
+from selenium.webdriver.remote.webelement import WebElement
+
 from commons.base_function import BaseFunction
 from selenium.webdriver.common.by import By
 
@@ -28,9 +30,27 @@ class LanguageSettingPage(BaseFunction):
         return LanguageSettingPage(self.driver)
 
     def add_language_list(self, language, predict):
+        # 列表方式
+        # mlist = self.driver.find_elements_by_id('com.huawei.ohos.inputmethod:id/iv_add')
+        # print(mlist)
+        # print(type(mlist))
+        # self.driver.find_elements_by_id('com.huawei.ohos.inputmethod:id/iv_add')[8].click()
         #传入语言
         add_language_name = '//android.widget.ImageView[@content-desc="添加语言按键，双击添加 ' + language + ' 语言"]'
-        self.driver.find_element_by_xpath(add_language_name).click()
+        flag = True
+        i = 0
+        while flag:
+            time.sleep(2)
+            try:
+                self.driver.find_element_by_xpath(add_language_name).click()
+                flag = False
+                print("添加语言成功")
+            except:
+                self.swipeUp(self.driver, n=1)
+                i = i+1
+                if i == 14:
+                   flag = False
+                   print("查无此语言")
         #等待下载
         time.sleep(2)
         #返回词典列表
@@ -46,20 +66,43 @@ class LanguageSettingPage(BaseFunction):
         return predict
 
     def del_language_list(self, language):
+        #取消勾选按序号从上到下 0开始
+        mlist = self.driver.find_elements_by_id('com.huawei.ohos.inputmethod:id/cb_lang')
+        print(mlist)
+        self.driver.find_elements_by_id('com.huawei.ohos.inputmethod:id/cb_lang')[0].click()
         #取消语言列表第一个勾选
-        self.find_element_click(self._check_box)
-        #传入语言
+        # self.find_element_click(self._check_box)
+        # #传入语言
         del_language_name = '//android.widget.ImageView[@content-desc="删除语言按键，双击删除 ' + language + ' 语言"]'
-        self.driver.find_element_by_xpath(del_language_name).click()
+        flag = True
+        i = 0
+        while flag:
+            time.sleep(2)
+            try:
+                self.driver.find_element_by_xpath(del_language_name).click()
+                flag = False
+                print("删除语言成功")
+            except:
+                self.swipeUp(self.driver, n=1)
+                i = i+1
+                if i == 14:
+                   flag = False
+                   print("查无此语言")
 
     def update_layout(self, layouttext1):
-        self.find_element_by_id('com.huawei.ohos.inputmethod:id/tv_layout').click()
-        self.find_element_by_text_click(layouttext1)
+        mlist = self.driver.find_elements_by_id('com.huawei.ohos.inputmethod:id/tv_layout')
+        print(mlist)
+        self.driver.find_elements_by_id('com.huawei.ohos.inputmethod:id/tv_layout')[0].click()
+        #layouttext1为设置布局
+        try:
+            self.find_element_by_text_click(layouttext1)
+            print("更换布局成功")
+            time.sleep(2)
+            self.driver.find_element_by_id('android:id/button1').click()
+        except:
+            print("查无此布局")
+            time.sleep(1)
+            self.driver.find_element_by_id('android:id/button1').click()
 
-        #获取元素
-        #text_vlaue = self.driver.find_elements_by_class_name('android.widget.CheckedTextView')
-        # # 打印页面中class_name为android.widget.TextView元素的文本内容
-        # for i in text_vlaue:
-        #     print(i.text)
 
 
