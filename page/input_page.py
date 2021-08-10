@@ -18,13 +18,6 @@ class InputPage(BaseFunction):
     _id_float_kbd_resize = (By.ID, 'com.huawei.ohos.inputmethod:id/float_kbd_resize')
     _id_float_kbd_move = (By.ID, 'com.huawei.ohos.inputmethod:id/float_kbd_move')
     _id_entry_image_button = (By.ID, 'com.huawei.ohos.inputmethod:id/entry_image_button')
-    _xpath_clipboard_data = (By.XPATH, '/hierarchy/android.widget.FrameLayout['
-                                       '4]/android.widget.LinearLayout/android.widget.FrameLayout/android.widget'
-                                       '.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout'
-                                       '/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget'
-                                       '.FrameLayout/android.widget.LinearLayout/android.widget.RelativeLayout['
-                                       '2]/android.widget.FrameLayout/android.widget.LinearLayout/androidx'
-                                       '.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]')
     _xpath_entry_back = (By.XPATH, '//android.widget.ImageView[@content-desc="隐藏键盘"]')
 
     # 点击键盘左上角menu按钮进入menu菜单，
@@ -65,16 +58,14 @@ class InputPage(BaseFunction):
         self.find_element_by_xpath_click('//*[@text="%s"]' % text)
 
     # 右手键盘切换到左手键盘模式
-    def right_keyboard_to_left(self):
-        self.find_element_by_contenet_des_click('左手键盘。双击切换为左手键盘。')
-
-    # 左手键盘切换到右手键盘模式
-    def left_keyboard_to_right(self):
-        self.find_element_by_contenet_des_click('右手键盘。双击切换为右手键盘。')
+    def switch_keyboard_to_opposite(self):
+        # self.find_element_by_contenet_des_click('左手键盘。双击切换为左手键盘。')
+        self.driver.find_element_by_id('com.huawei.ohos.inputmethod:id/one_hand_switch').click()
 
     # 单手键盘还原为普通键盘
     def return_to_normal(self):
-        self.find_element_by_contenet_des_click('标准键盘尺寸按钮。双击切换为标准键盘。')
+        # self.find_element_by_contenet_des_click('标准键盘尺寸按钮。双击切换为标准键盘。')com.huawei.ohos.inputmethod:id/one_hand_size
+        self.driver.find_element_by_id('com.huawei.ohos.inputmethod:id/one_hand_size').click()
 
     # 点击悬浮键盘还原按钮，还原至普通键盘模式
     def float_to_normal(self):
@@ -224,10 +215,6 @@ class InputPage(BaseFunction):
         # self.move_to_find_text('编辑键盘')
         # self.find_element_by_text_click('编辑键盘')
         self.find_element_by_xpath_click('//*[@text="%s"]' % '编辑键盘')
-
-    '''
-    # 待完善
-    '''
 
     def adjust_size(self, which, direction, steps, vm_x, vm_y):
         ll_drag_shadow_bounds = self.container_bounds('ll_drag_shadow', 'resource_id')
