@@ -269,14 +269,14 @@ class BaseFunction:
         time.sleep(1)  # 由于多次出现截图延迟现象（每次截图都截的是上次操作的画面），故此处设置一个等待
         os.popen("adb shell screencap -p /data/local/tmp/tmp.png")
         time.sleep(1)
-        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + 'tmp6.png'))
+        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + 'tmp.png'))
         #os.popen("adb pull /data/local/tmp/tmp1.png " + PATH('/Users/xm210407/PycharmProjects/Kika/testcase/'))
         time.sleep(1)
         os.popen("adb shell rm /data/local/tmp/tmp.png")
         time.sleep(1)
-        im = Image.open(PATH(path + "/" + 'tmp6.png'))
+        im = Image.open(PATH(path + "/" + 'tmp.png'))
         cropedIm = im.crop((0, 1020, 1079, 2200))
-        cropedIm.save(PATH(path + "/" + 'tmp6.png'))
+        cropedIm.save(PATH(path + "/" + 'tmp.png'))
 
     def compare(self, pic1, pic2):
         '''
@@ -292,9 +292,9 @@ class BaseFunction:
             reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, histogram1, histogram2))) / len(histogram1))
         print(differ)
         if differ<2:
-            print("测试通过")
+            print("应用成功")
         else:
-            print("测试不通过")
+            print("应用失败")
         return differ
 
     #滑动方法
