@@ -2,6 +2,7 @@ import json
 import math
 import operator
 import os
+import re
 import time
 from functools import reduce
 
@@ -29,15 +30,15 @@ test_case_data = get_path_data('/data/case_data.yml')
 test_adb_data = get_path_data('/data/adb_data.yml')
 
 
-
 class BaseFunction:
     def __init__(self, driver: WebDriver):
         self.driver = driver
         print(driver)
 
     # 判断元素是否存在
-    def elements_judge(self, locator):
-        if len(self.find_elements(locator)) >= 1:
+    def is_element_exist(self, element):
+        source = self.driver.page_source
+        if element in source:
             return True
         else:
             return False
@@ -48,15 +49,19 @@ class BaseFunction:
             return self.driver.find_elements(*locator)
         except:
             self.handle_exception('find_elements')
-            return self.driver.find_elements(*locator)
 
     # 寻找元素
     def find_element(self, locator):
         try:
             return self.driver.find_element(*locator)
         except:
-            self.handle_exception('find_elements')
-            return self.driver.find_element(*locator)
+            self.handle_exception('find_element')
+
+    # 通过滑动的方式寻找text
+    def move_to_find_text(self, text):
+        self.driver.find_element_by_android_uiautomator(
+            'new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector()'
+            '.text("%s").instance(0))' % text)
 
     # 定位到元素后，进行点击操作
     def find_element_click(self, locator):
@@ -83,15 +88,27 @@ class BaseFunction:
         except:
             self.handle_exception('find_element_by_text_click')
 
+    # 通过contenet-des定位元素
+    def find_element_by_contenet_des(self, contenet):
+        try:
+            return self.driver.find_element_by_android_uiautomator('new UiSelector().description("%s")' % contenet)
+        except:
+            self.handle_exception('find_element_by_contenet')
+
+    # 通过contenet-des定位元素并点击
+    def find_element_by_contenet_des_click(self, contenet):
+        try:
+            return self.driver.find_element_by_android_uiautomator(
+                'new UiSelector().description("%s")' % contenet).click()
+        except:
+            self.handle_exception('find_element_by_contenet_click')
+
     # 通过className定位元素
     def find_element_by_class(self, class_name):
         try:
             return self.driver.find_element_by_class_name(class_name)
         except:
             self.handle_exception('find_element_by_class')
-            return self.driver.find_element_by_xpath('/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/'
-                                                     'android.widget.FrameLayout[2]/android.widget.RelativeLayout/'
-                                                     'android.widget.EditText')
 
     # 通过className定位元素
     def find_element_by_class_click(self, class_name):
@@ -99,9 +116,6 @@ class BaseFunction:
             return self.driver.find_element_by_class_name(class_name).click()
         except:
             self.handle_exception('find_element_by_class_click')
-            return self.driver.find_element_by_xpath('/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/'
-                                                     'android.widget.FrameLayout[2]/android.widget.RelativeLayout/'
-                                                     'android.widget.EditText').click()
 
     # 通过 id 寻找元素
     def find_element_by_id(self, id_name):
@@ -110,18 +124,26 @@ class BaseFunction:
         except:
             self.handle_exception('find_element_by_id')
 
-    def find_element_by_xpath(self, xpath_name):
-        try:
-            return self.driver.find_element_by_xpath(xpath_name)
-        except:
-            self.handle_exception('find_element_by_xpath')
-
     # 通过 id 寻找元素并点击
     def find_element_by_id_click(self, id_name):
         try:
             return self.driver.find_element_by_id(id_name).click()
         except:
             self.handle_exception('find_element_by_id_click')
+
+    # 通过 xpath 寻找元素
+    def find_element_by_xpath(self, xpath_name):
+        try:
+            return self.driver.find_element_by_xpath(xpath_name)
+        except:
+            self.handle_exception('find_element_by_xpath')
+
+    # 通过 xpath 寻找元素并点击
+    def find_element_by_xpath_click(self, xpath_name):
+        try:
+            return self.driver.find_element_by_xpath(xpath_name).click()
+        except:
+            self.handle_exception('find_element_by_xpath_click')
 
     _gdpr_agree_button = (By.ID, 'com.huawei.ohos.inputmethod:id/btn_ok')
     _gdpr_disagree_button = (By.ID, 'com.huawei.ohos.inputmethod:id/btn_deny')
@@ -260,7 +282,7 @@ class BaseFunction:
         # self.driver.tap([(x1, y1), (x1, y1)], duration)
         self.driver.tap([(x, y), (x, y)], duration)
 
-    #截图对比
+    # 截图对比
     def screenshot(testcase):
         path = PATH(os.getcwd() + "/TestResult")
         if not os.path.isdir(PATH(os.getcwd() + "/TestResult")):
@@ -291,13 +313,13 @@ class BaseFunction:
         differ = math.sqrt(
             reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, histogram1, histogram2))) / len(histogram1))
         print(differ)
-        if differ<2:
+        if differ < 2:
             print("应用成功")
         else:
             print("应用失败")
         return differ
 
-    #滑动方法
+    # 滑动方法
     def swipeUp(self, driver, t=500, n=1):
         '''向上滑动屏幕'''
         l = self.driver.get_window_size()
@@ -334,14 +356,17 @@ class BaseFunction:
         for i in range(n):
             driver.swipe(x1, y1, x2, y1, t)
 
-
-
-
-
-
-
-
-
-
-
-
+    def container_bounds(self, resource, which_type):
+        if which_type == 'resource_id':
+            locate_container_bounds = self.find_element_by_xpath(
+                '//*[@resource-id="com.huawei.ohos.inputmethod:id/%s"]' % resource).get_attribute('bounds')
+        if which_type == 'xpath':
+            locate_container_bounds = self.driver.find_element_by_xpath('//*[@text="%s"]/following-sibling::android'
+                                                                        '.widget.SeekBar' % resource).get_attribute(
+                'bounds')
+        container_bounds_string_to_array = re.findall(r'\d+', locate_container_bounds)
+        container_sx, container_sy, container_ex, container_ey = float(container_bounds_string_to_array[0]), \
+                                                                 float(container_bounds_string_to_array[1]), \
+                                                                 float(container_bounds_string_to_array[2]), \
+                                                                 float(container_bounds_string_to_array[3])
+        return container_sx, container_sy, container_ex, container_ey
