@@ -10,11 +10,11 @@ from appium import webdriver
 import pytest
 import yaml
 
-from commons.start_service import start_appium
-# from page.app import App
 from page.main_page import MainPage
-from util.device_data import keep_port_available, get_vm_size, get_platform_version
+# from page.app import App
 from util.log_info import Log_info
+from util.device_data import keep_port_available, get_platform_version
+from commons.start_service import start_appium
 
 device_id_list = []
 desired_process = []
@@ -66,6 +66,10 @@ def set_driver_pool():
                     'appActivity': 'com.appstore.view.activity.PrimaryActivity',
                     'systemPort': sys_port,
                     'automationName': 'UiAutomator2',
+                    'disableSuppressAccessibilityService': True,
+                    'enableMultiWindows': True,
+                    'allowInvisibleElements': True,
+                    'ignoreUnimportantViews': False,
                     'id': device_id_list[i]}
 
             driver = webdriver.Remote('http://localhost:' + str(port_id) + '/wd/hub', caps)
@@ -75,6 +79,7 @@ def set_driver_pool():
             driver.implicitly_wait(5)
             Log_info().getlog('start-driver').debug(driver)
             # 设置默认输入法
+
             MainPage(driver).set_default_method().agree_gdpr().back_to_input_page()
             driver_pool.append(driver)
             # return driver_pool
