@@ -1,15 +1,14 @@
-import json
-import os
 import re
-import time
 
 from selenium.webdriver.common.by import By
 
+import golVar
 from commons.base_function import BaseFunction
-from commons.get_path import get_path
 
 
 class InputPage(BaseFunction):
+    _gdpr_join_checkbox = (By.ID, 'com.huawei.ohos.inputmethod:id/cb_join')
+    _gdpr_agree_button = (By.ID, 'com.huawei.ohos.inputmethod:id/btn_right')
     _xpath_locator_ohos = (
         By.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout')
     _xpath_locator_menu = (By.XPATH, '//*[@resource-id="com.huawei.ohos.inputmethod:id/icon"]')
@@ -42,6 +41,8 @@ class InputPage(BaseFunction):
         # else:
         #     print('当前布局不存在')
         self.find_element_by_xpath_click('//*[@text="%s"]' % text)
+        # self.set_layout(text)
+        golVar.set_value('language_layout', text)
 
     # 更改键盘模式
     def tap_keyboard_mode(self):
@@ -57,7 +58,7 @@ class InputPage(BaseFunction):
         #     print('当前模式不存在')
         self.find_element_by_xpath_click('//*[@text="%s"]' % text)
 
-    # 右手键盘切换到左手键盘模式
+    # 单手键盘右手与左手键盘模式相互切换键
     def switch_keyboard_to_opposite(self):
         # self.find_element_by_contenet_des_click('左手键盘。双击切换为左手键盘。')
         self.driver.find_element_by_id('com.huawei.ohos.inputmethod:id/one_hand_switch').click()
@@ -205,8 +206,9 @@ class InputPage(BaseFunction):
 
     # 更改主题
     def change_theme(self):
-        self.move_to_find_text('主题')
-        self.find_element_by_text_click('主题')
+        # self.move_to_find_text('主题')
+        # self.find_element_by_text_click('主题')
+        self.find_element_by_xpath_click('//*[@text="%s"]' % '主题')
         from page.theme_setting_page import ThemeSettingPage
         return ThemeSettingPage(self.driver)
 
@@ -217,6 +219,7 @@ class InputPage(BaseFunction):
         self.find_element_by_xpath_click('//*[@text="%s"]' % '编辑键盘')
 
     def adjust_size(self, which, direction, steps, vm_x, vm_y):
+        # 上下左右，4个按钮，分别以'a'、'b'、'c'、'd'代替
         ll_drag_shadow_bounds = self.container_bounds('ll_drag_shadow', 'resource_id')
         sx, sy, ex, ey = ll_drag_shadow_bounds[0], ll_drag_shadow_bounds[1], \
                          ll_drag_shadow_bounds[2], ll_drag_shadow_bounds[3]
@@ -281,6 +284,7 @@ class InputPage(BaseFunction):
     def tap_clipboard(self):
         self.find_element_by_xpath_click('//*[@text="%s"]' % '剪贴板')
 
+    # 剪切板内容最多显示 3 条，which_one = 1 / 2 / 3
     def clipboard_func(self, which_one, do_what):
         # self.move_to_find_text('剪贴板')
         # self.find_element_by_text_click('剪贴板')
@@ -304,6 +308,7 @@ class InputPage(BaseFunction):
     '''
         使用选择器时，选中'选择'按钮后，点击方向键选中字符，注意要从前往后，从后往前 appium 会报错
     '''
+
     # do_what 为编辑页面中对应的按钮操作，具体值见下方 value 部分
     def edit_operation(self, do_what):
         choice_round_bounds = self.container_bounds('choice_round', 'resource_id')
@@ -373,12 +378,12 @@ class InputPage(BaseFunction):
     # 点击设置
     def tap_setting(self):
         # self.move_to_find_text('设置')
-        self.find_element_by_xpath_click('//*[@text="%s"]' % '机械键盘')
+        self.find_element_by_xpath_click('//*[@text="%s"]' % '设置')
         # self.find_element_by_text_click('设置')
         from page.keyboard_setting_page import KeyboardSettingPage
         return KeyboardSettingPage(self.driver)
 
-    # 调整振动 percent 为占比，如：50%
+    # 调整振动 percent 为占比，如：0.5
     def adjust_vibration(self, percent):
         vibration_adjust_bounds = self.container_bounds('按键振动', 'xpath')
         s_x, s_y, e_x, e_y = vibration_adjust_bounds[0], vibration_adjust_bounds[1], \
@@ -387,7 +392,7 @@ class InputPage(BaseFunction):
         width = e_x - s_x
         self.driver.tap([(percent * width, m_y)])
 
-    # 调整音量 percent 为占比，如：50%
+    # 调整音量 percent 为占比，如：0.5
     def adjust_sound(self, percent):
         sound_adjust_bounds = self.container_bounds('按键音量', 'xpath')
         s_x, s_y, e_x, e_y = sound_adjust_bounds[0], sound_adjust_bounds[1], \
@@ -398,6 +403,48 @@ class InputPage(BaseFunction):
 
     # 进入音量调节页面
     def enter_keyboard_sound_page(self):
-        self.find_element_by_xpath_click('//*[@text="按键音效"]')
+        # try:
+        #     self.find_element_by_xpath_click('//*[@text="按键音效"]')
+        # except:
+        container_bounds = self.container_bounds('recycler_view', 'resource_id')
+        self.driver.swipe((container_bounds[0] + container_bounds[2]) / 2,
+                          (container_bounds[3] - 1),
+                          (container_bounds[0] + container_bounds[2]) / 2,
+                          (container_bounds[1] + 1))
+        self.driver.find_element_by_xpath('//*[@text="%s"]' % '按键音效').click()
         from page.sound_effect_page import SoundEffectPage
         return SoundEffectPage(self.driver)  # KeyboardSoundPage
+
+    # 长按语言切换按钮，弹出的语言框，若未找到对应元素则滑动再次查询，直到滑动到底部
+    def language_picker_list(self, which_one):
+        language_picker_list_bounds = self.container_bounds('kbb_language_picker_list', 'resource_id')
+        continue_swipe = True
+        while continue_swipe:
+            try:
+                self.driver.find_element_by_xpath('//*[@text="%s"]' % which_one).click()
+                continue_swipe = False
+            except:
+                before_swipe = self.driver.page_source
+                self.driver.swipe((language_picker_list_bounds[0] + language_picker_list_bounds[2]) / 2,
+                                  (language_picker_list_bounds[3] - 1),
+                                  (language_picker_list_bounds[0] + language_picker_list_bounds[2]) / 2,
+                                  (language_picker_list_bounds[1] + 1))
+                after_swipe = self.driver.page_source
+                if after_swipe == before_swipe:
+                    continue_swipe = False
+
+    def deal_sys_dialog(self, which_one, do_what):
+        if self.is_element_exist(which_one):
+            self.driver.find_element_by_xpath('//*[@text="%s"]' % do_what).click()
+
+    def set_default_inputmethod(self, name):
+        if name == 'ziyan':
+            inputmethod = 'com.huawei.ohos.inputmethod/com.android.inputmethod.latin.LatinIME'
+        self.driver.activate_ime_engine(inputmethod)
+
+    def deal_gdpr_informal(self):
+        if self.is_element_exist('Celia Keyboard'):
+            self.find_element_click(self._gdpr_join_checkbox)
+            self.find_element_click(self._gdpr_agree_button)
+
+

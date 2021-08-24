@@ -1,0 +1,199 @@
+{ 
+  "packageName": "com.huawei.ohos.inputmethod",
+  "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
+  "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
+  "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",
+  "keyboardType": "kikaoem2",
+  "keys": [
+    {
+      "x": 0.287,
+      "y": 0.7,
+      "code": "…"
+    },
+    {
+      "x": 0.5,
+      "y": 0.7,
+      "code": "a"
+    },
+    {
+      "x": 0.5,
+      "y": 0.7,
+      "code": "b"
+    },
+    {
+      "x": 0.5,
+      "y": 0.7,
+      "code": "c"
+    },
+    {
+      "x": 0.712,
+      "y": 0.7,
+      "code": "d"
+    },
+    {
+      "x": 0.712,
+      "y": 0.7,
+      "code": "e"
+    },
+    {
+      "x": 0.712,
+      "y": 0.7,
+      "code": "f"
+    },
+    {
+      "x": 0.287,
+      "y": 0.765,
+      "code": "g"
+    },
+    {
+      "x": 0.287,
+      "y": 0.765,
+      "code": "h"
+    },
+    {
+      "x": 0.287,
+      "y": 0.765,
+      "code": "i"
+    },
+    {
+      "x": 0.5,
+      "y": 0.765,
+      "code": "j"
+    },
+    {
+      "x": 0.5,
+      "y": 0.765,
+      "code": "k"
+    },
+    {
+      "x": 0.5,
+      "y": 0.765,
+      "code": "l"
+    },
+    {
+      "x": 0.712,
+      "y": 0.765,
+      "code": "m"
+    },
+    {
+      "x": 0.712,
+      "y": 0.765,
+      "code": "n"
+    },
+    {
+      "x": 0.712,
+      "y": 0.765,
+      "code": "o"
+    },
+    {
+      "x": 0.287,
+      "y": 0.833,
+      "code": "p"
+    },
+    {
+      "x": 0.287,
+      "y": 0.833,
+      "code": "q"
+    },
+    {
+      "x": 0.287,
+      "y": 0.833,
+      "code": "r"
+    },
+    {
+      "x": 0.287,
+      "y": 0.833,
+      "code": "s"
+    },
+    {
+      "x": 0.5,
+      "y": 0.833,
+      "code": "t"
+    },
+    {
+      "x": 0.5,
+      "y": 0.833,
+      "code": "u"
+    },
+    {
+      "x": 0.5,
+      "y": 0.833,
+      "code": "v"
+    },
+    {
+      "x": 0.712,
+      "y": 0.833,
+      "code": "w"
+    },
+    {
+      "x": 0.712,
+      "y": 0.833,
+      "code": "x"
+    },
+    {
+      "x": 0.712,
+      "y": 0.833,
+      "code": "y"
+    },
+    {
+      "x": 0.712,
+      "y": 0.833,
+      "code": "z"
+    },
+    {
+      "x": 0.098,
+      "y": 0.838,
+      "code": "！"
+    },
+    {
+      "x": 0.907,
+      "y": 0.7,
+      "code": "delete"
+    },
+    {
+      "x": 0.907,
+      "y": 0.765,
+      "code": "emjo"
+    },
+    {
+      "x": 0.5,
+      "y": 0.91,
+      "code": "space"
+    },
+    {
+      "x":0.92,
+      "y": 0.868,
+      "code": "enter"
+    },
+    {
+      "x": 0.712,
+      "y": 0.91,
+      "code": "123"
+    },
+    {
+      "x": 0.098,
+      "y": 0.91,
+      "code": "symbol"
+    },
+    {
+      "x": 0.098,
+      "y": 0.695,
+      "code": "，"
+    },    
+    {
+      "x": 0.287,
+      "y": 0.91,
+      "code": "switch"
+    },
+    {
+      "x": 0.098,
+      "y": 0.91,
+      "code": "。"
+    },
+    {
+      "x": 0.095,
+      "y": 0.785,
+      "code": "？"
+    }
+  ]
+}
