@@ -29,6 +29,9 @@ class ThemeSettingPage(BaseFunction):
         from page.keyboard_setting_page import KeyboardSettingPage
         return KeyboardSettingPage(self.driver)
 
+    def back_to_previous_page(self):
+        self.driver.back()
+
     def switch_them1(self):
         if self.driver.find_elements_by_xpath(self._xpath_them1_pre_select):
             print("不为当前主题")
@@ -36,10 +39,10 @@ class ThemeSettingPage(BaseFunction):
         else:
             print("为当前主题")
             self.driver.find_element_by_xpath(self._xpath_them1_now_select).click()
-        self.screenshot()
-        #比较截图是否一致
-        self.compare(r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/theme1.png',
-                     r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/tmp.png')
+        # self.screenshot()
+        # #比较截图是否一致
+        # self.compare(r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/theme1.png',
+        #              r'/Users/xm210407/PycharmProjects/Kika/testcase/TestResult/tmp.png')
         self.find_element_by_text_click('快来试试吧。')
         return ThemeSettingPage(self.driver)
 

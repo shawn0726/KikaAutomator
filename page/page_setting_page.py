@@ -4,13 +4,14 @@ from xmlrpc.client import boolean, Boolean
 
 from commons.base_function import BaseFunction
 from selenium.webdriver.common.by import By
+
+
 # import sys
 # sys.setrecursionlimit(100000)
 
 
 class PageSettingPage(BaseFunction):
-    _xpath_locator_page_setting_back = (By.XPATH, '//android.widget.ImageButton[@content-desc="转到上一层级"]'
-                                                  'android.widget.LinearLayout[2]/android.widget.RelativeLayout')
+    _xpath_locator_page_setting_back = (By.XPATH, '//android.widget.ImageButton[@content-desc="转到上一层级"]')
     _delay_capitalization_checkbox = (By.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/'
                                                 'android.widget.FrameLayout/android.widget.LinearLayout/'
                                                 'android.widget.FrameLayout/android.view.ViewGroup/'
@@ -44,24 +45,36 @@ class PageSettingPage(BaseFunction):
         return KeyboardSettingPage(self.driver)
 
     def check_bubble_capitalization(self, checkbox):
-        nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
+        nowstatus = self.driver.find_element_by_xpath('//*[@text="按键气泡"]/../following-sibling::android.widget'
+                                                      '.LinearLayout/android.widget.CheckBox').get_attribute('checked')
+        # nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
         print(nowstatus)
         if checkbox == 'select':
             if nowstatus == 'true':
-                nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
+                # nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
                 print('勾选状态为', nowstatus)
             if nowstatus == 'false':
-               self.driver.find_element_by_xpath(self._select_bubble).click()
-               nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
-               print('勾选状态为', nowstatus)
+                # self.driver.find_element_by_xpath(self._select_bubble).click()
+                # nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
+                self.driver.find_element_by_xpath('//*[@text="按键气泡"]/../following-sibling::android.widget'
+                                                  '.LinearLayout/android.widget.CheckBox').click()
+                nowstatus = self.driver.find_element_by_xpath('//*[@text="按键气泡"]/../following-sibling::android.widget'
+                                                              '.LinearLayout/android.widget.CheckBox').get_attribute(
+                    'checked')
+                print('勾选状态为', nowstatus)
 
         if checkbox == 'noselect':
             if nowstatus == 'true':
-                self.driver.find_element_by_xpath(self._select_bubble).click()
-                nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
+                # self.driver.find_element_by_xpath(self._select_bubble).click()
+                # nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
+                self.driver.find_element_by_xpath('//*[@text="按键气泡"]/../following-sibling::android.widget'
+                                                  '.LinearLayout/android.widget.CheckBox').click()
+                nowstatus = self.driver.find_element_by_xpath('//*[@text="按键气泡"]/../following-sibling::android.widget'
+                                                              '.LinearLayout/android.widget.CheckBox').get_attribute(
+                    'checked')
                 print('勾选状态为', nowstatus)
             if nowstatus == 'false':
-                nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
+                # nowstatus = self.driver.find_element_by_xpath(self._select_bubble).get_attribute('checked')
                 print('勾选状态为', nowstatus)
 
     def check_number_capitalization(self, checkbox):
@@ -87,8 +100,8 @@ class PageSettingPage(BaseFunction):
 
     def to_key_delay_page(self):
         self.find_element_click(self._delay_capitalization_checkbox)
-        #self.find_element_click(self._progress_bar_capitalization_checkbox)
-        #self.swipLeft(self.driver, t=1000, n=600)
+        # self.find_element_click(self._progress_bar_capitalization_checkbox)
+        # self.swipLeft(self.driver, t=1000, n=600)
         from page.key_delay_page import KeyDelayPage
         return KeyDelayPage(self.driver)
 

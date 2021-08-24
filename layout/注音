@@ -1,0 +1,59 @@
+{ 
+  "packageName": "com.huawei.ohos.inputmethod",
+  "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
+  "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
+  "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",
+  "keyboardType": "kikaoem2",
+  "keys": [
+    {
+      "x": 0.712,
+      "y": 0.833,
+      "code": "；"
+    },
+    {
+      "x": 0.848,
+      "y": 0.91,
+      "code": "delete"
+    },
+    {
+      "x": 0.75,
+      "y": 0.91,
+      "code": "emjo"
+    },
+    {
+      "x": 0.5,
+      "y": 0.91,
+      "code": "space"
+    },
+    {
+      "x": 0.945,
+      "y": 0.91,
+      "code": "enter"
+    },
+    {
+      "x": 0.058,
+      "y": 0.91,
+      "code": "123"
+    },
+    {
+      "x": 0.098,
+      "y": 0.91,
+      "code": "symbol"
+    },
+    {
+      "x": 0.354,
+      "y": 0.695,
+      "code": "，"
+    },    
+    {
+      "x": 0.158,
+      "y": 0.91,
+      "code": "switch"
+    },
+    {
+      "x": 0.658,
+      "y": 0.91,
+      "code": "。"
+    }
+  ]
+}

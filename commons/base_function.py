@@ -6,15 +6,14 @@ import re
 import time
 from functools import reduce
 
+import numpy
 from PIL import ImageChops
 from PIL.Image import Image, new
-from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
+import golVar
 from commons.get_path import get_path, get_path_data
-from util.log_info import Log_info
-
 from util.log_info import Log_info
 import time
 import os
@@ -69,7 +68,6 @@ class BaseFunction:
             return self.find_element(locator).click()
         except:
             self.handle_exception('find_element_click')
-            return self.find_element(locator).click()
 
     def handle_exception(self, ex_type):
         Log_info().getlog(ex_type).debug(self)
@@ -162,13 +160,15 @@ class BaseFunction:
     # 输入字符
     def input_characters(self, words, device_id, screen_size_width, screen_size_height):
         if len(words) != 0:
-            relative_layout_data_path = get_path('/layout/relative_layout_en')
+            language_layout = golVar.get_value('language_layout')
+            print('language_layout:', language_layout)
+            relative_layout_data_path = get_path('/layout/%s' % language_layout)
             with open(relative_layout_data_path) as file:
                 keys_data = json.loads(file.read())
                 keys_list = keys_data['keys']
                 print(keys_list, type(keys_list))
             if (words == 'space') | (words == 'symbol') | (words == 'quotation') | (words == 'enter') | (
-                    words == 'delete') | (words == 'shift') | (words == 'switch'):
+                    words == 'delete') | (words == 'shift') | (words == 'switch') | (words == 'emjo'):
                 self.click_keys(words, keys_list, device_id, screen_size_width, screen_size_height)
             elif words == ',':
                 self.click_keys(words, keys_list, device_id, screen_size_width, screen_size_height)
@@ -245,13 +245,15 @@ class BaseFunction:
     # 长按元素
     def long_press(self, words, device_id, screen_size_width, screen_size_height):
         if len(words) != 0:
-            relative_layout_data_path = get_path('/layout/relative_layout_en')
+            language_layout = golVar.get_value('language_layout')
+            print('language_layout:', language_layout)
+            relative_layout_data_path = get_path('/layout/%s' % language_layout)
             with open(relative_layout_data_path) as file:
                 keys_data = json.loads(file.read())
                 keys_list = keys_data['keys']
                 print(keys_list, type(keys_list))
             if (words == 'space') | (words == 'symbol') | (words == 'quotation') | (words == 'enter') | (
-                    words == 'delete') | (words == 'shift') | (words == 'switch'):
+                    words == 'delete') | (words == 'shift') | (words == 'switch') | (words == 'emjo'):
                 self.long_click_keys(words, keys_list, device_id, screen_size_width, screen_size_height)
             elif words == ',':
                 self.long_click_keys('symbol', keys_list, device_id, screen_size_width, screen_size_height)
@@ -283,7 +285,7 @@ class BaseFunction:
         self.driver.tap([(x, y), (x, y)], duration)
 
     # 截图对比
-    def screenshot(testcase):
+    def screenshot(self, name):
         path = PATH(os.getcwd() + "/TestResult")
         if not os.path.isdir(PATH(os.getcwd() + "/TestResult")):
             os.makedirs(path)
@@ -291,14 +293,37 @@ class BaseFunction:
         time.sleep(1)  # 由于多次出现截图延迟现象（每次截图都截的是上次操作的画面），故此处设置一个等待
         os.popen("adb shell screencap -p /data/local/tmp/tmp.png")
         time.sleep(1)
-        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + 'tmp.png'))
-        #os.popen("adb pull /data/local/tmp/tmp1.png " + PATH('/Users/xm210407/PycharmProjects/Kika/testcase/'))
+        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + name + '_tmp.png'))
+        # os.popen("adb pull /data/local/tmp/tmp1.png " + PATH('/Users/xm210407/PycharmProjects/Kika/testcase/'))
         time.sleep(1)
         os.popen("adb shell rm /data/local/tmp/tmp.png")
         time.sleep(1)
-        im = Image.open(PATH(path + "/" + 'tmp.png'))
+        im = Image.open(PATH(path + "/" + name + '_tmp.png'))
         cropedIm = im.crop((0, 1020, 1079, 2200))
-        cropedIm.save(PATH(path + "/" + 'tmp.png'))
+        cropedIm.save(PATH(path + "/" + name + '_tmp.png'))
+        return PATH(path + "/" + name + '_tmp.png')
+
+    # 截图对比
+    def screenshot2(self, name):
+        path = PATH(os.getcwd() + "/TestResult")
+        if not os.path.isdir(PATH(os.getcwd() + "/TestResult")):
+            os.makedirs(path)
+        os.popen("adb wait-for-device")
+        time.sleep(1)  # 由于多次出现截图延迟现象（每次截图都截的是上次操作的画面），故此处设置一个等待
+        os.popen("adb shell screencap -p /data/local/tmp/tmp.png")
+        time.sleep(1)
+        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + name + '_tmp.png'))
+        time.sleep(1)
+        os.popen("adb shell rm /data/local/tmp/tmp.png")
+        time.sleep(1)
+        im = Image.open(PATH(path + "/" + name + '_tmp.png'))
+        if self.is_element_exist('resource-id="com.huawei.ohos.inputmethod:id/scale_view'):
+            crop_bounds = self.container_bounds('scale_view', 'resource_id')
+        else:
+            crop_bounds = self.container_bounds('keyboard_main_view', 'resource_id')
+        cropedIm = im.crop((crop_bounds[0], crop_bounds[1], crop_bounds[2], crop_bounds[3]))
+        cropedIm.save(PATH(path + "/" + name + '_tmp.png'))
+        return PATH(path + "/" + name + '_tmp.png')
 
     def compare(self, pic1, pic2):
         '''
@@ -318,7 +343,35 @@ class BaseFunction:
         else:
             print("应用失败")
         return differ
-
+    '''
+    def compare2(self, image, target):
+        
+        :param pic1: 图片1路径
+        :param pic2: 图片2路径
+        :return: 返回对比的结果
+        
+        image = r'c:\temp\1.jpg'
+        # target = r'c:\temp\2.jd03a4b21edd545812af46e7f84cc.jpg'
+        target = r'c:\temp\Download-HD-Bamboo-Wallpapers.jpg'
+        # target = r'c:\temp\Free-HD-Bamboo-Wallpapers-Download.jpg'
+        img_gray = cv2.imread(target, cv2.IMREAD_GRAYSCALE)
+        tImg = cv2.imread(image, cv2.IMREAD_GRAYSCALE)
+        h, w = tImg.shape[:2]
+        h0 = h // 4
+        h1 = h - h // 4
+        w0 = w // 4
+        w1 = w - w // 4
+        template = tImg[h0:h1, w0:w1]
+        w, h = template.shape[::-1]
+        res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+        threshold = 0.9
+        loc = numpy.where(res >= threshold)
+        print(loc)
+        if len(loc[0]):
+            print("True")
+        else:
+            print("False")
+    '''
     # 滑动方法
     def swipeUp(self, driver, t=500, n=1):
         '''向上滑动屏幕'''
@@ -370,3 +423,6 @@ class BaseFunction:
                                                                  float(container_bounds_string_to_array[2]), \
                                                                  float(container_bounds_string_to_array[3])
         return container_sx, container_sy, container_ex, container_ey
+
+    def back_to_previous_page(self):
+        self.driver.back()
