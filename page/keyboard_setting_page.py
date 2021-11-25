@@ -9,7 +9,7 @@ from page.language_setting_page import LanguageSettingPage
 from page.theme_setting_page import ThemeSettingPage
 from page.font_setting_page import FontSettingPage
 from page.page_setting_page import PageSettingPage
-from page.input_setting_page import InputSettingPage
+from page.input_setting_page2 import InputSettingPage
 from page.voice_setting_page import VoiceSettingPage
 from page.about_setting_page import AboutSettingPage
 

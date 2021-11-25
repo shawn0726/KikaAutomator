@@ -6,7 +6,7 @@ from page.gdpr_page import GdprPage
 
 class MainPage(BaseFunction):
     def set_default_method(self):
-        # if len(self.driver.find_element_by_id('com.huawei.ohos.inputmethod:id/cb_join')) > 1:
+        # if len(self.driver.find_element_by_id('com.kika.photon.inputmethod:id/cb_join')) > 1:
         #     return GdprPage(self.driver)
         #
         main_page = MainPage(self.driver)
@@ -14,10 +14,10 @@ class MainPage(BaseFunction):
         if main_page.is_element_exist('1.在设置中启用'):
             if main_page.find_element_by_text('1.在设置中启用').is_enabled():
                 main_page.find_element_by_text_click('1.在设置中启用')
-                # 进入'语言和输入法'设置页面，通过滑动的方式，寻找并选择'小艺输入法'
-                main_page.move_to_find_text('小艺输入法')
-                # 通过'小艺输入法'text定位同级元素，即右侧的滑块
-                self.driver.find_element_by_xpath('//*[@text="小艺输入法"]/../following-sibling::android.widget'
+                # 进入'语言和输入法'设置页面，通过滑动的方式，寻找并选择'光子输入法'
+                main_page.move_to_find_text('光子输入法')
+                # 通过'光子输入法'text定位同级元素，即右侧的滑块
+                self.driver.find_element_by_xpath('//*[@text="光子输入法"]/../following-sibling::android.widget'
                                                   '.LinearLayout//*[@resource-id="android:id/switch_widget"]').click()
                 # 点击注意弹框中的'确定'按钮
                 main_page.find_element_by_text_click('确定')
@@ -25,6 +25,6 @@ class MainPage(BaseFunction):
             #     首先判断'2.选择输入法'是否可以点击
             if main_page.find_element_by_text('2.选择输入法').is_enabled():
                 main_page.find_element_by_text_click('2.选择输入法')
-                main_page.find_element_by_text_click('小艺输入法')
+                main_page.find_element_by_text_click('光子输入法')
                 return GdprPage(self.driver)
         return GdprPage(self.driver)

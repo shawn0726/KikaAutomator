@@ -1,1 +1,0 @@
-[35mDEBUG   [0m start-driver:app.py:24 <appium.webdriver.webdriver.WebDriver (session="0c90a73c-deab-460f-b00f-cb447e28c21a")>

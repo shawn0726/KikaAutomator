@@ -4,19 +4,21 @@ from selenium.webdriver.common.by import By
 
 import golVar
 from commons.base_function import BaseFunction
+from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.common.multi_action import MultiAction
 
 
 class InputPage(BaseFunction):
-    _gdpr_join_checkbox = (By.ID, 'com.huawei.ohos.inputmethod:id/cb_join')
-    _gdpr_agree_button = (By.ID, 'com.huawei.ohos.inputmethod:id/btn_right')
+    _gdpr_join_checkbox = (By.ID, 'com.kika.photon.inputmethod:id/cb_join')
+    _gdpr_agree_button = (By.ID, 'com.kika.photon.inputmethod:id/btn_right')
     _xpath_locator_ohos = (
         By.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout')
-    _xpath_locator_menu = (By.XPATH, '//*[@resource-id="com.huawei.ohos.inputmethod:id/icon"]')
+    _xpath_locator_menu = (By.XPATH, '//*[@resource-id="com.kika.photon.inputmethod:id/icon"]')
     _xpath_locator_sound_vibration = (By.XPATH, '//*[@text="音效和振动"]')
-    _id_float_kbd_restore = (By.ID, 'com.huawei.ohos.inputmethod:id/float_kbd_restore')
-    _id_float_kbd_resize = (By.ID, 'com.huawei.ohos.inputmethod:id/float_kbd_resize')
-    _id_float_kbd_move = (By.ID, 'com.huawei.ohos.inputmethod:id/float_kbd_move')
-    _id_entry_image_button = (By.ID, 'com.huawei.ohos.inputmethod:id/entry_image_button')
+    _id_float_kbd_restore = (By.ID, 'com.kika.photon.inputmethod:id/float_kbd_restore')
+    _id_float_kbd_resize = (By.ID, 'com.kika.photon.inputmethod:id/float_kbd_resize')
+    _id_float_kbd_move = (By.ID, 'com.kika.photon.inputmethod:id/float_kbd_move')
+    _id_entry_image_button = (By.ID, 'com.kika.photon.inputmethod:id/entry_image_button')
     _xpath_entry_back = (By.XPATH, '//android.widget.ImageView[@content-desc="隐藏键盘"]')
 
     # 点击键盘左上角menu按钮进入menu菜单，
@@ -61,12 +63,12 @@ class InputPage(BaseFunction):
     # 单手键盘右手与左手键盘模式相互切换键
     def switch_keyboard_to_opposite(self):
         # self.find_element_by_contenet_des_click('左手键盘。双击切换为左手键盘。')
-        self.driver.find_element_by_id('com.huawei.ohos.inputmethod:id/one_hand_switch').click()
+        self.driver.find_element_by_id('com.kika.photon.inputmethod:id/one_hand_switch').click()
 
     # 单手键盘还原为普通键盘
     def return_to_normal(self):
-        # self.find_element_by_contenet_des_click('标准键盘尺寸按钮。双击切换为标准键盘。')com.huawei.ohos.inputmethod:id/one_hand_size
-        self.driver.find_element_by_id('com.huawei.ohos.inputmethod:id/one_hand_size').click()
+        # self.find_element_by_contenet_des_click('标准键盘尺寸按钮。双击切换为标准键盘。')com.kika.photon.inputmethod:id/one_hand_size
+        self.driver.find_element_by_id('com.kika.photon.inputmethod:id/one_hand_size').click()
 
     # 点击悬浮键盘还原按钮，还原至普通键盘模式
     def float_to_normal(self):
@@ -160,11 +162,11 @@ class InputPage(BaseFunction):
 
     # 点击悬浮键盘上的'恢复默认'按钮，恢复到默认设置
     def float_restore_default(self):
-        self.find_element_by_xpath_click('//*[@resource-id="com.huawei.ohos.inputmethod:id/%s"]' % 'restore_default')
+        self.find_element_by_xpath_click('//*[@resource-id="com.kika.photon.inputmethod:id/%s"]' % 'restore_default')
 
     # 点击悬浮键盘上的'确认'按钮，确认设置。双击保存当前键盘尺寸
     def float_finish_resize(self):
-        self.find_element_by_xpath_click('//*[@resource-id="com.huawei.ohos.inputmethod:id/%s"]' % 'finish_resize')
+        self.find_element_by_xpath_click('//*[@resource-id="com.kika.photon.inputmethod:id/%s"]' % 'finish_resize')
 
     def float_to_move(self, direction, steps):
         # 悬浮键盘共分：上、中、下，3部分，移动至边界时，移动的最大值需要考虑到容器的高度与宽度
@@ -179,7 +181,7 @@ class InputPage(BaseFunction):
         float_extra_container_bottom_hight = float_extra_container_bottom[3] - float_extra_container_bottom[1]
         # 首先获取悬浮按钮的位置
         float_kbd_move_bounds = self.find_element_by_xpath(
-            '//*[@resource-id="com.huawei.ohos.inputmethod:id/float_kbd_move"]').get_attribute('bounds')
+            '//*[@resource-id="com.kika.photon.inputmethod:id/float_kbd_move"]').get_attribute('bounds')
         bounds_string_to_array = re.findall(r'\d+', float_kbd_move_bounds)
         sx, sy, ex, ey = float(bounds_string_to_array[0]), float(bounds_string_to_array[1]), \
                          float(bounds_string_to_array[2]), float(bounds_string_to_array[3])
@@ -289,7 +291,7 @@ class InputPage(BaseFunction):
         # self.move_to_find_text('剪贴板')
         # self.find_element_by_text_click('剪贴板')
         # self.find_element_click(self._xpath_clipboard_data)
-        self.find_element_by_xpath_click('//*[@resource-id="com.huawei.ohos.inputmethod:id/recycler_view"]/android'
+        self.find_element_by_xpath_click('//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view"]/android'
                                          '.widget.FrameLayout[%d]' % which_one)
         if do_what == '粘贴':
             resource_id = 'button_paste'
@@ -297,7 +299,7 @@ class InputPage(BaseFunction):
             resource_id = 'button_remove'
         if do_what == '取消':
             resource_id = 'button_cancel'
-        self.find_element_by_xpath_click('//*[@resource-id="com.huawei.ohos.inputmethod:id/%s"]' % resource_id)
+        self.find_element_by_xpath_click('//*[@resource-id="com.kika.photon.inputmethod:id/%s"]' % resource_id)
 
     # 编辑-全选、复制、粘贴、剪切板
     def tap_edit(self):
@@ -357,7 +359,7 @@ class InputPage(BaseFunction):
             resource_id = 'choice_right_image_relay'
         if do_what == '选择':
             resource_id = 'choice_text'
-        self.find_element_by_xpath_click('//*[@resource-id="com.huawei.ohos.inputmethod:id/%s"]' % resource_id)
+        self.find_element_by_xpath_click('//*[@resource-id="com.kika.photon.inputmethod:id/%s"]' % resource_id)
 
     # 点击音效和振动
     def tap_sound_vibration(self):
@@ -378,14 +380,19 @@ class InputPage(BaseFunction):
     # 点击设置
     def tap_setting(self):
         # self.move_to_find_text('设置')
-        self.find_element_by_xpath_click('//*[@text="%s"]' % '设置')
+        if self.find_element_by_xpath('//*[@text="%s"]' % '设置').get_attribute('displayed') == 'true':
+            self.find_element_by_xpath_click('//*[@text="%s"]' % '设置')
+        else:
+            print('44444444')
+            self.scroll_to_find_menu('recycler_view', '设置')
         # self.find_element_by_text_click('设置')
         from page.keyboard_setting_page import KeyboardSettingPage
         return KeyboardSettingPage(self.driver)
 
     # 调整振动 percent 为占比，如：0.5
     def adjust_vibration(self, percent):
-        vibration_adjust_bounds = self.container_bounds('按键振动', 'xpath')
+        vibration_adjust_bounds = self.container_bounds('//*[@text="按键振动"]/following-sibling::android.widget.SeekBar'
+                                                        , 'xpath')
         s_x, s_y, e_x, e_y = vibration_adjust_bounds[0], vibration_adjust_bounds[1], \
                              vibration_adjust_bounds[2], vibration_adjust_bounds[3]
         m_y = (s_y + e_y) / 2
@@ -394,8 +401,9 @@ class InputPage(BaseFunction):
 
     # 调整音量 percent 为占比，如：0.5
     def adjust_sound(self, percent):
-        sound_adjust_bounds = self.container_bounds('按键音量', 'xpath')
-        s_x, s_y, e_x, e_y = sound_adjust_bounds[0], sound_adjust_bounds[1], \
+        sound_adjust_bounds = self.container_bounds('//*[@text="按键音量"]/following-sibling::android.widget.SeekBar'
+                                                    , 'xpath')
+        s_x, s_y, e_x, e_y = sound_adjust_bounds[0], sound_adjust_bounds[1],\
                              sound_adjust_bounds[2], sound_adjust_bounds[3]
         m_y = (s_y + e_y) / 2
         width = e_x - s_x
@@ -437,14 +445,62 @@ class InputPage(BaseFunction):
         if self.is_element_exist(which_one):
             self.driver.find_element_by_xpath('//*[@text="%s"]' % do_what).click()
 
+    def deal_sys_dialog1(self):
+        self.driver.switch_to_alert()
+
     def set_default_inputmethod(self, name):
         if name == 'ziyan':
-            inputmethod = 'com.huawei.ohos.inputmethod/com.android.inputmethod.latin.LatinIME'
+            inputmethod = 'com.kika.photon.inputmethod/com.android.inputmethod.latin.LatinIME'
         self.driver.activate_ime_engine(inputmethod)
 
     def deal_gdpr_informal(self):
         if self.is_element_exist('Celia Keyboard'):
             self.find_element_click(self._gdpr_join_checkbox)
             self.find_element_click(self._gdpr_agree_button)
+
+    # 候选词从左到右，依次为1、2、3
+    def click_which_candidate(self, which_one):
+        self.driver.find_element_by_xpath('//android.widget.TextView[%d]' % which_one).click()
+
+    def find_candidate(self, which_one):
+        text = self.driver.find_element_by_xpath('//android.widget.TextView[%d]' % which_one).get_attribute('text')
+        print('text:', text)
+        return text
+    '''
+    url_www:www.
+    url_point:.
+    url_slash:/
+    url_com:.com
+    left_layout:左箭头
+    right_layout:右箭头
+    '''
+    def click_url(self, which_one):
+        self.driver.find_element_by_xpath('//*[@resource-id="com.kika.photon.inputmethod:id/%s"]' % which_one).click()
+
+    def write_words(self):
+        action1 = TouchAction(self.driver)
+        action1.press(x=268, y=1487).move_to(x=86, y=1673).release()
+        action2 = TouchAction(self.driver)
+        action2.wait(500).press(x=182, y=1611).move_to(x=110, y=1950).release()
+        action3 = TouchAction(self.driver)
+        action3.wait(1000).press(x=401, y=1596).move_to(x=750, y=1606).release()
+        action4 = TouchAction(self.driver)
+        action4.wait(1500).press(x=306, y=1816).move_to(x=817, y=1859).release()
+        mul_action = MultiAction(self.driver)
+        mul_action.add(action1, action2, action3, action4)
+        # mul_action.add(action1).add(action2).add(action3).add(action4).perform()
+        mul_action.perform()
+
+    def write_words1(self):
+        action1 = TouchAction(self.driver)
+        action1.press(x=268, y=1487).move_to(x=86, y=1673).release().perform()
+        action2 = TouchAction(self.driver)
+        action2.press(x=182, y=1611).move_to(x=110, y=1950).release().perform()
+
+    def write_words2(self):
+        action1 = TouchAction(self.driver)
+        action1.press(x=268, y=1587).move_to(x=86, y=1773).release().press(x=182, y=1711).move_to(x=110, y=2050).release().perform()
+
+
 
 

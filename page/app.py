@@ -12,7 +12,7 @@ class App:
     def start(self, port, device, sysPort):
         caps = {'platformName': 'Android', 'platformVersion': '8.1', 'deviceName': 'nexus 6p',
                 'newCommandTimeout': 2000,
-                'appPackage': 'com.huawei.ohos.inputmethod',
+                'appPackage': 'com.kika.photon.inputmethod',
                 'appActivity': 'com.appstore.view.activity.PrimaryActivity',
                 'systemPort': sysPort,
                 'id': device}

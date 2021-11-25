@@ -143,9 +143,9 @@ class BaseFunction:
         except:
             self.handle_exception('find_element_by_xpath_click')
 
-    _gdpr_agree_button = (By.ID, 'com.huawei.ohos.inputmethod:id/btn_ok')
-    _gdpr_disagree_button = (By.ID, 'com.huawei.ohos.inputmethod:id/btn_deny')
-    _gdpr_learn_more_button = (By.ID, 'com.huawei.ohos.inputmethod:id/tv_content2')
+    _gdpr_agree_button = (By.ID, 'com.kika.photon.inputmethod:id/btn_ok')
+    _gdpr_disagree_button = (By.ID, 'com.kika.photon.inputmethod:id/btn_deny')
+    _gdpr_learn_more_button = (By.ID, 'com.kika.photon.inputmethod:id/tv_content2')
 
     # 点击键盘按键
     def click_keys(self, words, keys_list, device_id, screen_size_width, screen_size_height):
@@ -211,7 +211,7 @@ class BaseFunction:
         words = 'q'
         self.input_characters(words, device_id, screen_size_width, screen_size_height)
         time.sleep(2)
-        if self.find_element_by_class("android.widget.EditText").text == 'q':
+        if self.find_element_by_class("android.widget.EditText").text == 'q ':
             return 'english'
         else:
             return 'chinese'
@@ -265,7 +265,7 @@ class BaseFunction:
                 for i in words:
                     self.long_click_keys(i, keys_list, device_id, screen_size_width, screen_size_height)
                 time.sleep(1)
-                self.long_click_keys('space', keys_list, device_id, screen_size_width, screen_size_height)
+                # self.click_keys('space', keys_list, device_id, screen_size_width, screen_size_height)
 
     # tap封装
     def touch_tap(self, x, y, duration=100):  # 点击坐标  ,x1,x2,y1,y2,duration
@@ -317,10 +317,66 @@ class BaseFunction:
         os.popen("adb shell rm /data/local/tmp/tmp.png")
         time.sleep(1)
         im = Image.open(PATH(path + "/" + name + '_tmp.png'))
-        if self.is_element_exist('resource-id="com.huawei.ohos.inputmethod:id/scale_view'):
+        if self.is_element_exist('resource-id="com.kika.photon.inputmethod:id/scale_view'):
             crop_bounds = self.container_bounds('scale_view', 'resource_id')
         else:
             crop_bounds = self.container_bounds('keyboard_main_view', 'resource_id')
+        cropedIm = im.crop((crop_bounds[0], crop_bounds[1], crop_bounds[2], crop_bounds[3]))
+        cropedIm.save(PATH(path + "/" + name + '_tmp.png'))
+        return PATH(path + "/" + name + '_tmp.png')
+
+    def screenshot_urlboard(self, name):
+        path = PATH(os.getcwd() + "/TestResult")
+        if not os.path.isdir(PATH(os.getcwd() + "/TestResult")):
+            os.makedirs(path)
+        os.popen("adb wait-for-device")
+        time.sleep(1)  # 由于多次出现截图延迟现象（每次截图都截的是上次操作的画面），故此处设置一个等待
+        os.popen("adb shell screencap -p /data/local/tmp/tmp.png")
+        time.sleep(1)
+        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + name + '_tmp.png'))
+        time.sleep(1)
+        os.popen("adb shell rm /data/local/tmp/tmp.png")
+        time.sleep(1)
+        im = Image.open(PATH(path + "/" + name + '_tmp.png'))
+        crop_bounds = self.container_bounds('extra_container_top', 'resource_id')
+        cropedIm = im.crop((crop_bounds[0], crop_bounds[1], crop_bounds[2], crop_bounds[3]))
+        cropedIm.save(PATH(path + "/" + name + '_tmp.png'))
+        return PATH(path + "/" + name + '_tmp.png')
+
+    def screenshot_urlboard(self, pic_name, xpath):
+        path = PATH(os.getcwd() + "/TestResult")
+        if not os.path.isdir(PATH(os.getcwd() + "/TestResult")):
+            os.makedirs(path)
+        os.popen("adb wait-for-device")
+        time.sleep(1)  # 由于多次出现截图延迟现象（每次截图都截的是上次操作的画面），故此处设置一个等待
+        os.popen("adb shell screencap -p /data/local/tmp/tmp.png")
+        time.sleep(1)
+        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + pic_name + '_tmp.png'))
+        time.sleep(1)
+        os.popen("adb shell rm /data/local/tmp/tmp.png")
+        time.sleep(1)
+        im = Image.open(PATH(path + "/" + pic_name + '_tmp.png'))
+        crop_bounds = self.container_bounds('extra_container_top', 'resource_id')
+        cropedIm = im.crop((crop_bounds[0], crop_bounds[1], crop_bounds[2], crop_bounds[3]))
+        cropedIm.save(PATH(path + "/" + pic_name + '_tmp.png'))
+        return PATH(path + "/" + pic_name + '_tmp.png')
+
+    def screenshot_universal(self, name, index):
+        path = PATH(os.getcwd() + "/TestResult")
+        if not os.path.isdir(PATH(os.getcwd() + "/TestResult")):
+            os.makedirs(path)
+        os.popen("adb wait-for-device")
+        time.sleep(1)  # 由于多次出现截图延迟现象（每次截图都截的是上次操作的画面），故此处设置一个等待
+        os.popen("adb shell screencap -p /data/local/tmp/tmp.png")
+        time.sleep(1)
+        os.popen("adb pull /data/local/tmp/tmp.png " + PATH(path + "/" + name + '_tmp.png'))
+        time.sleep(1)
+        os.popen("adb shell rm /data/local/tmp/tmp.png")
+        time.sleep(1)
+        im = Image.open(PATH(path + "/" + name + '_tmp.png'))
+        crop_bounds = self.container_bounds(
+            '//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view"]/android.widget.FrameLayout[%d]'
+            % index, 'xpath')
         cropedIm = im.crop((crop_bounds[0], crop_bounds[1], crop_bounds[2], crop_bounds[3]))
         cropedIm.save(PATH(path + "/" + name + '_tmp.png'))
         return PATH(path + "/" + name + '_tmp.png')
@@ -343,6 +399,7 @@ class BaseFunction:
         else:
             print("应用失败")
         return differ
+
     '''
     def compare2(self, image, target):
         
@@ -372,6 +429,7 @@ class BaseFunction:
         else:
             print("False")
     '''
+
     # 滑动方法
     def swipeUp(self, driver, t=500, n=1):
         '''向上滑动屏幕'''
@@ -412,10 +470,9 @@ class BaseFunction:
     def container_bounds(self, resource, which_type):
         if which_type == 'resource_id':
             locate_container_bounds = self.find_element_by_xpath(
-                '//*[@resource-id="com.huawei.ohos.inputmethod:id/%s"]' % resource).get_attribute('bounds')
+                '//*[@resource-id="com.kika.photon.inputmethod:id/%s"]' % resource).get_attribute('bounds')
         if which_type == 'xpath':
-            locate_container_bounds = self.driver.find_element_by_xpath('//*[@text="%s"]/following-sibling::android'
-                                                                        '.widget.SeekBar' % resource).get_attribute(
+            locate_container_bounds = self.driver.find_element_by_xpath(resource).get_attribute(
                 'bounds')
         container_bounds_string_to_array = re.findall(r'\d+', locate_container_bounds)
         container_sx, container_sy, container_ex, container_ey = float(container_bounds_string_to_array[0]), \
@@ -424,5 +481,128 @@ class BaseFunction:
                                                                  float(container_bounds_string_to_array[3])
         return container_sx, container_sy, container_ex, container_ey
 
+    # 返回上一个页面
     def back_to_previous_page(self):
         self.driver.back()
+
+    # 华为手机系统选择语言页面，点击选中的语言，即可切换系统语言
+    def to_system_language_picker(self, option, language):
+        self.find_element_by_xpath_click('//*[@text="%s"]' % option)
+        time.sleep(3)
+        if self.is_element_exist(language):
+            self.find_element_by_xpath_click('//*[@text="%s"]' % language)
+        else:
+            self.find_element_by_xpath_click('//*[@text="%s"]' % '添加语言')
+
+    # 该方法暂不使用。原因：测试发现华为系列手机，点击系统语言列表中的语言item就可以切换至该语言
+    def pick_which_sys_language(self, language):
+        language_list_bounds = self.find_element_by_xpath(
+            '//*[@resource-id="com.android.settings:id/main_content"]').get_attribute('bounds')
+        container_bounds_string_to_array = re.findall(r'\d+', language_list_bounds)
+        container_sx, container_sy, container_ex, container_ey = float(container_bounds_string_to_array[0]), \
+                                                                 float(container_bounds_string_to_array[1]), \
+                                                                 float(container_bounds_string_to_array[2]), \
+                                                                 float(container_bounds_string_to_array[3])
+        language_item = self.find_element_by_xpath('//*[@text="%s"]/preceding-sibling::android.widget.ImageView'
+                                                   % language).get_attribute('bounds')
+        item_bounds_string_to_array = re.findall(r'\d+', language_item)
+        container_sx, container_sy, container_ex, container_ey = float(item_bounds_string_to_array[0]), \
+                                                                 float(item_bounds_string_to_array[1]), \
+                                                                 float(item_bounds_string_to_array[2]), \
+                                                                 float(item_bounds_string_to_array[3])
+
+        self.driver.swipe((container_sx + container_ex) / 2, (container_sy + container_ey) / 2,
+                          (container_sx + container_ex) / 2, container_sy)
+
+    # 获取指定列表元素下的元素个数
+    def get_list_total_num(self, xpath_name):
+        list_item = self.driver.find_elements_by_xpath(xpath_name)
+        return len(list_item)
+        print('list_item:', len(list_item))
+
+    # '//*[@text="光子输入法"]/../../following-sibling::android.widget'
+    #                                                  '.ScrollView/androidx.appcompat.widget.LinearLayoutCompat'
+    def scroll_to_find(self, list_xpath, which_one):
+        item_list_bounds = self.container_bounds(list_xpath, 'xpath')
+        continue_swipe = True
+        while continue_swipe:
+            try:
+                self.driver.find_element_by_xpath('//*[@text="%s"]' % which_one).click()
+                continue_swipe = False
+            except:
+                before_swipe = self.driver.page_source
+                self.driver.swipe((item_list_bounds[0] + item_list_bounds[2]) / 2,
+                                  (item_list_bounds[3] - 1),
+                                  (item_list_bounds[0] + item_list_bounds[2]) / 2,
+                                  (item_list_bounds[1] + 1))
+                after_swipe = self.driver.page_source
+                if after_swipe == before_swipe:
+                    continue_swipe = False
+
+    def scroll_to_find_menu(self, id_name, which_one):
+        item_list_bounds = self.container_bounds(id_name, 'resource_id')
+        print('item_list_bounds:', item_list_bounds)
+        status = True
+        while status:
+            self.driver.swipe((item_list_bounds[0] + item_list_bounds[2]) / 2,
+                              (item_list_bounds[3] - 1),
+                              (item_list_bounds[0] + item_list_bounds[2]) / 2,
+                              (item_list_bounds[1] + 1))
+            if self.driver.find_element_by_xpath('//*[@text="%s"]' % which_one).get_attribute('displayed') == 'true':
+                status = False
+                self.driver.find_element_by_xpath('//*[@text="%s"]' % which_one).click()
+
+    def scroll_syspage_to_find(self, list_xpath, which_one):
+        item_list_bounds = self.container_bounds(list_xpath, 'xpath')
+        continue_swipe = True
+        while continue_swipe:
+            try:
+                self.driver.find_element_by_xpath('//*[@text="%s"]' % which_one).click()
+                continue_swipe = False
+            except:
+                before_swipe = self.driver.page_source
+                self.driver.swipe((item_list_bounds[0] + item_list_bounds[2]) / 2,
+                                  (item_list_bounds[3] - 1),
+                                  (item_list_bounds[0] + item_list_bounds[2]) / 2,
+                                  (item_list_bounds[1] + item_list_bounds[3]) / 2)
+                after_swipe = self.driver.page_source
+                if after_swipe == before_swipe:
+                    continue_swipe = False
+
+    def screen_rotate(self):
+        self.driver.get_orientation()
+
+    # 微软搜索框：搜索或输入网址
+    def click_browser_search_box(self, browser_type):
+        if browser_type == 'MicroSoft':
+            self.driver.find_element_by_xpath('//*[@resource-id="%s"]' % 'com.microsoft.emmx:id/search_box_text') \
+                .click()
+        if browser_type == 'Via':
+            self.driver.find_element_by_xpath('//*[@resource-id="%s"]' % 'search_input').click()
+        if browser_type == 'FireFox':
+            self.driver.find_element_by_xpath('//*[@text="%s"]' % '搜索或输入网址').click()
+        if browser_type == 'Chrome':
+            self.driver.find_element_by_xpath('//*[@resource-id="%s"]' % 'com.android.chrome:id/search_box_text') \
+                .click()
+        if browser_type == 'Opera':
+            self.driver.find_element_by_xpath('//*[@text="%s"]' % '搜索或输入网址').click()
+
+    def find_url_text(self, browser_type):
+        if browser_type == 'MicroSoft':
+            text = self.driver \
+                .find_element_by_xpath('//*[@resource-id="%s"]' % 'com.microsoft.emmx:id/url_bar') \
+                .get_attribute('text')
+        if browser_type == 'Via':
+            text = self.driver.find_element_by_xpath('//*[@resource-id="%s"]' % 'search_input').get_attribute('text')
+        if browser_type == 'FireFox':
+            text = self.driver.find_element_by_xpath('//*[@resource-id="%s"]' %
+                                                     'org.mozilla.firefox:id/mozac_browser_toolbar_edit_url_view') \
+                .get_attribute('text')
+        if browser_type == 'Chrome':
+            text = self.driver \
+                .find_element_by_xpath('//*[@resource-id="%s"]' % 'com.android.chrome:id/url_bar') \
+                .get_attribute('text')
+        if browser_type == 'Opera':
+            text = self.driver.find_element_by_xpath('//*[@resource-id="%s"]' %
+                                                     'com.opera.browser:id/url_field').get_attribute('text')
+        return text

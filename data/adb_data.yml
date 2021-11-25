@@ -16,3 +16,24 @@ adb_01_01_01_0006:
 #点击长按
 adb_01_01_01_0007:
   longclick: 'adb -s %s shell input swipe %s %s %s %s 800'
+#启动输入法
+adb_01_01_01_0008:
+  ohos: 'adb -s %s shell am start -n com.kika.photon.inputmethod/com.appstore.view.activity.PrimaryActivity'
+#打开语言设置页面
+adb_01_01_01_0009:
+  language_setting: 'adb -s %s shell am start com.android.settings/com.android.settings.LanguageSettings'
+#opera_browser
+adb_01_01_01_0010:
+  opera_browser: 'adb -s %s shell am start -S com.opera.browser/com.opera.android.BrowserActivity'
+#chrome_browser
+adb_01_01_01_0011:
+  chrome_browser: 'adb -s %s shell am start -S com.android.chrome/com.google.android.apps.chrome.Main'
+#microsoft_browser
+adb_01_01_01_0012:
+  microsoft_browser: 'adb -s %s shell am start -S com.microsoft.emmx/org.chromium.chrome.browser.ChromeTabbedActivity'
+#via_browser
+adb_01_01_01_0013:
+  via_browser: 'adb -s %s shell am start -S mark.via.gp/mark.via.Shell'
+#firefox_browser
+adb_01_01_01_0014:
+  firefox_browser: 'adb -s %s shell am start -S org.mozilla.firefox/org.mozilla.fenix.HomeActivity'

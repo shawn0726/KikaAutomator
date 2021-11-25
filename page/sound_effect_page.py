@@ -22,7 +22,7 @@ class SoundEffectPage(BaseFunction):
                                       'android.widget.FrameLayout/android.widget.ImageView')
     _xpath_sound9_select = (By.XPATH, '//android.widget.FrameLayout[@content-desc="Ring2 按键音效，双击可选择使用"]/'
                                       'android.widget.FrameLayout/android.widget.ImageView')
-    _xpath_success_select=(By.ID, 'com.huawei.ohos.inputmethod:id/tv_desc')
+    _xpath_success_select=(By.ID, 'com.kika.photon.inputmethod:id/tv_desc')
 
     def back_to_setting_page(self):
         self.find_element_click(self._xpath_locator_soundEffect_setting_back)

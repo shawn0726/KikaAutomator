@@ -4,7 +4,7 @@ from commons.base_function import BaseFunction
 
 
 class MechanicalKeyboardPage(BaseFunction):
-    _id_iv_mechanical_switch = (By.ID, 'com.huawei.ohos.inputmethod:id/iv_mechanical_switch')
+    _id_iv_mechanical_switch = (By.ID, 'com.kika.photon.inputmethod:id/iv_mechanical_switch')
     _xpath_layout_selected = (By.XPATH,
                               '//android.widget.FrameLayout[@content-desc="MOBA Games 3D Mechanical 主题，正在使用"]'
                               '/android.widget.FrameLayout/android.widget.ImageView[3]')
@@ -16,21 +16,21 @@ class MechanicalKeyboardPage(BaseFunction):
     # 但此处只检查开关与布局是否'checked'，机械轴选中状态的检查在choose_which_axis过程中完成，故不在此处检查
     def tap_mechanical_switch(self, status):
         if status == 'on':
-            if self.find_element_by_id('com.huawei.ohos.inputmethod:id/iv_mechanical_switch').get_attribute('checked') \
+            if self.find_element_by_id('com.kika.photon.inputmethod:id/iv_mechanical_switch').get_attribute('checked') \
                     == "true":
                 print('switch already turn on')
             else:
-                self.find_element_by_id_click('com.huawei.ohos.inputmethod:id/iv_mechanical_switch')
+                self.find_element_by_id_click('com.kika.photon.inputmethod:id/iv_mechanical_switch')
                 self.driver.implicitly_wait(2)
-                if self.find_element_by_id('com.huawei.ohos.inputmethod:id/iv_mechanical_switch').get_attribute(
+                if self.find_element_by_id('com.kika.photon.inputmethod:id/iv_mechanical_switch').get_attribute(
                         'checked') == "true":
                     print('turn on')
         if status == 'off':
-            if self.find_element_by_id('com.huawei.ohos.inputmethod:id/iv_mechanical_switch').get_attribute('checked') \
+            if self.find_element_by_id('com.kika.photon.inputmethod:id/iv_mechanical_switch').get_attribute('checked') \
                     == "true":
-                self.find_element_by_id_click('com.huawei.ohos.inputmethod:id/iv_mechanical_switch')
+                self.find_element_by_id_click('com.kika.photon.inputmethod:id/iv_mechanical_switch')
                 self.driver.implicitly_wait(2)
-                if self.find_element_by_id('com.huawei.ohos.inputmethod:id/iv_mechanical_switch').get_attribute(
+                if self.find_element_by_id('com.kika.photon.inputmethod:id/iv_mechanical_switch').get_attribute(
                         'checked') == "false":
                     print('turn off')
             else:

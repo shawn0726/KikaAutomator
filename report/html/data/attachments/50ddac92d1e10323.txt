@@ -1,1 +1,0 @@
-2021-06-23 11:03:20,264 - start-driver - DEBUG - <appium.webdriver.webdriver.WebDriver (session="0c90a73c-deab-460f-b00f-cb447e28c21a")>

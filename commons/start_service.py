@@ -5,7 +5,9 @@ from util.log_info import Log_info
 
 
 def start_devices():
-    device_info = os.popen('adb devices').read()
+    cmd = os.popen('adb devices')
+    device_info = cmd.read()
+    cmd.close()
     device_id_list = re.findall(r'(.*?)\t', device_info)
     return device_id_list
 

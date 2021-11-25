@@ -1,5 +1,5 @@
 { 
-  "packageName": "com.huawei.ohos.inputmethod",
+  "packageName": "com.kika.photon.inputmethod",
   "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
   "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
   "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",

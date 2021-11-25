@@ -1,2 +1,0 @@
-kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
-2021-06-22 19:00:44,880 - start-driver - DEBUG - <appium.webdriver.webdriver.WebDriver (session="84d670fa-dbae-4fc0-a1d0-8cd9e324656c")>

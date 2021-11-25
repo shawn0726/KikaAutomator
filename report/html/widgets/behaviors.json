@@ -1,24 +1,112 @@
 {
-  "total" : 2,
+  "total" : 34,
   "items" : [ {
-    "uid" : "88c449542cebe03afaa3970b050af4a2",
-    "name" : "测试",
+    "uid" : "7945f1f1bdc8d0e434bd4b2168515ca7",
+    "name" : "检查空格键功能使用",
     "statistic" : {
-      "failed" : 0,
-      "broken" : 3,
-      "skipped" : 0,
-      "passed" : 2,
-      "unknown" : 0,
-      "total" : 5
-    }
-  }, {
-    "uid" : "91f12cc6baa559c182bf1e08e286191b",
-    "name" : "英文键盘，输字母后删除",
-    "statistic" : {
-      "failed" : 0,
+      "failed" : 2,
       "broken" : 0,
       "skipped" : 0,
-      "passed" : 1,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 2
+    }
+  }, {
+    "uid" : "bccbd2fe897ad6e43035110caa925a64",
+    "name" : "检查长按删除键功能",
+    "statistic" : {
+      "failed" : 1,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "4ffdd033edcee334a0cee85d385c9b50",
+    "name" : "检查首字母大写功能",
+    "statistic" : {
+      "failed" : 1,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "7cecd1d13dbe1bef5d6be5dab103e9a7",
+    "name" : "检查按键点击与上屏功能",
+    "statistic" : {
+      "failed" : 1,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "1cbc1b3427b0f1d3b48bdc663b632fc3",
+    "name" : "检查长按弹泡功能",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "8697f978544a30bc58844980c5a3eb6f",
+    "name" : "中文键盘检查语言切换键",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "33e97b71a07b80a061964b8786f9477f",
+    "name" : "单手键盘初始状态和基础功能检查",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "509abebf36e9fa0388b3d85fc555fea0",
+    "name" : "检查悬浮键盘模式各功能使用",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "41f7e68be37044c14de3c97dc4f04d5f",
+    "name" : "检查键盘初始状态和基础功能",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "2a54f0b3d8d841853c73b3c21bacc98b",
+    "name" : "使用外接键盘输入字符能够正常展示",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
       "unknown" : 0,
       "total" : 1
     }

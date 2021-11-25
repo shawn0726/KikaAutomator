@@ -29,6 +29,7 @@ def set_device_id_list():
     for i in range(len(list1)):
         device_id_list.append(list1[i])
     return device_id_list
+    # return ['2962de230205']
 
 
 def pytest_addoption(parser):
@@ -68,10 +69,13 @@ def set_driver_pool(cmdopt):
     time.sleep(3)
     from util.device_data import get_platform_version
     plat_form_version = get_platform_version(device_id_list[int(cmdopt)])
+    '''
+    com.kika.photon.inputmethod
+    '''
     try:
         caps = {'platformName': 'Android', 'platformVersion': plat_form_version, 'deviceName': 'nexus 6p',
                 'newCommandTimeout': 0,
-                'appPackage': 'com.huawei.ohos.inputmethod',
+                'appPackage': 'com.kika.photon.inputmethod',
                 'appActivity': 'com.appstore.view.activity.PrimaryActivity',
                 'systemPort': sys_port,
                 'automationName': 'UiAutomator2',
