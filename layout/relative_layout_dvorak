@@ -1,0 +1,64 @@
+{ 
+  "packageName": "com.kika.photon.inputmethod",
+  "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
+  "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
+  "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",
+  "keyboardType": "kikaoem2",
+  "keys": [
+    {
+      "x":0.08,
+      "y": 0.76,
+      "code": "a"
+    },
+    {
+      "x":0.079,
+      "y": 0.84,
+      "code": "shift"
+    },
+    {
+      "x":0.14,
+      "y": 0.68,
+      "code": "delete"
+    },
+    {
+      "x":0.5,
+      "y": 0.91,
+      "code": "space"
+    },
+    {
+      "x":0.92,
+      "y": 0.91,
+      "code": "enter"
+    },
+    {
+      "x": 0.78,
+      "y": 0.84,
+      "code": "quotation"
+    },
+    {
+      "x":0.079,
+      "y": 0.91,
+      "code": "symbol"
+    },
+    {
+      "x":0.325,
+      "y": 0.91,
+      "code": ","
+    },    
+    {
+      "x": 0.208,
+      "y": 0.91,
+      "code": "switch"
+    },
+    {
+      "x": 0.77,
+      "y": 0.91,
+      "code": "emjo"
+    },
+    {
+      "x": 0.695,
+      "y": 0.91,
+      "code": "."
+    }
+  ]
+}
