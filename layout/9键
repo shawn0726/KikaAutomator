@@ -1,5 +1,5 @@
 { 
-  "packageName": "com.kika.photon.inputmethod",
+  "packageName": "com.huawei.ohos.inputmethod",
   "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
   "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
   "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",
@@ -8,7 +8,7 @@
     {
       "x": 0.287,
       "y": 0.7,
-      "code": "…"
+      "code": "分词"
     },
     {
       "x": 0.5,
@@ -141,11 +141,6 @@
       "code": "z"
     },
     {
-      "x": 0.098,
-      "y": 0.838,
-      "code": "！"
-    },
-    {
       "x": 0.907,
       "y": 0.7,
       "code": "delete"
@@ -176,18 +171,28 @@
       "code": "symbol"
     },
     {
-      "x": 0.098,
-      "y": 0.695,
-      "code": "，"
-    },    
-    {
       "x": 0.287,
       "y": 0.91,
       "code": "switch"
     },
     {
-      "x": 0.098,
+      "x": 0.712,
       "y": 0.91,
+      "code": "num"
+    },
+    {
+      "x": 0.098,
+      "y": 0.695,
+      "code": "，"
+    },
+    {
+      "x": 0.098,
+      "y": 0.838,
+      "code": "！"
+    },
+    {
+      "x": 0.098,
+      "y": 0.735,
       "code": "。"
     },
     {

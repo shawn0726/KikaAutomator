@@ -1,5 +1,5 @@
 { 
-  "packageName": "com.kika.photon.inputmethod",
+  "packageName": "com.huawei.ohos.inputmethod",
   "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
   "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
   "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",
@@ -7,11 +7,11 @@
   "keys": [
     {
       "x": 0.907,
-      "y": 0.7,
+      "y": 0.686,
       "code": "delete"
     },
     {
-      "x": 0.69,
+      "x": 0.2,
       "y": 0.91,
       "code": "emjo"
     },
@@ -21,43 +21,43 @@
       "code": "space"
     },
     {
-      "x":0.92,
+      "x":0.907,
       "y": 0.91,
       "code": "enter"
     },
     {
-      "x": 0.8,
+      "x": 0.77,
       "y": 0.91,
-      "code": "123"
+      "code": "num"
     },
     {
-      "x": 0.098,
+      "x": 0.083,
       "y": 0.91,
       "code": "symbol"
     },
     {
       "x": 0.907,
-      "y": 0.721,
+      "y": 0.728,
       "code": "，"
     },    
     {
-      "x": 0.265,
+      "x": 0.321,
       "y": 0.91,
       "code": "switch"
     },
     {
       "x": 0.907,
-      "y": 0.764,
+      "y": 0.772,
       "code": "。"
     },
     {
       "x": 0.907,
-      "y": 0.801,
+      "y": 0.814,
       "code": "？"
     },
     {
       "x": 0.907,
-      "y": 0.844,
+      "y": 0.856,
       "code": "！"
     }
   ]

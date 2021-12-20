@@ -10,3 +10,6 @@ class BasePage(BaseFunction):
 
     def click_syspage_universal(self, text):
         self.find_element_by_text_click(text)
+
+    def click_syspage_agree_button(self):
+        self.find_element_by_text_click('始终允许')

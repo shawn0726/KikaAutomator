@@ -18,7 +18,7 @@ adb_01_01_01_0007:
   longclick: 'adb -s %s shell input swipe %s %s %s %s 800'
 #启动输入法
 adb_01_01_01_0008:
-  ohos: 'adb -s %s shell am start -n com.kika.photon.inputmethod/com.appstore.view.activity.PrimaryActivity'
+  ohos: 'adb -s %s shell am start -n com.huawei.ohos.inputmethod/com.appstore.view.activity.PrimaryActivity'
 #打开语言设置页面
 adb_01_01_01_0009:
   language_setting: 'adb -s %s shell am start com.android.settings/com.android.settings.LanguageSettings'

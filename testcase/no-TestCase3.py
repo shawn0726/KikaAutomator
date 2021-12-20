@@ -28,10 +28,10 @@ test_adb_data = get_path_data('/data/adb_data.yml')
 _gdpr_pop_up = (
     By.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout')
 _gdpr_disagree = (By.ID,
-                  'com.kika.photon.inputmethod:id/btn_deny')
+                  'com.huawei.ohos.inputmethod:id/btn_deny')
 _gdpr_agree = (By.ID,
-               'com.kika.photon.inputmethod:id/btn_ok')
-_gdpr_learn_more = (By.ID, 'com.kika.photon.inputmethod:id/tv_content2')
+               'com.huawei.ohos.inputmethod:id/btn_ok')
+_gdpr_learn_more = (By.ID, 'com.huawei.ohos.inputmethod:id/tv_content2')
 _input_text_view = (By.CLASS_NAME, 'android.widget.EditText')
 _message_input_box = (By.ID, 'com.google.android.apps.messaging:id/compose_message_text')
 _address_book_dialog = (By.ID, 'com.android.packageinstaller:id/dialog_container')

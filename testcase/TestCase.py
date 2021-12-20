@@ -28,18 +28,18 @@ test_adb_data = get_path_data('/data/adb_data.yml')
 _gdpr_pop_up = (
     By.XPATH, '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout')
 _gdpr_disagree = (By.ID,
-                  'com.kika.photon.inputmethod:id/btn_deny')
+                  'com.huawei.ohos.inputmethod:id/btn_deny')
 _gdpr_agree = (By.ID,
-               'com.kika.photon.inputmethod:id/btn_ok')
-_gdpr_learn_more = (By.ID, 'com.kika.photon.inputmethod:id/tv_content2')
+               'com.huawei.ohos.inputmethod:id/btn_ok')
+_gdpr_learn_more = (By.ID, 'com.huawei.ohos.inputmethod:id/tv_content2')
 _input_text_view = (By.CLASS_NAME, 'android.widget.EditText')
 _message_input_box = (By.ID, 'com.google.android.apps.messaging:id/compose_message_text')
 _address_book_dialog = (By.ID, 'com.android.packageinstaller:id/dialog_container')
 
 
-@allure.story('检查删除键功能')
+@allure.story('检查字符点击与上屏功能-中文26键')
 # 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
-def test_InputMethod_SCB_Func_01_01_01_0001(get_device_id_list, set_driver_pool, cmdopt):
+def test_InputMethod_SCB_Func_01_01_0002(get_device_id_list, set_driver_pool, cmdopt):
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
@@ -62,23 +62,292 @@ def test_InputMethod_SCB_Func_01_01_01_0001(get_device_id_list, set_driver_pool,
                                     screen_size_list[1])
         input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
                                     screen_size_list[1])
-
+    input_page.tap_menu()
+    keyboard_setting_page = input_page.tap_setting()
+    page_setting_page = keyboard_setting_page.to_page_setting_page()
+    time.sleep(3)
+    page_setting_page.check_number_capitalization('select')
+    # from page.page_setting_page import PageSettingPage
+    page_setting_page.back_to_setting_page().back_to_input_page()
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     input_page.input_characters(test_case_data['func_01_01_01_0001']['word1'], device_id_list[which_driver_pool],
                                 screen_size_list[0], screen_size_list[1])
-    input_page.input_characters(',', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
-    input_page.input_characters(test_case_data['func_01_01_01_0001']['word2'], device_id_list[which_driver_pool],
+    input_page.input_characters('1234567890', device_id_list[which_driver_pool],
                                 screen_size_list[0], screen_size_list[1])
-    input_page.input_characters('delete', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
-    input_page.input_characters('delete', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
     text = input_page.find_element_by_class("android.widget.EditText").text
     print(text)
-    assert text == 'hello ,worl'
+    assert text == 'qwertyuiopasdfghjklzxcvbnm 1234567890 '
     input_page.return_to_launcher(device_id_list[which_driver_pool])
 
 
-@allure.story('检查长按删除键功能')
+@allure.story('检查字符点击与上屏功能[一些符号上屏失败，需调研]')
 # 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
-def test_InputMethod_SCB_Func_01_01_01_0002(get_device_id_list, set_driver_pool, cmdopt):
+def test_InputMethod_SCB_Func_01_01_0003(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为英文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    input_page.tap_menu()
+    input_page.tap_setting()
+    # 关闭数字行
+    from page.keyboard_setting_page import KeyboardSettingPage
+    KeyboardSettingPage(set_driver_pool).to_page_setting_page().check_number_capitalization('noselect')
+    from page.page_setting_page import PageSettingPage
+    PageSettingPage(set_driver_pool).back_to_setting_page().back_to_input_page()
+    time.sleep(2)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    # 进入符号页面
+    input_page.input_characters('symbol', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    time.sleep(2)
+    input_page.click_symbol_keyboard('中文')
+    input_page.click_symbol_keyboard('锁住')
+    # input_page.click_symbol_keyboard('，。？！、：；……“”‘’@～—＃＊｜（）')
+    input_page.click_symbol_keyboard('\u3002')
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    print(text)
+    assert text == '，。？！、：；……“”‘’@～—＃＊｜（）'
+    # input_page.return_to_launcher(device_id_list[which_driver_pool])
+
+
+@allure.story('检查换行键功能')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_01_0006(get_device_id_list, set_driver_pool, cmdopt):
+    '''
+        光标换行，有什么好的方法
+    '''
+    pass
+
+
+@allure.story('检查空格键功能使用')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_01_0010(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为英文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    input_page.tap_menu()
+    input_page.tap_setting()
+    # 关闭数字行
+    from page.keyboard_setting_page import KeyboardSettingPage
+    KeyboardSettingPage(set_driver_pool).to_page_setting_page().check_number_capitalization('noselect')
+    from page.page_setting_page import PageSettingPage
+    PageSettingPage(set_driver_pool).back_to_setting_page().back_to_input_page()
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    input_page.input_characters('nihao', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    assert text == '你好'
+
+
+@allure.story('切换至符号页')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_01_0014(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为英文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+
+    # 进入符号页面
+    input_page.input_characters('symbol', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    time.sleep(2)
+    # 判断是否进入符号页面
+    input_page.is_element_exist('中文')
+    input_page.is_element_exist('\u3002')
+    input_page.click_symbol_keyboard('返回')
+    # input_page.click_symbol_keyboard('，。？！、：；……“”‘’@～—＃＊｜（）')
+    input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    input_page.input_characters('q', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    print(text)
+    assert text == '去'
+
+
+@allure.story('逗号检查')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_01_0053(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为英文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+
+    input_page.input_characters(',', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    input_page.long_press(',', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    assert text == '，！'
+
+
+@allure.story('空格检查')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_01_0054(get_device_id_list, set_driver_pool, cmdopt):
+    '''
+        输入状态：目前自己实现的输入逻辑是在输入字母后，自动点击空格，是一个连贯的过程，所以单独的输入状态不好找
+    '''
+    pass
+
+
+@allure.story('句号检查')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_01_0055(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为英文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+
+    input_page.input_characters('.', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    input_page.long_press('.', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    assert text == '。？'
+
+
+@allure.story('切换至普通符号页')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_02_0001(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为英文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('9键')
+
+    # 进入符号页面
+    input_page.input_characters('symbol', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    time.sleep(2)
+    # 判断是否进入符号页面
+    input_page.is_element_exist('中文')
+    input_page.is_element_exist('\u3002')
+    input_page.click_symbol_keyboard('返回')
+    # input_page.click_symbol_keyboard('，。？！、：；……“”‘’@～—＃＊｜（）')
+    input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    input_page.input_characters('q', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    print(text)
+    assert text == '去'
+    # 还原至26键
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('26键')
+
+
+@allure.story('检查字符点击与上屏功能-英文键盘')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_03_0002(get_device_id_list, set_driver_pool, cmdopt):
+    '''
+        疑问细节：分别点击键盘中所有字母和阿拉伯数字键，点击数字键？
+    '''
+    pass
+
+
+@allure.story('检查符号点击与上屏功能-26键英文键盘')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_03_0003(get_device_id_list, set_driver_pool, cmdopt):
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
@@ -100,18 +369,767 @@ def test_InputMethod_SCB_Func_01_01_01_0002(get_device_id_list, set_driver_pool,
                                     screen_size_list[1])
         input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
                                     screen_size_list[1])
-
-    input_page.input_characters('hello', device_id_list[which_driver_pool],
-                                screen_size_list[0], screen_size_list[1])
-    input_page.input_characters(',', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
-    input_page.input_characters('world', device_id_list[which_driver_pool],
-                                screen_size_list[0], screen_size_list[1])
-    input_page.long_press('delete', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
-    input_page.long_press('delete', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
+    input_page.input_characters('symbol', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    golVar.set_value('language_layout', 'relative_layout_symbol')
+    input_page.input_characters('@#$%&-+()/:;!?_.', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    input_page.input_characters('asterisk', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    input_page.input_characters('single-quotation', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    input_page.input_characters('quotation', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    input_page.input_characters('symbol', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    golVar.set_value('language_layout', 'relative_layout_en')
     text = input_page.find_element_by_class("android.widget.EditText").text
-    print(text)
-    assert text == ''
-    input_page.return_to_launcher(device_id_list[which_driver_pool])
+    assert text == '@#$%&-+()/:;!?_.*\'\"\")'
+
+
+@allure.story('手写识别体验')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_04_0010(get_device_id_list, set_driver_pool, cmdopt):
+    '''
+        手写how to do？
+    '''
+    pass
+
+
+@allure.story('笔画检查')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_05_0001(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为英文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('笔画')
+    time.sleep(2)
+    input_page.input_characters('一丨丿丶ㄥ通配', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    assert text == '权'
+
+
+@allure.story('检查26键【?123】功能键显示')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_06_0001(get_device_id_list, set_driver_pool, cmdopt):
+    '''检查符号键样式'''
+    pass
+
+
+@allure.story('点击【123】功能键盘检查键盘显示')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_06_0003(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为中文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    # 手写
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('手写键盘')
+    time.sleep(3)
+    input_page.input_characters('num', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    pic_handwriting = input_page.screenshot2('手写-num')
+    # 笔画
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('笔画')
+    time.sleep(3)
+    input_page.input_characters('num', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    pic_bihua = input_page.screenshot2('笔画-num')
+    # 9键
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('9键')
+    time.sleep(3)
+    input_page.input_characters('num', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    pic_9key = input_page.screenshot2('9-num')
+    # 26键
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('26键')
+    time.sleep(3)
+    input_page.input_characters('num', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    pic_26key = input_page.screenshot2('26-num')
+    result1 = input_page.compare(pic_handwriting, pic_bihua)
+    result2 = input_page.compare(pic_bihua, pic_9key)
+    result3 = input_page.compare(pic_9key, pic_26key)
+    '''
+        截图比较
+    '''
+
+
+@allure.story('点击数字键盘任意按键检查字符上屏显示')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_06_0009(get_device_id_list, set_driver_pool, cmdopt):
+    """
+        左侧符号控件的滑动点击
+    """
+
+
+@allure.story('检查符号页面分组显示')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_06_0033(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    test_layout_list = ['手写键盘']  # , '笔画', '9键', '26键'
+    for layout in test_layout_list:
+        input_page.tap_menu()
+        input_page.tap_keyboard_layout()
+        input_page.to_which_keyboard_layout(layout)
+        input_page.input_characters('symbol', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        first_element_bounds_str = input_page.find_element_by_xpath('//*[@resource-id="com.huawei.ohos.inputmethod:id'
+                                                                    '/symbols_rcv"]/android.widget.LinearLayout['
+                                                                    '1]').get_attribute('bounds')
+        first_element_bounds = re.findall(r'\d+', first_element_bounds_str)
+        test_list = ['常用', '中文', '英文', '网络', '特殊', '数学', '序号', '日文', '希腊文', '藏文', '俄文', '拉丁文', '注音', '部首', '制表']
+        for i in test_list:
+            input_page.symbol_grouping_bar(i, 'left')
+            input_page.touch_tap((int(first_element_bounds[0]) + int(first_element_bounds[2])) / 2,
+                                 (int(first_element_bounds[1]) + int(first_element_bounds[3])) / 2)
+        input_page.click_symbol_keyboard('返回')
+
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    assert text == '，，,@☆+①アαༀаÄā丨╭'
+    '''
+        流程能走通，但结果如何去检测？
+    '''
+
+
+@allure.story('点击语音输入键，语音输入')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_07_0036(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为中文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    input_page.clear_sms_data(device_id_list[which_driver_pool], screen_size_list[0],
+                              screen_size_list[1])
+    input_page.voice_input('space', device_id_list[which_driver_pool], screen_size_list[0],
+                           screen_size_list[1])
+    os.system('say 你好')
+    time.sleep(3)
+    input_page.menu_back()
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    text = input_page.find_element_by_class("android.widget.EditText").text
+    assert text == '你好。'
+
+
+@allure.story('中文九键键盘下显示验证码')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_08_0013(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为中文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    '''
+        短信验证码相关验证
+    '''
+
+
+@allure.story('不同APP显示短信验证码-01')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_08_0019(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为中文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    '''
+        短信验证码相关验证
+    '''
+
+
+@allure.story('剪贴板内容最多显示5条')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_09_0007(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    # 检查键盘，非中文键盘，点击'切换'键，切换为中文键盘，检查完后点击enter清空文本框内容，再进行输入
+    if input_page.check_language(device_id_list[which_driver_pool], screen_size_list[0],
+                                 screen_size_list[1]) == 'chinese':
+        print('当前为英文键盘')
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    else:
+        input_page.input_characters('switch', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+        input_page.input_characters('enter', device_id_list[which_driver_pool], screen_size_list[0],
+                                    screen_size_list[1])
+    input_page.input_characters('nihaozhelishibeijing', device_id_list[which_driver_pool], screen_size_list[0],
+                                screen_size_list[1])
+    input_page.clean_text()
+    input_page.tap_menu()
+    input_page.tap_edit()
+    operation_list1 = ['句首', '选择', 'right', 'right', '复制']
+    for operate1 in operation_list1:
+        input_page.edit_operation(operate1)
+    operation_list2 = ['选择', 'right', 'right', '复制']
+    for operate2 in operation_list2:
+        input_page.edit_operation(operate2)
+    operation_list3 = ['选择', 'right', '复制']
+    for operate3 in operation_list3:
+        input_page.edit_operation(operate3)
+    operation_list4 = ['选择', 'right', 'right', '复制']
+    for operate4 in operation_list4:
+        input_page.edit_operation(operate4)
+    operation_list5 = ['全选', '复制']
+    for operate5 in operation_list5:
+        input_page.edit_operation(operate5)
+    input_page.menu_back()
+    input_page.tap_menu()
+    input_page.tap_clipboard()
+    num = input_page.get_clipboard_num()
+    assert num == '(5/5)'
+    assert not input_page.is_element_exist('使用剪贴板以轻松粘贴文本')
+
+
+@allure.story('点击剪贴板复制内容可上屏')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_09_0009(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    input_page.tap_menu()
+    input_page.tap_clipboard()
+    input_page.paste_clipboard_item()
+
+
+@allure.story('点击删除键，此内容消失')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_09_0026(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    input_page.tap_menu()
+    input_page.tap_clipboard()
+    str1 = input_page.delete_clipboard_item()
+    assert str1 == '(0/5)'
+
+
+@allure.story('使用外接键盘输入字符能够正常展示')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_12_0005(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    '''
+        外接键盘
+    '''
+
+
+@allure.story('使用虚拟键盘输入字符能够正常展示')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_12_0006(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    '''
+        外接键盘
+    '''
+
+
+@allure.story('切换系统分辨率查看帐号登录状态')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_01_02_0032(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    input_page.tap_menu()
+    login_page = input_page.tap_login()
+    time.sleep(1)
+    login_page.switch_wm_size(device_id_list[which_driver_pool], '800x1760')
+    time.sleep(1)
+    # 检验登录状态：1.非登录状态下，页面不存在'登录华为账号'关键字，页面底部没有'退出登录'按钮
+    # 检验细节：切换分辨率后，各控件点击后，响应是否正常
+    assert not login_page.is_element_exist('登录华为账号')
+    assert login_page.is_element_exist('退出登录')
+    theme_setting_page = login_page.my_skins()
+    time.sleep(1)
+    assert theme_setting_page.is_element_exist('皮肤')
+    theme_setting_page.back_to_previous_page()
+    font_setting_page = login_page.my_fonts()
+    time.sleep(1)
+    assert font_setting_page.is_element_exist('字体')
+    font_setting_page.back_to_previous_page()
+    sync_thesaurus_page = login_page.my_sync()
+    time.sleep(1)
+    assert sync_thesaurus_page.is_element_exist('同步词库')
+    sync_thesaurus_page.back_to_previous_page()
+    back_up_page = login_page.my_back_up()
+    time.sleep(1)
+    assert back_up_page.is_element_exist('备份设置项')
+    back_up_page.back_to_previous_page()
+    keyboard_setting_page = login_page.to_setting_page()
+    time.sleep(1)
+    assert keyboard_setting_page.is_element_exist('小艺输入法')
+    keyboard_setting_page.back_to_previous_page()
+    login_page.log_out('取消')
+    login_page.log_out('继续退出')
+    time.sleep(3)
+    assert login_page.is_element_exist('登录华为帐号')
+    # print('login_page:', login_page.driver.page_source)
+    login_page.log_in('取消')
+    login_page.switch_wm_size(device_id_list[which_driver_pool], 'reset')
+    time.sleep(3)
+    assert not login_page.is_element_exist('登录华为账号')
+    assert login_page.is_element_exist('退出登录')
+
+
+@allure.story('已登录帐号进入云备份设置页')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_02_01_0004(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    input_page.tap_menu()
+    login_page = input_page.tap_login()
+    time.sleep(1)
+    login_page.log_out('继续退出')
+    time.sleep(1)
+    login_page.log_in('取消')
+    time.sleep(1)
+    back_up_page = login_page.my_back_up()
+    time.sleep(1)
+    assert back_up_page.is_element_exist('备份设置项')
+    back_up_page.back_to_previous_page()
+
+
+@allure.story('已登录帐号进入云备份设置页')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_02_01_0017(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    input_page.tap_menu()
+    login_page = input_page.tap_login()
+    back_up_page = login_page.my_back_up()
+    back_up_page.restore_setting('确定')
+    back_up_page.back_to_previous_page()
+
+
+@allure.story('手动同步词库图标状态-同步完成01')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_02_02_0013(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    input_page.tap_menu()
+    login_page = input_page.tap_login()
+    sync_thesaurus_page = login_page.my_sync()
+    time.sleep(1)
+    sync_thesaurus_page.sync_thesaurus()
+    current_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+    print(current_time)
+    str_time = sync_thesaurus_page.get_sync_time()
+    print('str_time:', str_time)
+    assert current_time == str_time
+
+
+@allure.story('在语音输入页点击Menu进入菜单页')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_01_0001(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    input_page.bring_up_sms_page()
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.clear_sms_data(device_id_list[which_driver_pool], screen_size_list[0],
+                              screen_size_list[1])
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('26键')
+    input_page.long_press('space', device_id_list[which_driver_pool], screen_size_list[0],
+                          screen_size_list[1])
+    time.sleep(1)
+    if input_page.deal_sys_dialog('仅使用期间允许', '仅使用期间允许'):
+        time.sleep(1)
+        input_page.bring_up_sms_page()
+        time.sleep(1)
+        input_page.long_press('space', device_id_list[which_driver_pool], screen_size_list[0],
+                              screen_size_list[1])
+    input_page.tap_menu()
+    assert input_page.is_element_exist('键盘布局')
+    '''
+    # 切换至横屏
+    input_page.rotate_the_screen_to_horizontal()
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    '''
+
+
+@allure.story('使用普通话进行语音输入无异常')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_01_0013(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    input_page.bring_up_sms_page()
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.clear_sms_data(device_id_list[which_driver_pool], screen_size_list[0],
+                              screen_size_list[1])
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('26键')
+    input_page.long_press('space', device_id_list[which_driver_pool], screen_size_list[0],
+                          screen_size_list[1])
+    time.sleep(1)
+    input_page.voice_change_language('普通话')
+    if input_page.deal_sys_dialog('仅使用期间允许', '仅使用期间允许'):
+        time.sleep(1)
+        input_page.bring_up_sms_page()
+        time.sleep(1)
+        input_page.long_press('space', device_id_list[which_driver_pool], screen_size_list[0],
+                              screen_size_list[1])
+    os.system('say 你好')
+    text = input_page.find_element_by_id('com.android.mms:id/embedded_text_editor').text
+    assert text == '你好。'
+
+
+@allure.story('使用粤语普通话免切换方言进行语音输入反馈无异常')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_01_0015(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    input_page.bring_up_sms_page()
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.clear_sms_data(device_id_list[which_driver_pool], screen_size_list[0],
+                              screen_size_list[1])
+    input_page.tap_menu()
+    input_page.tap_keyboard_layout()
+    input_page.to_which_keyboard_layout('26键')
+    input_page.long_press('space', device_id_list[which_driver_pool], screen_size_list[0],
+                          screen_size_list[1])
+    time.sleep(1)
+    input_page.voice_change_language('粤语')
+    if input_page.deal_sys_dialog('仅使用期间允许', '仅使用期间允许'):
+        time.sleep(1)
+        input_page.bring_up_sms_page()
+        time.sleep(1)
+        input_page.long_press('space', device_id_list[which_driver_pool], screen_size_list[0],
+                              screen_size_list[1])
+
+    os.system('say -v Sin-ji 你好')
+    text = input_page.find_element_by_id('com.android.mms:id/embedded_text_editor').text
+    assert text == '你好。'
+
+
+@allure.story('添加语言确定恢复默认设置，语言页无变化')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_02_0017(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.tap_menu()
+    keyboard_setting_page = input_page.tap_setting()
+    language_setting_page = keyboard_setting_page.to_language_setting_page()
+    language_setting_page.add_language_list2('南非荷兰文', 'af')
+    setting_page = language_setting_page.back_to_setting_page()
+    setting_page.restore_to_default_settings('确定')
+    language_setting_page = setting_page.to_language_setting_page()
+    status = language_setting_page.check_the_language_states('南非荷兰文')
+    # 通过语言item勾选状态以此判断是否存在'添加语言'中
+    assert status == 'true'
+
+
+@allure.story('在普通模式改变皮肤确定恢复默认设置，恢复成默认皮肤')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_02_0022(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.tap_menu()
+    keyboard_setting_page = input_page.tap_setting()
+    theme_setting_page = keyboard_setting_page.to_theme_setting_page()
+    theme_setting_page.switch_theme('默认')
+    theme_setting_page.switch_theme('墨绿色')
+    theme_setting_page.switch_theme('浅艾蓝')
+    theme_selected = theme_setting_page.search_selected_theme()
+    assert theme_selected == '浅艾蓝'
+    setting_page = theme_setting_page.back_to_setting_page()
+    setting_page.restore_to_default_settings('确定')
+    setting_page.to_theme_setting_page()
+    theme_selected2 = theme_setting_page.search_selected_theme()
+    assert theme_selected2 == '默认'
+
+
+@allure.story('非默认字体确定恢复默认设置，字体页无变化')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_02_0026(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.tap_menu()
+    keyboard_setting_page = input_page.tap_setting()
+    font_setting_page = keyboard_setting_page.to_font_setting_page()
+    font_setting_page.change_font('系统字体')
+    font_setting_page.change_font('鸿蒙字体')
+    font_setting_page.change_font('MidoRound')
+    font_setting_page.change_font('Joker')
+    font_setting_page.change_font('AriaSlab')
+    font_selected = font_setting_page.search_selected_font()
+    assert font_selected == 'AriaSlab'
+    setting_page = font_setting_page.back_to_setting_page()
+    setting_page.restore_to_default_settings('确定')
+    setting_page.to_font_setting_page()
+    font_selected2 = font_setting_page.search_selected_font()
+    assert font_selected2 == 'AriaSlab'
+
+
+
+
+
+
+@allure.story('页面测试')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_test1(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    input_page.tap_menu()
+    setting_page = input_page.tap_setting()
+    page_setting_page = setting_page.to_page_setting_page()
+    page_setting_page.button_long_press_delay(0.3, '取消')
+    page_setting_page.button_long_press_delay(0.01, '取消')
+    page_setting_page.button_long_press_delay(0.7, '默认')
+    page_setting_page.button_long_press_delay(0.99, '确定')
+
+
+@allure.story('查看语音长文本模式显示')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_horizontal_and_vertical_01(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    input_page.tap_menu()
+    input_page.tap_setting().to_voice_setting_page()
+    from page.voice_setting_page import VoiceSettingPage
+    voice_setting_page = VoiceSettingPage(set_driver_pool)
+    status = voice_setting_page.get_extended_dictation_status()
+    assert status == 'false'
 
 
 @allure.story('检查首字母大写功能')
@@ -507,7 +1525,7 @@ def test_InputMethod_SCB_Func_01_02_0003(get_device_id_list, set_driver_pool, cm
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     time.sleep(3)
     # 清除输入法数据
-    os.system('adb -s %s shell pm clear com.kika.photon.inputmethod' % device_id_list[which_driver_pool])
+    os.system('adb -s %s shell pm clear com.huawei.ohos.inputmethod' % device_id_list[which_driver_pool])
     input_page.set_default_inputmethod('ziyan')
     time.sleep(3)
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
@@ -663,7 +1681,7 @@ def test_InputMethod_SCB_Func_01_04_0002(get_device_id_list, set_driver_pool, cm
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     time.sleep(3)
     # 清除输入法数据
-    os.system('adb -s %s shell pm clear com.kika.photon.inputmethod' % device_id_list[which_driver_pool])
+    os.system('adb -s %s shell pm clear com.huawei.ohos.inputmethod' % device_id_list[which_driver_pool])
     input_page.set_default_inputmethod('ziyan')
     time.sleep(5)
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
@@ -816,8 +1834,8 @@ def test_InputMethod_SCB_Func_01_08_0001(get_device_id_list, set_driver_pool, cm
     base_page.scroll_syspage_to_find('//*[@resource-id="com.android.settings:id/main_content"]', '应用')
     # 点击应用页面中的应用管理
     base_page.click_syspage_app_management()
-    # 寻找应用管理页面中的'光子输入法'
-    base_page.scroll_syspage_to_find('//*[@resource-id="android:id/list"]', '光子输入法')
+    # 寻找应用管理页面中的'小艺输入法'
+    base_page.scroll_syspage_to_find('//*[@resource-id="android:id/list"]', '小艺输入法')
     # 点击'权限'
     base_page.click_syspage_app_info()
     # 若已禁止，则授予麦克风权限
@@ -867,8 +1885,8 @@ def test_InputMethod_SCB_Func_01_08_0005(get_device_id_list, set_driver_pool, cm
     base_page.scroll_syspage_to_find('//*[@resource-id="com.android.settings:id/main_content"]', '应用')
     # 点击应用页面中的应用管理
     base_page.click_syspage_app_management()
-    # 寻找应用管理页面中的'光子输入法'
-    base_page.scroll_syspage_to_find('//*[@resource-id="android:id/list"]', '光子输入法')
+    # 寻找应用管理页面中的'小艺输入法'
+    base_page.scroll_syspage_to_find('//*[@resource-id="android:id/list"]', '小艺输入法')
     # 点击'权限'
     base_page.click_syspage_app_info()
     # 若已禁止，则授予麦克风权限
@@ -903,7 +1921,7 @@ def test_InputMethod_SCB_Func_01_08_0006(get_device_id_list, set_driver_pool, cm
     # 长按空格调出语音输入界面
     input_page.long_press('space', device_id_list[which_driver_pool], screen_size_list[0],
                           screen_size_list[1])
-    input_page.deal_sys_dialog('要允许光子输入法录制音频吗？', '允许')
+    input_page.deal_sys_dialog('要允许小艺输入法录制音频吗？', '允许')
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     input_page.long_press('space', device_id_list[which_driver_pool], screen_size_list[0],
                           screen_size_list[1])
@@ -1421,7 +2439,7 @@ def test_InputMethod_SCB_Func_03_05_02_0015(get_device_id_list, set_driver_pool,
     time.sleep(1)
     input_page.click_browser_search_box('Chrome')
     time.sleep(3)
-    if input_page.is_element_exist('com.kika.photon.inputmethod:id/extra_container_top'):
+    if input_page.is_element_exist('com.huawei.ohos.inputmethod:id/extra_container_top'):
         pic = input_page.screenshot_urlboard('url')
         url_keyboard = PATH(os.getcwd() + "/testcase/TestResult/url.png")
         result = input_page.compare(url_keyboard, pic)
@@ -1580,19 +2598,19 @@ def test_30(get_device_id_list, set_driver_pool, cmdopt):
         input_page.to_which_keyboard_mode('普通键盘')
         input_page.tap_menu()
         input_page.tap_keyboard_layout()
-        list_num = input_page.get_list_total_num('//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view'
+        list_num = input_page.get_list_total_num('//*[@resource-id="com.huawei.ohos.inputmethod:id/recycler_view'
                                                  '"]/android.widget.LinearLayout')
         for i in range(1, list_num):
             text = input_page.find_element_by_xpath(
-                '//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view"]/android.widget.LinearLayout['
+                '//*[@resource-id="com.huawei.ohos.inputmethod:id/recycler_view"]/android.widget.LinearLayout['
                 '%d]/android.widget.TextView' % (
                         1 + i)).get_attribute('text')
             if text == 'Dvorak':
                 golVar.set_value('language_layout', 'relative_layout_dvorak')
             else:
                 golVar.set_value('language_layout', 'relative_layout_en')
-            input_page.find_element_by_xpath_click('//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view'
-                                                   '"]/android.widget.LinearLayout[%d]' % (1+i))
+            input_page.find_element_by_xpath_click('//*[@resource-id="com.huawei.ohos.inputmethod:id/recycler_view'
+                                                   '"]/android.widget.LinearLayout[%d]' % (1 + i))
             time.sleep(1)
             os.system('adb shell input tap 540 1800')
             os.system('adb shell input tap 540 1800')
@@ -1611,9 +2629,10 @@ def test_30(get_device_id_list, set_driver_pool, cmdopt):
             input_page.tap_menu()
             input_page.tap_keyboard_layout()
         input_page.find_element_by_xpath_click(
-            '//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view"]/android.widget.LinearLayout[1]')
+            '//*[@resource-id="com.huawei.ohos.inputmethod:id/recycler_view"]/android.widget.LinearLayout[1]')
     # 收起键盘
     input_page.menu_back()
+
 
 @allure.story('打点测试，遍历 30 种键盘')
 def test_31(get_device_id_list, set_driver_pool, cmdopt):
@@ -1645,14 +2664,17 @@ def test_31(get_device_id_list, set_driver_pool, cmdopt):
     input_page.to_which_keyboard_mode('普通键盘')
     input_page.tap_menu()
     input_page.tap_keyboard_layout()
-    list_num = input_page.get_list_total_num('//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view"]/android.widget.LinearLayout')
+    list_num = input_page.get_list_total_num(
+        '//*[@resource-id="com.huawei.ohos.inputmethod:id/recycler_view"]/android.widget.LinearLayout')
     print('list_num:', list_num)
     for i in range(1, list_num):
         text = input_page.find_element_by_xpath(
-            '//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view"]/android.widget.LinearLayout[%d]/android.widget.TextView' % (
-                        1 + i)).get_attribute('text')
+            '//*[@resource-id="com.huawei.ohos.inputmethod:id/recycler_view"]/android.widget.LinearLayout[%d]/android.widget.TextView' % (
+                    1 + i)).get_attribute('text')
         print(text)
-        input_page.find_element_by_xpath_click('//*[@resource-id="com.kika.photon.inputmethod:id/recycler_view"]/android.widget.LinearLayout[%d]' % (1+i))
+        input_page.find_element_by_xpath_click(
+            '//*[@resource-id="com.huawei.ohos.inputmethod:id/recycler_view"]/android.widget.LinearLayout[%d]' % (
+                    1 + i))
 
         input_page.tap_menu()
         input_page.tap_keyboard_layout()

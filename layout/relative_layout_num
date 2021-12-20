@@ -1,0 +1,94 @@
+{ 
+  "packageName": "com.huawei.ohos.inputmethod",
+  "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
+  "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
+  "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",
+  "keyboardType": "kikaoem2",
+  "keys": [
+    {
+      "x": 0.287,
+      "y": 0.7,
+      "code": "1"
+    },
+    {
+      "x": 0.5,
+      "y": 0.7,
+      "code": "2"
+    },
+    {
+      "x": 0.712,
+      "y": 0.7,
+      "code": "3"
+    },
+    {
+      "x": 0.287,
+      "y": 0.765,
+      "code": "4"
+    },
+    {
+      "x": 0.5,
+      "y": 0.765,
+      "code": "5"
+    },
+    {
+      "x": 0.712,
+      "y": 0.765,
+      "code": "6"
+    },
+    {
+      "x": 0.287,
+      "y": 0.833,
+      "code": "7"
+    },
+    {
+      "x": 0.5,
+      "y": 0.833,
+      "code": "8"
+    },
+    {
+      "x": 0.712,
+      "y": 0.833,
+      "code": "9"
+    },
+    {
+      "x": 0.907,
+      "y": 0.7,
+      "code": "delete"
+    },
+    {
+      "x": 0.907,
+      "y": 0.765,
+      "code": "."
+    },
+    {
+      "x": 0.907,
+      "y": 0.833,
+      "code": "@"
+    },
+    {
+      "x": 0.5,
+      "y": 0.91,
+      "code": "0"
+    },
+    {
+      "x": 0.907,
+      "y": 0.91,
+      "code": "enter"
+    },
+    {
+      "x": 0.712,
+      "y": 0.91,
+      "code": "back"
+    },
+    {
+      "x": 0.098,
+      "y": 0.91,
+      "code": "symbol"
+    },
+    {
+      "x": 0.287,
+      "y": 0.91,
+      "code": "space"
+    }
+  ]
+}

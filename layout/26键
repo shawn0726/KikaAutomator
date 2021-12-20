@@ -1,5 +1,5 @@
 { 
-  "packageName": "com.kika.photon.inputmethod",
+  "packageName": "com.huawei.ohos.inputmethod",
   "inputmethodServiceClazz": "com.android.inputmethod.latin.LatinIME",
   "mainKeyboardViewClazz": "com.qisi.inputmethod.keyboard.ui.view.keyboard.KeyboardView",
   "candidateViewClazz": "com.qisi.inputmethod.keyboard.ui.view.function.FunctionWordView;setSuggestWord;com.android.inputmethod.core.engine.suggest.SuggestedWords",
@@ -294,6 +294,11 @@
       "x":0.079,
       "y": 0.91,
       "code": "symbol"
+    },
+    {
+      "x": 0.79,
+      "y": 0.91,
+      "code": "num"
     },
     {
       "x":0.325,

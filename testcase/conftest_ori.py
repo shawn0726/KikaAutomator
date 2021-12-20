@@ -59,7 +59,7 @@ def set_driver_pool():
         try:
             caps = {'platformName': 'Android', 'platformVersion': plat_form_version, 'deviceName': 'nexus 6p',
                     'newCommandTimeout': 0,
-                    'appPackage': 'com.kika.photon.inputmethod',
+                    'appPackage': 'com.huawei.ohos.inputmethod',
                     'appActivity': 'com.appstore.view.activity.PrimaryActivity',
                     'systemPort': sys_port,
                     'automationName': 'UiAutomator2',

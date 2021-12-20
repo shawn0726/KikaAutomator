@@ -44,6 +44,7 @@ def keep_port_available(port_id):
             Log_info().getlog('kill-port').debug(e)
 
 
+# 查询系统版本号
 def get_platform_version(device_id):
     cmd = os.popen('adb -s %s shell getprop ro.build.version.release' % device_id)
     platform_version = cmd.read()

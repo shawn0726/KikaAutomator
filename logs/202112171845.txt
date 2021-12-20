@@ -1,0 +1,1 @@
+2021-12-17 18:45:28,049 - start-driver - DEBUG - <appium.webdriver.webdriver.WebDriver (session="7e96d8a4-b677-4360-b680-cf6286b2e620")>
