@@ -97,13 +97,15 @@ class PageSettingPage(BaseFunction):
                 self.driver.find_element_by_xpath('//*[@text="数字行"]/../following-sibling::android.widget'
                                                   '.LinearLayout/android.widget.Switch').click()
                 nowstatus = self.driver.find_element_by_xpath('//*[@text="数字行"]/../following-sibling::android.widget'
-                                                              '.LinearLayout/android.widget.Switch').get_attribute('checked')
+                                                              '.LinearLayout/android.widget.Switch').get_attribute(
+                    'checked')
                 print('勾选状态为', nowstatus)
                 golVar.set_value('language_layout', 'relative_layout_en')
             if nowstatus == 'false':
                 # nowstatus = self.driver.find_element_by_xpath(self._select_number).get_attribute('checked')
                 nowstatus = self.driver.find_element_by_xpath('//*[@text="数字行"]/../following-sibling::android.widget'
-                                                              '.LinearLayout/android.widget.Switch').get_attribute('checked')
+                                                              '.LinearLayout/android.widget.Switch').get_attribute(
+                    'checked')
                 print('勾选状态为', nowstatus)
                 golVar.set_value('language_layout', 'relative_layout_en')
 
@@ -126,7 +128,7 @@ class PageSettingPage(BaseFunction):
         seek_bar_dialog_bar_bounds = self.container_bounds('seek_bar_dialog_bar', 'resource_id')
         seek_bar_dialog_bar_width = seek_bar_dialog_bar_bounds[2] - seek_bar_dialog_bar_bounds[0]
         self.touch_tap((seek_bar_dialog_bar_bounds[0] + seek_bar_dialog_bar_width * multiple),
-                       (seek_bar_dialog_bar_bounds[1]+seek_bar_dialog_bar_bounds[3]) / 2)
+                       (seek_bar_dialog_bar_bounds[1] + seek_bar_dialog_bar_bounds[3]) / 2)
         self.driver.implicitly_wait(15)
         self.driver.find_element_by_xpath('//*[@text="%s"]' % do_what).click()
 
@@ -151,3 +153,8 @@ class PageSettingPage(BaseFunction):
             if nowstatus == 'false':
                 nowstatus = self.driver.find_element_by_xpath(self._select_slide).get_attribute('checked')
                 print('勾选状态为', nowstatus)
+
+    # 字体大小
+    def change_font_size(self):
+        self.driver.find_element_by_xpath('//*[@text="字体大小"]').click()
+        return

@@ -1071,11 +1071,8 @@ def test_InputMethod_SCB_Func_03_02_0026(get_device_id_list, set_driver_pool, cm
     input_page.tap_menu()
     keyboard_setting_page = input_page.tap_setting()
     font_setting_page = keyboard_setting_page.to_font_setting_page()
-    font_setting_page.change_font('系统字体')
-    font_setting_page.change_font('鸿蒙字体')
-    font_setting_page.change_font('MidoRound')
-    font_setting_page.change_font('Joker')
-    font_setting_page.change_font('AriaSlab')
+    font_data_list = ['系统字体', '鸿蒙字体', 'MidoRound', 'Joker', 'AriaSlab']
+    font_setting_page.change_font(font_data_list)
     font_selected = font_setting_page.search_selected_font()
     assert font_selected == 'AriaSlab'
     setting_page = font_setting_page.back_to_setting_page()
@@ -1084,6 +1081,160 @@ def test_InputMethod_SCB_Func_03_02_0026(get_device_id_list, set_driver_pool, cm
     font_selected2 = font_setting_page.search_selected_font()
     assert font_selected2 == 'AriaSlab'
 
+
+@allure.story('打开一个模糊拼音选项确定恢复默认设置，选项恢复成默认全部关闭')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_02_0041(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.tap_menu()
+    keyboard_setting_page = input_page.tap_setting()
+    input_setting_page = keyboard_setting_page.to_input_setting_page()
+    chinese_setting_page = input_setting_page.click_which_item('中文设置', 'none')
+    fuzzy_pinyin_test_list = ['z = zh', 'c = ch', 'k = g']
+    chinese_setting_page.fuzzy_pinyin(fuzzy_pinyin_test_list)
+    status1 = chinese_setting_page.get_fuzzy_pinyin_status('z = zh')
+    status2 = chinese_setting_page.get_fuzzy_pinyin_status('c = ch')
+    status3 = chinese_setting_page.get_fuzzy_pinyin_status('k = g')
+    assert status1 == 'true'
+    assert status2 == 'true'
+    assert status3 == 'true'
+    # 退出模糊拼音页面
+    chinese_setting_page.back_to_previous_page()
+    # 退出中文设置页面
+    chinese_setting_page.back_to_previous_page()
+    setting_page = input_setting_page.back_to_setting_page()
+    setting_page.restore_to_default_settings('确定')
+    input_setting_page2 = setting_page.to_input_setting_page()
+    chinese_setting_page2 = input_setting_page2.click_which_item('中文设置', 'none')
+    status = chinese_setting_page2.get_all_fuzzy_pinyin_status()
+    print(type(status), status)
+    assert status[0] == 10
+
+
+@allure.story('关闭拼音云输入确定恢复默认设置，拼音云输入开关打开')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_02_0045(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.tap_menu()
+    keyboard_setting_page = input_page.tap_setting()
+    input_setting_page = keyboard_setting_page.to_input_setting_page()
+    chinese_setting_page = input_setting_page.click_which_item('中文设置', 'none')
+    chinese_setting_page.chinese_setting_about_input('拼音云输入', '关闭')
+    chinese_setting_page.back_to_previous_page()
+    setting_page = input_setting_page.back_to_setting_page()
+    setting_page.restore_to_default_settings('确定')
+    input_setting_page2 = setting_page.to_input_setting_page()
+    chinese_setting_page2 = input_setting_page2.click_which_item('中文设置', 'none')
+    status = chinese_setting_page2.get_all_status_in_chinese_setting('拼音云输入')
+    assert status == '开启'
+
+
+@allure.story('选择非关闭双拼输入选项确定恢复默认设置，选项恢复成默认关闭')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_02_0049(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.tap_menu()
+    keyboard_setting_page = input_page.tap_setting()
+    input_setting_page = keyboard_setting_page.to_input_setting_page()
+    chinese_setting_page = input_setting_page.click_which_item('中文设置', 'none')
+    chinese_setting_page.shuangpin_input('智能ABC')
+    chinese_setting_page.back_to_previous_page()
+    setting_page = input_setting_page.back_to_setting_page()
+    setting_page.restore_to_default_settings('确定')
+    input_setting_page2 = setting_page.to_input_setting_page()
+    chinese_setting_page2 = input_setting_page2.click_which_item('中文设置', 'none')
+    text = chinese_setting_page2.get_shuangpin_input_text()
+    assert text == '关闭'
+
+
+@allure.story('关闭启用表情符号预测确定恢复默认设置，启用表情符号预测开关打开')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_02_0065(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.tap_menu()
+    keyboard_setting_page = input_page.tap_setting()
+    input_setting_page = keyboard_setting_page.to_input_setting_page()
+    input_setting_page.click_which_item('启用表情符号预测', 'none')
+    setting_page = input_setting_page.back_to_setting_page()
+    setting_page.restore_to_default_settings('确定')
+    input_setting_page2 = setting_page.to_input_setting_page()
+    status = input_setting_page2.check_item_status('启用表情符号预测')
+    assert status == 'true'
+
+
+@allure.story('入口-设置')
+# 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
+def test_InputMethod_SCB_Func_03_03_02_0001(get_device_id_list, set_driver_pool, cmdopt):
+    device_id_list = get_device_id_list
+    # pool 池中 driver 与 device_id 为一对一的关系
+    which_driver_pool = int(cmdopt)
+    input_page = InputPage(set_driver_pool)
+    screen_size_list.clear()
+    get_vm_size(device_id_list[which_driver_pool], screen_size_list)
+    os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
+    time.sleep(1)
+    os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
+    time.sleep(3)
+    print('当前键盘：', golVar.get_value('language_layout'))
+    input_page.return_to_launcher(device_id_list[which_driver_pool])
+    input_page.find_element_by_xpath('//android.widget.TextView[@content-desc="小艺输入法"]').click()
+    from page.login_page import LoginPage
+    login_page = LoginPage(set_driver_pool)
+    setting_page = login_page.to_setting_page()
+    page_setting_page = setting_page.to_page_setting_page()
+    page_setting_page.
+
+
+
+
+    keyboard_setting_page = input_page.tap_setting()
+    input_setting_page = keyboard_setting_page.to_input_setting_page()
+    input_setting_page.click_which_item('启用表情符号预测', 'none')
+    setting_page = input_setting_page.back_to_setting_page()
+    setting_page.restore_to_default_settings('确定')
+    input_setting_page2 = setting_page.to_input_setting_page()
+    status = input_setting_page2.check_item_status('启用表情符号预测')
+    assert status == 'true'
 
 
 

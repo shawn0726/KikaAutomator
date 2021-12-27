@@ -255,7 +255,7 @@ class BaseFunction:
         :param device_id: 设备 device id
         :return:
         """
-        os.system(test_adb_data['adb_01_01_01_0002']['deltext'] % device_id)
+        os.system(test_adb_data['adb_01_01_01_0015']['home'] % device_id)
 
     # 清空已有内容
     def editClear(self, text1):

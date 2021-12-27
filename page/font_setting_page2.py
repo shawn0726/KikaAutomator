@@ -16,19 +16,20 @@ class FontSettingPage2(BaseFunction):
     def back_to_previous_page(self):
         self.driver.back()
 
-    def change_font(self, to_do):
+    def change_font(self, data_list):
         """
-        :param to_do: 系统字体、默认、MidoRound、Joker、AriaSlab
+        :param data_list: 系统字体、默认、MidoRound、Joker、AriaSlab
         :return:
         """
-        self.find_element_by_xpath_click('//*[@text="%s"]' % to_do)
-        self.driver.implicitly_wait(15)
-        self.find_element_by_xpath_click('//android.widget.ImageView[@content-desc="隐藏键盘"]')
+        for i in data_list:
+            self.find_element_by_xpath_click('//*[@text="%s"]' % i)
+            self.driver.implicitly_wait(15)
+            self.find_element_by_xpath_click('//android.widget.ImageView[@content-desc="隐藏键盘"]')
 
     def search_selected_font(self):
         """
-        寻找选中的皮肤
-        :return: 返回选中皮肤的text属性
+        寻找选中的字体
+        :return: 返回选中字体的text属性
         """
         content_list = self.driver.find_elements_by_xpath('//*[@resource-id="com.huawei.ohos.inputmethod:id'
                                                           '/recycler_view"]/androidx.recyclerview.widget.RecyclerView'

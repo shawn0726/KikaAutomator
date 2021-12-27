@@ -4,6 +4,9 @@ adb_01_01_01_0001:
 #清空内容
 adb_01_01_01_0002:
   deltext: 'adb -s %s shell input keyevent 4'
+#回到桌面
+adb_01_01_01_0015:
+  home: 'adb -s %s shell input keyevent 3'
 #emptyinput
 adb_01_01_01_0003:
   emptyinput: 'adb -s %s shell am start -S com.xinmei365.emptyinput/.MainActivity'

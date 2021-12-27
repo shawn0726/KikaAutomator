@@ -5,6 +5,13 @@ from selenium.webdriver.common.by import By
 
 
 class InputSettingPage(BaseFunction):
+    _xpath_locator_input_setting_back = (By.XPATH, '//android.widget.ImageButton[@content-desc="转到上一层级"]')
+
+    def back_to_setting_page(self):
+        self.find_element_click(self._xpath_locator_input_setting_back)
+        from page.keyboard_setting_page import KeyboardSettingPage
+        return KeyboardSettingPage(self.driver)
+
     # 点击'输入设置'页面的设置项
     def click_which_item(self, which, extra_setting):
         """
@@ -39,7 +46,7 @@ class InputSettingPage(BaseFunction):
         :return: 返回控件 checked 属性
         """
         status = self.driver.find_element_by_xpath(
-            '//*[@text="%s"]/../following-sibling::android.widget.LinearLayout/android.widget.CheckBox' % which). \
+            '//*[@text="%s"]/../following-sibling::android.widget.LinearLayout/android.widget.Switch' % which). \
             get_attribute('checked')
         print('status: ', status)
         return status
