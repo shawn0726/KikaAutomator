@@ -1222,20 +1222,8 @@ def test_InputMethod_SCB_Func_03_03_02_0001(get_device_id_list, set_driver_pool,
     login_page = LoginPage(set_driver_pool)
     setting_page = login_page.to_setting_page()
     page_setting_page = setting_page.to_page_setting_page()
-    page_setting_page.
-
-
-
-
-    keyboard_setting_page = input_page.tap_setting()
-    input_setting_page = keyboard_setting_page.to_input_setting_page()
-    input_setting_page.click_which_item('启用表情符号预测', 'none')
-    setting_page = input_setting_page.back_to_setting_page()
-    setting_page.restore_to_default_settings('确定')
-    input_setting_page2 = setting_page.to_input_setting_page()
-    status = input_setting_page2.check_item_status('启用表情符号预测')
-    assert status == 'true'
-
+    change_font_size_page = page_setting_page.change_font_size()
+    assert change_font_size_page.is_element_exist('字体大小')
 
 
 

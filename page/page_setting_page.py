@@ -157,4 +157,5 @@ class PageSettingPage(BaseFunction):
     # 字体大小
     def change_font_size(self):
         self.driver.find_element_by_xpath('//*[@text="字体大小"]').click()
-        return
+        from page.font_size_page import FontsizePage
+        return FontsizePage(self.driver)
