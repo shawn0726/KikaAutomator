@@ -243,7 +243,9 @@ class BaseFunction:
         """
         words = 'q'
         self.input_characters(words, device_id, screen_size_width, screen_size_height)
-        time.sleep(2)
+        # time.sleep(2)
+        print('self.driver:', self.driver)
+        self.driver.implicitly_wait(15)
         if self.find_element_by_class("android.widget.EditText").text == 'q ':
             return 'english'
         else:

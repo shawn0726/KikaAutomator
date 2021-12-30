@@ -112,7 +112,7 @@ def set_driver_pool(cmdopt):
     print('77777777777')
     print(driver)
     print('77777777777')
-    yield driver
+    yield driver_pool
 
 
 @pytest.fixture

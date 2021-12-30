@@ -21,7 +21,7 @@ def start_appium(port_id, device):
     :param device: 设备device id
     :return:
     """
-    result = os.system(
+    os.system(
         'node /Applications/Appium.app/Contents/Resources/app/node_modules/appium/build/lib/main.js'
         ' --port %s -U %s --session-override' % (
             str(port_id), device))
@@ -30,5 +30,5 @@ def start_appium(port_id, device):
     result = os.system('appium -p %s -bp %s -U %s --session-override' % (
             str(port_id), device))
     '''
-    Log_info().getlog('start-service').debug(result)
-    print("%s,%s,%s" % (str(port_id), device))
+    # Log_info().getlog('start-service').debug(result)
+    # print("%s,%s,%s" % (str(port_id), device))

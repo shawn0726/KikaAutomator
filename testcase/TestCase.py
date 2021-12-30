@@ -43,7 +43,7 @@ def test_InputMethod_SCB_Func_01_01_0002(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    driver = set_driver_pool
+    driver = set_driver_pool[which_driver_pool]
     input_page = InputPage(driver)
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
@@ -86,7 +86,7 @@ def test_InputMethod_SCB_Func_01_01_0003(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -108,9 +108,9 @@ def test_InputMethod_SCB_Func_01_01_0003(get_device_id_list, set_driver_pool, cm
     input_page.tap_setting()
     # 关闭数字行
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).to_page_setting_page().check_number_capitalization('noselect')
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).to_page_setting_page().check_number_capitalization('noselect')
     from page.page_setting_page import PageSettingPage
-    PageSettingPage(set_driver_pool).back_to_setting_page().back_to_input_page()
+    PageSettingPage(set_driver_pool[which_driver_pool]).back_to_setting_page().back_to_input_page()
     time.sleep(2)
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     # 进入符号页面
@@ -141,7 +141,7 @@ def test_InputMethod_SCB_Func_01_01_0010(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -163,9 +163,9 @@ def test_InputMethod_SCB_Func_01_01_0010(get_device_id_list, set_driver_pool, cm
     input_page.tap_setting()
     # 关闭数字行
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).to_page_setting_page().check_number_capitalization('noselect')
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).to_page_setting_page().check_number_capitalization('noselect')
     from page.page_setting_page import PageSettingPage
-    PageSettingPage(set_driver_pool).back_to_setting_page().back_to_input_page()
+    PageSettingPage(set_driver_pool[which_driver_pool]).back_to_setting_page().back_to_input_page()
     time.sleep(1)
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     input_page.input_characters('nihao', device_id_list[which_driver_pool], screen_size_list[0], screen_size_list[1])
@@ -179,7 +179,7 @@ def test_InputMethod_SCB_Func_01_01_0014(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -221,7 +221,7 @@ def test_InputMethod_SCB_Func_01_01_0053(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -261,7 +261,7 @@ def test_InputMethod_SCB_Func_01_01_0055(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -292,7 +292,7 @@ def test_InputMethod_SCB_Func_01_02_0001(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -351,7 +351,7 @@ def test_InputMethod_SCB_Func_01_03_0003(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -402,7 +402,7 @@ def test_InputMethod_SCB_Func_01_05_0001(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -443,7 +443,7 @@ def test_InputMethod_SCB_Func_01_06_0003(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -515,7 +515,7 @@ def test_InputMethod_SCB_Func_01_06_0033(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -554,7 +554,7 @@ def test_InputMethod_SCB_Func_01_07_0036(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -590,7 +590,7 @@ def test_InputMethod_SCB_Func_01_08_0013(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -619,7 +619,7 @@ def test_InputMethod_SCB_Func_01_08_0019(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -648,7 +648,7 @@ def test_InputMethod_SCB_Func_01_09_0007(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -700,7 +700,7 @@ def test_InputMethod_SCB_Func_01_09_0009(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -718,7 +718,7 @@ def test_InputMethod_SCB_Func_01_09_0026(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -737,7 +737,7 @@ def test_InputMethod_SCB_Func_01_12_0005(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -755,7 +755,7 @@ def test_InputMethod_SCB_Func_01_12_0006(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -773,7 +773,7 @@ def test_InputMethod_SCB_Func_01_02_0032(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -827,7 +827,7 @@ def test_InputMethod_SCB_Func_02_01_0004(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -853,7 +853,7 @@ def test_InputMethod_SCB_Func_02_01_0017(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -873,7 +873,7 @@ def test_InputMethod_SCB_Func_02_02_0013(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -898,7 +898,7 @@ def test_InputMethod_SCB_Func_03_01_0001(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
@@ -936,7 +936,7 @@ def test_InputMethod_SCB_Func_03_01_0013(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
@@ -970,7 +970,7 @@ def test_InputMethod_SCB_Func_03_01_0015(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0001']['textmessage'] % device_id_list[which_driver_pool])
@@ -1005,7 +1005,7 @@ def test_InputMethod_SCB_Func_03_02_0017(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1031,7 +1031,7 @@ def test_InputMethod_SCB_Func_03_02_0022(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1060,7 +1060,7 @@ def test_InputMethod_SCB_Func_03_02_0026(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1088,7 +1088,7 @@ def test_InputMethod_SCB_Func_03_02_0041(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1127,7 +1127,7 @@ def test_InputMethod_SCB_Func_03_02_0045(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1155,7 +1155,7 @@ def test_InputMethod_SCB_Func_03_02_0049(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1183,7 +1183,7 @@ def test_InputMethod_SCB_Func_03_02_0065(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1208,7 +1208,7 @@ def test_InputMethod_SCB_Func_03_03_02_0001(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1219,10 +1219,11 @@ def test_InputMethod_SCB_Func_03_03_02_0001(get_device_id_list, set_driver_pool,
     input_page.return_to_launcher(device_id_list[which_driver_pool])
     input_page.find_element_by_xpath('//android.widget.TextView[@content-desc="小艺输入法"]').click()
     from page.login_page import LoginPage
-    login_page = LoginPage(set_driver_pool)
+    login_page = LoginPage(set_driver_pool[which_driver_pool])
     setting_page = login_page.to_setting_page()
     page_setting_page = setting_page.to_page_setting_page()
     change_font_size_page = page_setting_page.change_font_size()
+    time.sleep(1)
     assert change_font_size_page.is_element_exist('字体大小')
 
 
@@ -1234,7 +1235,7 @@ def test_InputMethod_SCB_Func_test1(get_device_id_list, set_driver_pool, cmdopt)
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1256,7 +1257,7 @@ def test_horizontal_and_vertical_01(get_device_id_list, set_driver_pool, cmdopt)
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1266,7 +1267,7 @@ def test_horizontal_and_vertical_01(get_device_id_list, set_driver_pool, cmdopt)
     input_page.tap_menu()
     input_page.tap_setting().to_voice_setting_page()
     from page.voice_setting_page import VoiceSettingPage
-    voice_setting_page = VoiceSettingPage(set_driver_pool)
+    voice_setting_page = VoiceSettingPage(set_driver_pool[which_driver_pool])
     status = voice_setting_page.get_extended_dictation_status()
     assert status == 'false'
 
@@ -1275,7 +1276,7 @@ def test_horizontal_and_vertical_01(get_device_id_list, set_driver_pool, cmdopt)
 def test_InputMethod_SCB_Func_01_01_01_0003(get_device_id_list, set_driver_pool, cmdopt):
     device_id_list = get_device_id_list
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(
@@ -1312,7 +1313,7 @@ def test_InputMethod_SCB_Func_01_01_01_0008(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1351,7 +1352,7 @@ def test_InputMethod_SCB_Func_01_01_01_0009(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1382,7 +1383,7 @@ def test_InputMethod_SCB_Func_01_01_01_00010(get_device_id_list, set_driver_pool
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1404,9 +1405,9 @@ def test_InputMethod_SCB_Func_01_01_01_00010(get_device_id_list, set_driver_pool
     input_page.tap_setting()
     time.sleep(1)
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).to_page_setting_page().check_bubble_capitalization('noselect')
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).to_page_setting_page().check_bubble_capitalization('noselect')
     from page.page_setting_page import PageSettingPage
-    PageSettingPage(set_driver_pool).back_to_setting_page().back_to_input_page()
+    PageSettingPage(set_driver_pool[which_driver_pool]).back_to_setting_page().back_to_input_page()
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     time.sleep(3)
     '''
@@ -1414,7 +1415,7 @@ def test_InputMethod_SCB_Func_01_01_01_00010(get_device_id_list, set_driver_pool
                           screen_size_list[1])
     input_page.language_picker_list('更多语言...')
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.uncheck_language_list('中文')
     language_setting_page.back_to_previous_page()
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
@@ -1431,7 +1432,7 @@ def test_InputMethod_SCB_Func_01_01_01_00011(get_device_id_list, set_driver_pool
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1462,7 +1463,7 @@ def test_InputMethod_SCB_Func_01_01_01_00013(get_device_id_list, set_driver_pool
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1496,7 +1497,7 @@ def test_InputMethod_SCB_Func_01_01_01_00016(get_device_id_list, set_driver_pool
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1525,7 +1526,7 @@ def test_InputMethod_SCB_Func_01_01_01_00036(get_device_id_list, set_driver_pool
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1626,7 +1627,7 @@ def test_InputMethod_SCB_Func_01_01_01_00036(get_device_id_list, set_driver_pool
     golVar.set_value('language_layout', 'relative_layout_en')
     input_page.language_picker_list('更多语言...')
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.add_language_list2('中文', 'zh_HK')
     language_setting_page.add_language_list2('中文', 'zh_TW')
     language_setting_page.back_to_previous_page()
@@ -1656,7 +1657,7 @@ def test_InputMethod_SCB_Func_01_02_0003(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1695,7 +1696,7 @@ def test_InputMethod_SCB_Func_01_03_0010(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1744,8 +1745,8 @@ def test_InputMethod_SCB_Func_01_03_0010(get_device_id_list, set_driver_pool, cm
     input_page.tap_menu()
     input_page.change_theme().switch_them1()
     from page.theme_setting_page import ThemeSettingPage
-    ThemeSettingPage(set_driver_pool).back_to_previous_page()
-    ThemeSettingPage(set_driver_pool).back_to_previous_page()
+    ThemeSettingPage(set_driver_pool[which_driver_pool]).back_to_previous_page()
+    ThemeSettingPage(set_driver_pool[which_driver_pool]).back_to_previous_page()
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     # 编辑键盘，改动大小
 
@@ -1794,14 +1795,14 @@ def test_InputMethod_SCB_Func_01_03_0010(get_device_id_list, set_driver_pool, cm
     input_page.adjust_sound(0.01)
     input_page.enter_keyboard_sound_page()
     from page.sound_effect_page import SoundEffectPage
-    SoundEffectPage(set_driver_pool).switch_sound9().back_to_previous_page()
-    SoundEffectPage(set_driver_pool).back_to_previous_page()
+    SoundEffectPage(set_driver_pool[which_driver_pool]).switch_sound9().back_to_previous_page()
+    SoundEffectPage(set_driver_pool[which_driver_pool]).back_to_previous_page()
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     input_page.tap_menu()
     input_page.tap_setting()
     time.sleep(2)
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).back_to_previous_page()
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).back_to_previous_page()
 
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     input_page.float_to_normal()
@@ -1812,7 +1813,7 @@ def test_InputMethod_SCB_Func_01_04_0002(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1855,7 +1856,7 @@ def test_InputMethod_SCB_Func_01_05_0005(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1883,7 +1884,7 @@ def test_InputMethod_SCB_Func_01_05_0034(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1911,7 +1912,7 @@ def test_InputMethod_SCB_Func_01_07_0001(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1946,7 +1947,7 @@ def test_InputMethod_SCB_Func_01_08_0001(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -1968,7 +1969,7 @@ def test_InputMethod_SCB_Func_01_08_0001(get_device_id_list, set_driver_pool, cm
     os.system('adb -s %s shell am start com.android.settings/.HWSettings' %
               device_id_list[which_driver_pool])
     from page.base_page import BasePage
-    base_page = BasePage(set_driver_pool)
+    base_page = BasePage(set_driver_pool[which_driver_pool])
     # 点击'设置'中的应用
     base_page.scroll_syspage_to_find('//*[@resource-id="com.android.settings:id/main_content"]', '应用')
     # 点击应用页面中的应用管理
@@ -1994,7 +1995,7 @@ def test_InputMethod_SCB_Func_01_08_0005(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2019,7 +2020,7 @@ def test_InputMethod_SCB_Func_01_08_0005(get_device_id_list, set_driver_pool, cm
     os.system('adb -s %s shell am start com.android.settings/.HWSettings' %
               device_id_list[which_driver_pool])
     from page.base_page import BasePage
-    base_page = BasePage(set_driver_pool)
+    base_page = BasePage(set_driver_pool[which_driver_pool])
     # 点击'设置'中的应用
     base_page.scroll_syspage_to_find('//*[@resource-id="com.android.settings:id/main_content"]', '应用')
     # 点击应用页面中的应用管理
@@ -2047,7 +2048,7 @@ def test_InputMethod_SCB_Func_01_08_0006(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     '''
@@ -2075,7 +2076,7 @@ def test_InputMethod_SCB_Func_01_09_0002(get_device_id_list, set_driver_pool, cm
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2097,7 +2098,7 @@ def test_InputMethod_SCB_Func_02_02_02_0003(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2117,7 +2118,7 @@ def test_InputMethod_SCB_Func_03_01_01_0002(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2128,9 +2129,9 @@ def test_InputMethod_SCB_Func_03_01_01_0002(get_device_id_list, set_driver_pool,
     time.sleep(1)
     input_page.tap_setting()
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).to_language_setting_page()
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).to_language_setting_page()
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.open_input_menu_search('阿斯图里亚斯文')
     language_num_1 = language_setting_page.get_list_total_num('//android.widget.ExpandableListView/android'
                                                               '.widget.LinearLayout')
@@ -2154,7 +2155,7 @@ def test_InputMethod_SCB_Func_03_01_01_0010(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2165,7 +2166,7 @@ def test_InputMethod_SCB_Func_03_01_01_0010(get_device_id_list, set_driver_pool,
                           screen_size_list[1])
     input_page.language_picker_list('更多语言...')
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     assert language_setting_page.is_element_exist('语言')
     # language_setting_page.return_to_launcher()
 
@@ -2175,7 +2176,7 @@ def test_InputMethod_SCB_Func_03_01_01_0011(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2185,9 +2186,9 @@ def test_InputMethod_SCB_Func_03_01_01_0011(get_device_id_list, set_driver_pool,
     input_page.tap_menu()
     input_page.tap_setting()
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).to_language_setting_page()
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).to_language_setting_page()
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     assert language_setting_page.is_element_exist('语言')
     # language_setting_page.return_to_launcher()
 
@@ -2202,9 +2203,9 @@ def test_InputMethod_SCB_Func_03_01_01_0012(get_device_id_list, set_driver_pool,
     os.system(test_adb_data['adb_01_01_01_0008']['ohos'] % device_id_list[which_driver_pool])
     time.sleep(1)
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).to_language_setting_page()
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).to_language_setting_page()
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     assert language_setting_page.is_element_exist('语言')
     # language_setting_page.return_to_launcher()
 
@@ -2214,7 +2215,7 @@ def test_InputMethod_SCB_Func_03_01_01_0013(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2233,7 +2234,7 @@ def test_InputMethod_SCB_Func_03_01_01_0013(get_device_id_list, set_driver_pool,
     input_page.language_picker_list('Lebih banyak bahasa...')
     time.sleep(1)
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     # 判断马来西亚语有勾选状态，以此来判断马来西亚语已添加至【添加语言】列表中
     assert language_setting_page.check_the_language_states('Bahasa Melayu (Malaysia)')
     os.system(test_adb_data['adb_01_01_01_0009']['language_setting'] % device_id_list[which_driver_pool])
@@ -2247,7 +2248,7 @@ def test_InputMethod_SCB_Func_03_01_01_0015(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2259,7 +2260,7 @@ def test_InputMethod_SCB_Func_03_01_01_0015(get_device_id_list, set_driver_pool,
     input_page.language_picker_list('更多语言...')
     time.sleep(3)
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     # 添加南非荷兰语前，'添加语言'列表中 item 的数目
     before_add_language = language_setting_page.get_list_total_num('//android.widget.ExpandableListView/android'
                                                                    '.widget.LinearLayout')
@@ -2288,7 +2289,7 @@ def test_InputMethod_SCB_Func_03_01_01_0025(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2300,7 +2301,7 @@ def test_InputMethod_SCB_Func_03_01_01_0025(get_device_id_list, set_driver_pool,
     input_page.language_picker_list('更多语言...')
     time.sleep(3)
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.updata_layout2('英语 (美国)', 2)
     time.sleep(1)
     language_setting_page.back_to_previous_page()
@@ -2321,7 +2322,7 @@ def test_InputMethod_SCB_Func_03_01_01_0046(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2333,7 +2334,7 @@ def test_InputMethod_SCB_Func_03_01_01_0046(get_device_id_list, set_driver_pool,
     input_page.language_picker_list('更多语言...')
     time.sleep(3)
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.uncheck_language_list('英语 (美国)')
     time.sleep(1)
     states = language_setting_page.check_the_language_states('英语 (美国)')
@@ -2354,7 +2355,7 @@ def test_InputMethod_SCB_Func_03_01_01_0053(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2366,7 +2367,7 @@ def test_InputMethod_SCB_Func_03_01_01_0053(get_device_id_list, set_driver_pool,
     input_page.language_picker_list('更多语言...')
     time.sleep(3)
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.add_language_list2('德语', 'de')
     states = language_setting_page.check_the_language_states('德语')
     assert states == 'true'
@@ -2377,7 +2378,7 @@ def test_InputMethod_SCB_Func_03_01_01_0051(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2389,7 +2390,7 @@ def test_InputMethod_SCB_Func_03_01_01_0051(get_device_id_list, set_driver_pool,
     input_page.language_picker_list('更多语言...')
     time.sleep(3)
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.add_language_list2('西班牙语', 'es')
     language_setting_page.add_language_list2('法语', 'fr')
     language_setting_page.add_language_list2('俄语', 'ru')
@@ -2417,9 +2418,9 @@ def test_InputMethod_SCB_Func_03_01_02_0001(get_device_id_list, set_driver_pool,
     os.system(test_adb_data['adb_01_01_01_0008']['ohos'] % device_id_list[which_driver_pool])
     time.sleep(1)
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).to_language_setting_page()
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).to_language_setting_page()
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.click_input_menu_search()
     # 检查搜索框中是否出现'Search'文案，与清空按钮
     if language_setting_page.is_element_exist('Search'):
@@ -2435,7 +2436,7 @@ def test_InputMethod_SCB_Func_03_01_02_0006(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2445,14 +2446,14 @@ def test_InputMethod_SCB_Func_03_01_02_0006(get_device_id_list, set_driver_pool,
     input_page.tap_menu()
     input_page.tap_setting()
     from page.keyboard_setting_page import KeyboardSettingPage
-    KeyboardSettingPage(set_driver_pool).to_language_setting_page()
+    KeyboardSettingPage(set_driver_pool[which_driver_pool]).to_language_setting_page()
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.click_input_menu_search()
     # 检查搜索框中是否出现'Search'文案，与清空按钮
     if language_setting_page.is_element_exist('Search'):
         if language_setting_page.is_element_exist('清空按键，双击清空搜索框内容'):
-            input_page = InputPage(set_driver_pool)
+            input_page = InputPage(set_driver_pool[which_driver_pool])
             input_page.long_press('switch', device_id_list[which_driver_pool], screen_size_list[0],
                                   screen_size_list[1])
             input_page.language_picker_list('English(United States)')
@@ -2479,7 +2480,7 @@ def test_InputMethod_SCB_Func_03_05_01_0001(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2500,7 +2501,7 @@ def test_InputMethod_SCB_Func_03_05_01_0001(get_device_id_list, set_driver_pool,
     input_page.tap_menu()
     input_page.tap_setting()
     from page.keyboard_setting_page import KeyboardSettingPage
-    keyboard_setting_page = KeyboardSettingPage(set_driver_pool)
+    keyboard_setting_page = KeyboardSettingPage(set_driver_pool[which_driver_pool])
     input_setting_page = keyboard_setting_page.to_input_setting_page()
     if input_setting_page.check_item_status('启用表情符号预测') is not True:
         input_setting_page.click_which_item('启用表情符号预测')
@@ -2522,7 +2523,7 @@ def test_InputMethod_SCB_Func_03_05_02_0015(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2543,7 +2544,7 @@ def test_InputMethod_SCB_Func_03_05_02_0015(get_device_id_list, set_driver_pool,
     input_page.tap_menu()
     input_page.tap_setting()
     from page.keyboard_setting_page import KeyboardSettingPage
-    keyboard_setting_page = KeyboardSettingPage(set_driver_pool)
+    keyboard_setting_page = KeyboardSettingPage(set_driver_pool[which_driver_pool])
     input_setting_page = keyboard_setting_page.to_input_setting_page()
     if input_setting_page.check_item_status('快速插入联想词') is not True:
         input_setting_page.click_which_item('快速插入联想词')
@@ -2567,7 +2568,7 @@ def test_InputMethod_SCB_Func_03_05_02_0015(get_device_id_list, set_driver_pool,
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     # os.system(test_adb_data['adb_01_01_01_0010']['opera_browser'] % device_id_list[which_driver_pool])
@@ -2618,7 +2619,7 @@ def test_InputMethod_SCB_Func_test(get_device_id_list, set_driver_pool, cmdopt):
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
@@ -2643,13 +2644,13 @@ def test_30(get_device_id_list, set_driver_pool, cmdopt):
     os.system(test_adb_data['adb_01_01_01_0008']['ohos'] % device_id_list[which_driver_pool])
     time.sleep(1)
     from page.keyboard_setting_page import KeyboardSettingPage
-    keyboard_setting_page = KeyboardSettingPage(set_driver_pool)
+    keyboard_setting_page = KeyboardSettingPage(set_driver_pool[which_driver_pool])
     input_setting_page = keyboard_setting_page.to_input_setting_page()
     input_setting_page.click_which_item('快速插入联想词')
     input_setting_page.back_to_previous_page()
     keyboard_setting_page.to_language_setting_page()
     from page.language_setting_page import LanguageSettingPage
-    language_setting_page = LanguageSettingPage(set_driver_pool)
+    language_setting_page = LanguageSettingPage(set_driver_pool[which_driver_pool])
     language_setting_page.add_language_list2('马来文 (马来西亚)', 'ms_my')
     language_setting_page.add_language_list2('德文', 'de')
     language_setting_page.add_language_list2('英文 (澳大利亚)', 'en_AU')
@@ -2684,7 +2685,7 @@ def test_30(get_device_id_list, set_driver_pool, cmdopt):
     # 拉起键盘
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
 
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     input_page.deal_sys_dialog('通讯录', '允许')
     os.system(test_adb_data['adb_01_01_01_0004']['upkeyboard'] % device_id_list[which_driver_pool])
     language_list = ['ไทย', 'हिन्दी', 'العربية (مصر)', 'العربية (تونس)', 'العربية (المملكة العربية السعودية)',
@@ -2778,7 +2779,7 @@ def test_31(get_device_id_list, set_driver_pool, cmdopt):
     device_id_list = get_device_id_list
     # pool 池中 driver 与 device_id 为一对一的关系
     which_driver_pool = int(cmdopt)
-    input_page = InputPage(set_driver_pool)
+    input_page = InputPage(set_driver_pool[which_driver_pool])
     screen_size_list.clear()
     get_vm_size(device_id_list[which_driver_pool], screen_size_list)
     os.system(test_adb_data['adb_01_01_01_0003']['emptyinput'] % device_id_list[which_driver_pool])
