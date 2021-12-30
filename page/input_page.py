@@ -1,13 +1,10 @@
 import os
 import re
 import time
-
 from selenium.webdriver.common.by import By
-
-import golVar
-from commons.base_function import BaseFunction
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.common.multi_action import MultiAction
+from public.base_function import BaseFunction
 
 
 class InputPage(BaseFunction):

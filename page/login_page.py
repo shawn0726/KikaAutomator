@@ -1,6 +1,6 @@
 import time
 
-from commons.base_function import BaseFunction
+from public.base_function import BaseFunction
 
 
 class LoginPage(BaseFunction):

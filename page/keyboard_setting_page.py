@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
+from public.base_function import BaseFunction
 
-from commons.base_function import BaseFunction
 from page.input_page import InputPage
 
 
@@ -14,6 +14,7 @@ from page.sound_and_vibration_page import SoundAndVibrationPage
 from page.about_setting_page import AboutSettingPage
 from page.thesaurus_setting_page import ThesaurusSettingPage
 from page.voice_setting_page import VoiceSettingPage
+
 
 
 class KeyboardSettingPage(BaseFunction):
@@ -30,8 +31,10 @@ class KeyboardSettingPage(BaseFunction):
 
     # 进入语言选择页面
     def to_language_setting_page(self):
-        self.find_element_by_text_click('语言')
+        self.driver.find_element_by_text_click('语言')
+
         return LanguageSettingPage(self.driver)
+
 
     # 进入皮肤设置页面
     def to_theme_setting_page(self):

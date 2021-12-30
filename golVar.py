@@ -1,9 +1,10 @@
+
+
 _global_dict = {}
 
 
 def __init__():  # 初始化
     global _global_dict
-    _global_dict = {}
 
 
 def set_value(key, value):

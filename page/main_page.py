@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
 
-from commons.base_function import BaseFunction
+
 from page.gdpr_page import GdprPage
+from public.base_function import BaseFunction
 
 
 class MainPage(BaseFunction):

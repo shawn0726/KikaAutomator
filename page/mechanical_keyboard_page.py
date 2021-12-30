@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-from commons.base_function import BaseFunction
+from public.base_function import BaseFunction
 
 
 class MechanicalKeyboardPage(BaseFunction):

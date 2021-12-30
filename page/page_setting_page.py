@@ -3,7 +3,7 @@ import time
 from xmlrpc.client import boolean, Boolean
 
 import golVar
-from commons.base_function import BaseFunction
+from public.base_function import BaseFunction
 from selenium.webdriver.common.by import By
 
 

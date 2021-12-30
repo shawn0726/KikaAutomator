@@ -3,7 +3,7 @@ import time
 
 from selenium.webdriver.remote.webelement import WebElement
 
-from commons.base_function import BaseFunction
+from public.base_function import BaseFunction
 from selenium.webdriver.common.by import By
 
 

@@ -1,1 +1,0 @@
-2021-12-29 09:51:04,784 - start-appium-test-case - DEBUG - local variable 'p' referenced before assignment

@@ -1,4 +1,4 @@
-from commons.base_function import BaseFunction
+from public.base_function import BaseFunction
 
 
 # 设置-输入设置-中文设置

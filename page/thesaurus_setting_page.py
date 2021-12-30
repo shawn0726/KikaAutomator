@@ -1,4 +1,4 @@
-from commons.base_function import BaseFunction
+from public.base_function import BaseFunction
 
 """
     词库设置页面
