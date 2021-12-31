@@ -18,7 +18,6 @@ def case_data():
 
 
 def execute_cmd(case_id, device_num):
-    # os.popen('pwd'testcase/)
     os.system('python3 -m pytest -s -v %s --cmdopt %d' % (case_id, device_num))
 
 #多设备运行
@@ -26,10 +25,10 @@ def multi_device_operation():
     golVar.__init__()
     '''
         目前 case 分发逻辑：按照 case_pool 去分发测试任务，case_pool 列表中只有一个 case 文件，意味着该文件只能由一个设备测试，如需要
-        2 台，甚至 3 台进行同步测试，则需将原 case 文件分为 3 份：TestCase1.py、TestCase2.py、TestCase3.py 放入 case_pool 列表中，
+        2 台，甚至 3 台进行同步测试，则需将原 case 文件分为 3 份：TestCase1.py、TestCase.py、TestCase3.py 放入 case_pool 列表中，
         每台设备跑对应文件的测试 case
     '''
-    case_pool = ['./case/TestCase2.py', './case/TestCase3.py']
+    case_pool = ['./case/TestCase.py']
     # device_num = len(device_id_list)
     # which_case = case_data()
     p = Pool(len(case_pool))

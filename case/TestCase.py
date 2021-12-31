@@ -16,7 +16,7 @@ from public.base_function import PATH
 
 '''
 生成allure报告 2 步：
-1、python3 -m pytest testcase/TestCase2.py --alluredir report/allure_raw --clean-alluredir
+1、python3 -m pytest testcase/TestCase.py --alluredir report/allure_raw --clean-alluredir
 2、allure generate report/allure_raw -o report/html --clean
 '''
 
