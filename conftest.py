@@ -20,7 +20,7 @@ from lib.device_data import keep_port_available, start_appium, get_platform_vers
 # from lib.start_service import device_id_list, driver_pool
 
 script_path_up = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-case_data_path = script_path_up + '/test_auto/data/case_data.yml'
+case_data_path = script_path_up + '/KikaAutomator/data/case_data.yml'
 test_case_data = yaml.safe_load(open(case_data_path, 'r'))
 case_id_data_path = os.path.dirname(os.path.abspath(__file__)) + '/case_id.xlsx'
 # MAX_POOL_NUMBER = 1

@@ -204,10 +204,13 @@ class BaseFunction:
                 for i in new_words:
                     time.sleep(0.3)
                     print('点击字符：', i)
-                    if i == '0':
-                        self.click_keys('通配', keys_list, device_id, screen_size_width, screen_size_height)
-                    elif i == '1':
-                        self.click_keys('分词', keys_list, device_id, screen_size_width, screen_size_height)
+                    if golVar.get_value('language_layout')=='笔画':
+                        if i == '0':
+                            self.click_keys('通配', keys_list, device_id, screen_size_width, screen_size_height)
+                        elif i == '1':
+                            self.click_keys('分词', keys_list, device_id, screen_size_width, screen_size_height)
+                        else:
+                            self.click_keys(i, keys_list, device_id, screen_size_width, screen_size_height)
                     else:
                         self.click_keys(i, keys_list, device_id, screen_size_width, screen_size_height)
                 time.sleep(1)
