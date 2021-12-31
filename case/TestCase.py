@@ -41,7 +41,6 @@ _address_book_dialog = (By.ID, 'com.android.packageinstaller:id/dialog_container
 # 通过 case_number 在 case_id 表中查询，对应的 case 使用哪个 driver
 def test_InputMethod_SCB_Func_01_01_0002(set_device_id_list, set_driver_pool, cmdopt):
     # pool 池中 driver 与 device_id 为一对一的关系
-    print(cmdopt,'打印一窜海上繁花')
     which_driver_pool = int(cmdopt)
     driver = set_driver_pool[which_driver_pool]
     input_page = InputPage(driver)
